@@ -4,4 +4,41 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = ["streamlit", "pytest"]
+
+dependencies = [
+    "pandas",
+    "pydeck",
+    "streamlit",
+    "seaborn",
+    "matplotlib-inline",
+    "ipykernel",
+    "sphinx"
+]
+
+[dependency-groups]
+dev = [
+    "colorama",
+    "mypy",
+    "pre-commit",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+addopts = "--cov=. --cov-report=term-missing"
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.mypy]
+python_version = "3.14"
+ignore_missing_imports = true
+warn_unused_configs = true
+check_untyped_defs = true

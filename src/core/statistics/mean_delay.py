@@ -1,0 +1,60 @@
+"""Mean delay computing module feeding UI functions"""
+
+import numpy as np
+import pandas as pd
+
+from core import load_data as ld
+
+ld.init()
+
+# def liste_retards_moyens_france(df: pd.DataFrame) -> pd.DataFrame:
+#     """Filtre la liste complète selon les retards moyens
+#     au départ de toutes les gares de France
+
+#     Args:
+#         df (pd.DataFrame): DataFrame complet
+
+#     Returns:
+#         df2 (pd.DataFrame): le dataframe filtré"""
+
+#     gares = sorted(list(df["GareDepart"].unique()))
+#     RetMoy = [df.loc[df["GareDepart"] == gare]["RetMoyDepart"].mean() for gare in gares]
+#     df2 = pd.DataFrame(np.array([gares, RetMoy]).T, columns=["GareDepart", "RetMoy"])
+
+#     return df2
+
+
+def get_departure_city_mean_delay_df(
+    df: pd.DataFrame, departure_city: str
+) -> pd.DataFrame:
+    """Returns a dataframe containing the mean delay from a departure city, of the
+    length of the input dataframe.
+
+    Args:
+        df (pd.DataFrame): Dataframe from which get the length
+        departure_city (str): Departure city to compute the mean departure delays from
+
+    Returns:
+        pd.DataFrame: Dataframe duplicating the computed mean departure delays
+        of the length of df
+    """
+
+    return pd.DataFrame(
+        data=np.ones(np.shape(df)[0])
+        * ld.df.loc[ld.df["GareDepart"] == departure_city]["RetMoyDepart"].mean()
+    )
+
+
+def get_country_mean_delay_df(df: pd.DataFrame) -> pd.DataFrame:
+    """Returns a dataframe containing the mean delay of the whole country, of the
+    length of the input dataframe.
+
+    Args:
+        df (pd.DataFrame): Dataframe from which get the length
+
+    Returns:
+        pd.DataFrame: Dataframe duplicating the computed mean departure delays
+        of the length of df
+    """
+
+    return pd.DataFrame(data=np.ones(np.shape(df)[0]) * ld.df["RetMoyDepart"].mean())
