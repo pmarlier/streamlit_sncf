@@ -1,0 +1,32 @@
+name: CI Pipeline
+
+# Permissions minimales déclarées au niveau du workflow
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Install Python 3.14
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.14'
+
+      - name: Checkout project 
+        uses: actions/checkout@v4 # official reference for GitHub checkout service
+
+      - name: Install Dependancies
+        run: | 
+          python -m pip install --upgrade pip
+          pip install uv
+          uv sync
+      
+      - name: Lancer les tests
+        run: .venv/bin/py.test
+    
