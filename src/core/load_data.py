@@ -2,6 +2,7 @@
 
 import pandas as pd
 import streamlit as st
+import itertools
 
 CSV_PATH = "./data/raw/regularite-mensuelle-tgv-aqst.csv"
 
@@ -23,10 +24,11 @@ def load_data(source: str = CSV_PATH) -> pd.DataFrame:
     """
 
     df = pd.read_csv(source, sep=";")
-    df = df[["Gare de départ", "Retard moyen des trains en retard au départ"]]
+    df = df[["Gare de départ", "Gare d'arrivée", "Retard moyen des trains en retard au départ"]]
     df = df.rename(
         columns={
             "Gare de départ": "GareDepart",
+            "Gare d'arrivée": "GareArrivee",
             "Retard moyen des trains en retard au départ": "RetMoyDepart",
         }
     )
@@ -37,6 +39,26 @@ def init() -> None:
     """Initialization function to make global input csv dataframe"""
     global df
     df = load_data()
+
+def get_unique_city_pairs_list() -> list:
+
+    railway_cities = df[["GareDepart","GareArrivee"]]
+
+    unique_railway_cities = railway_cities.value_counts().index.to_list()
+
+    return unique_railway_cities
+
+def get_reachable_destinations_list_from_city(departure: str) -> list:
+
+    reachable_destinations = []
+
+    city_pairs = get_unique_city_pairs_list()
+
+    reachable_destinations = list(itertools.chain(*[city_pair for city_pair in city_pairs if departure in city_pair]))
+    # one doesn't need to go directly to the place he came from, unless he needs an alibi...
+    reachable_destinations.remove(departure)
+
+    return reachable_destinations
 
 
 def get_unique_stations_df() -> pd.DataFrame:
