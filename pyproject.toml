@@ -12,7 +12,9 @@ dependencies = [
     "seaborn",
     "matplotlib-inline",
     "ipykernel",
-    "sphinx"
+    "sphinx",
+    "streamlit-folium",
+    "unidecode"
 ]
 
 [dependency-groups]

@@ -23,21 +23,19 @@ from ui import widgets as wg
 #     st.caption(legende)
 
 
-def display_departure_city_delay_hist() -> None:
+def display_departure_city_delay_hist(ville_depart:str) -> None:
     """Display the histogram of the mean delays of a selected city from a drop down
     list, with the mean delays of both the select city, and the whole country.
     """
-
     st.subheader("📋 Histogrammes retards au départ par ville de départ")
 
-    ville_depart = wg.get_departure_city_drop_down_menu()
     df_RetMoyDepart = ld.get_mean_departure_delay_df(ville_depart)
 
     fig, ax = plt.subplots()
 
     ax.hist(df_RetMoyDepart)
     ax.plot(dl.get_departure_city_mean_delay_df(df_RetMoyDepart, ville_depart))
-    ax.plot(dl.get_country_mean_delay_df(df_RetMoyDepart))
+    ax.plot(dl.get_national_global_delay_mean_df(df_RetMoyDepart))
     ax.legend(["Retard moyen ville", "Retard moyen France", "Retards ville"])
     ax.set_ylabel("Nombre de trains (#)")
     ax.set_xlabel("Retard moyen au départ (mn)")
