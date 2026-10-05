@@ -7,7 +7,6 @@ from unidecode import unidecode
 import sys
 
 WORKING_DIR = os.path.dirname(os.path.realpath(__file__))
-print(WORKING_DIR)
 sys.path.append(os.path.dirname(WORKING_DIR))
 
 from core.railway_data import railway_geo as rg
