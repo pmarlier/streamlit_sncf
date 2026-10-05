@@ -27,7 +27,7 @@ def display_departure_city_delay_hist(ville_depart:str) -> None:
     """Display the histogram of the mean delays of a selected city from a drop down
     list, with the mean delays of both the select city, and the whole country.
     """
-    st.subheader("📋 Histogrammes retards au départ par ville de départ")
+    # st.caption("📋 Histogrammes retards au départ par ville de départ", text_alignment="center")
 
     df_RetMoyDepart = ld.get_mean_departure_delay_df(ville_depart)
 
