@@ -30,3 +30,14 @@ uv run pytest
 uv run pre-commit install
 uv run pre-commit run --all-files
 ```
+# Glossary
+
+| string    | definition |
+| --------- | ------- |
+| departure_station |  departure station  |
+| arrival_station | arrival station  |
+|           |         |
+|           |         |
+|           |         |
+|           |         |
+|           |         |
