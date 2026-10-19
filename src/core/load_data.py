@@ -3,6 +3,7 @@
 import pandas as pd
 import streamlit as st
 import itertools
+from core.data_preprocessing import preprocess_data
 
 CSV_PATH = "./data/raw/regularite-mensuelle-tgv-aqst.csv"
 
@@ -12,6 +13,7 @@ GARE_ARRIVEE_KEY = "Gare d'arrivée"
 RETARD_MOYEN_DEPART_KEY = "Retard moyen des trains en retard au départ"
 RETARD_MOYEN_ARRIVEE_KEY = "Retard moyen des trains en retard à l'arrivée"
 TRAINS_ANNULES_MENSUELS_KEY = "Nombre de trains annulés"
+
 
 @st.cache_data  # mémorise le résultat d’une fonction pour éviter de la recalculer à
 # chaque interaction Streamlit.
@@ -28,7 +30,17 @@ def load_data(source: str = CSV_PATH) -> pd.DataFrame:
         df (pd.DataFrame): retourne le csv converti en DataFrame
     """
     df = pd.read_csv(source, sep=";")
-    df = df[[GARE_DEPART_KEY, GARE_ARRIVEE_KEY, RETARD_MOYEN_DEPART_KEY, RETARD_MOYEN_ARRIVEE_KEY, TRAINS_ANNULES_MENSUELS_KEY]]
+    df = preprocess_data(df)
+
+    df = df[
+        [
+            GARE_DEPART_KEY,
+            GARE_ARRIVEE_KEY,
+            RETARD_MOYEN_DEPART_KEY,
+            RETARD_MOYEN_ARRIVEE_KEY,
+            TRAINS_ANNULES_MENSUELS_KEY,
+        ]
+    ]
     return df
 
 
@@ -36,6 +48,7 @@ def init() -> None:
     """Initialization function to make global input csv dataframe"""
     global df
     df = load_data()
+
 
 def get_unique_city_pairs_list() -> list:
     """Retrieve unique pairs "departure-arrival" monitored by SNCF, duplicated are dropped
@@ -47,6 +60,7 @@ def get_unique_city_pairs_list() -> list:
     unique_railway_cities = railway_cities.value_counts().index.to_list()
     return unique_railway_cities
 
+
 def get_reachable_destinations_list_from_city(departure: str) -> list:
     """Retrieve the list of destinations available from the departure railstation
 
@@ -55,7 +69,13 @@ def get_reachable_destinations_list_from_city(departure: str) -> list:
     """
     reachable_destinations = []
     city_pairs = get_unique_city_pairs_list()
-    reachable_destinations = list(set(itertools.chain(*[city_pair for city_pair in city_pairs if departure in city_pair])))
+    reachable_destinations = list(
+        set(
+            itertools.chain(
+                *[city_pair for city_pair in city_pairs if departure in city_pair]
+            )
+        )
+    )
     # one doesn't need to go directly to the place he came from, unless he needs an alibi...
     reachable_destinations.remove(departure)
 
