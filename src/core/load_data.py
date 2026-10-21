@@ -59,7 +59,6 @@ def init() -> None:
     global df
     df = load_csv_df()
 
-
 def get_unique_city_pairs_list() -> list:
     """Retrieve unique pairs "departure-arrival" monitored by SNCF, 
     duplicates are dropped
