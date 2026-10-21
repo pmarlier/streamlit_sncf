@@ -22,17 +22,18 @@ from core import load_data as ld
 #     return df2
 
 def get_departure_mean_delay_for_city(city: str) -> float:
-    return ld.df.loc[ld.df[ld.GARE_DEPART_KEY] == city][ld.RETARD_MOYEN_DEPART_KEY].mean()
+    return ld.df.loc[ld.df[ld.DEPARTURE_STATION_KEY] == city][ld.MEAN_DEPARTURE_DELAY_KEY].mean()
 
 def get_arrival_mean_delay_for_city_pair(departure: str, arrival: str) -> float:
-    departure_df = ld.df[ld.df[ld.GARE_DEPART_KEY] == departure]
-    departure_arrival_df = departure_df[departure_df[ld.GARE_ARRIVEE_KEY] == arrival]
-    return departure_arrival_df[ld.RETARD_MOYEN_DEPART_KEY].mean()
+    departure_df = ld.df[ld.df[ld.DEPARTURE_STATION_KEY] == departure]
+    departure_arrival_df = departure_df[departure_df[ld.ARRIVAL_STATION_KEY] == arrival]
+    return departure_arrival_df[ld.MEAN_DEPARTURE_DELAY_KEY].mean()
 
 def get_departure_city_mean_delay_df(
     df: pd.DataFrame, departure_city: str
 ) -> pd.DataFrame:
-    """Returns a dataframe containing the mean delay from a departure city, to display the horizontal reference on histogram
+    """Returns a dataframe containing the mean delay from a departure city, to display
+    the horizontal reference on histogram
 
     Args:
         df (pd.DataFrame): Dataframe from which get the length
@@ -44,8 +45,8 @@ def get_departure_city_mean_delay_df(
     """
     
     return pd.DataFrame(
-        data=np.ones(np.shape(df)[0])
-        * ld.df.loc[ld.df[ld.GARE_DEPART_KEY] == departure_city][ld.RETARD_MOYEN_DEPART_KEY].mean()
+        data=np.ones(np.shape(df)[0]) * ld.df.loc[ld.df[ld.DEPARTURE_STATION_KEY] 
+                                                  == departure_city][ld.MEAN_DEPARTURE_DELAY_KEY].mean()
     )
 
 
@@ -59,4 +60,4 @@ def get_national_global_delay_mean_df(df: pd.DataFrame) -> pd.DataFrame:
         pd.DataFrame: Dataframe duplicating the computed mean departure delays
         of the length of df
     """
-    return pd.DataFrame(data=np.ones(np.shape(df)[0]) * ld.df[ld.RETARD_MOYEN_DEPART_KEY].mean())
+    return pd.DataFrame(data=np.ones(np.shape(df)[0]) * ld.df[ld.MEAN_DEPARTURE_DELAY_KEY].mean())
