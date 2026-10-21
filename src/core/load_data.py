@@ -5,6 +5,7 @@ import numpy as np
 import streamlit as st
 import itertools
 import datetime as dt
+from core.data_preprocessing import preprocess_data
 
 CSV_PATH = "./data/raw/regularite-mensuelle-tgv-aqst.csv"
 
@@ -37,6 +38,8 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
         df (pd.DataFrame): retourne le csv converti en DataFrame
     """
     df = pd.read_csv(source, sep=";")
+    df = preprocess_data(df)
+    
     df = df[[DATE_KEY, DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY, 
              MEAN_DEPARTURE_DELAY_KEY, MEAN_ARRIVAL_DELAY_KEY, 
              MENSUAL_CANCELLED_TRAINS_KEY, MENSUAL_PLANNED_TRAINS_KEY,
@@ -56,6 +59,7 @@ def init() -> None:
     global df
     df = load_csv_df()
 
+
 def get_unique_city_pairs_list() -> list:
     """Retrieve unique pairs "departure-arrival" monitored by SNCF, 
     duplicates are dropped
@@ -67,6 +71,7 @@ def get_unique_city_pairs_list() -> list:
     unique_railway_cities = railway_cities.value_counts().index.to_list()
     return unique_railway_cities
 
+
 def get_reachable_destinations_list_from_city(departure: str) -> list:
     """Retrieve the list of destinations available from the departure railstation
 
@@ -75,10 +80,14 @@ def get_reachable_destinations_list_from_city(departure: str) -> list:
     """
     reachable_destinations = []
     city_pairs = get_unique_city_pairs_list()
-    reachable_destinations = list(set(itertools.chain(*[city_pair 
-                                                        for city_pair in city_pairs 
-                                                        if departure in city_pair])))
-    # one doesn't need to go directly to the place he came from, unless he needs an alibi... do you, PM ?
+    reachable_destinations = list(
+        set(
+            itertools.chain(
+                *[city_pair for city_pair in city_pairs if departure in city_pair]
+            )
+        )
+    )
+    # one doesn't need to go directly to the place he came from, unless he needs an alibi...
     reachable_destinations.remove(departure)
 
     return reachable_destinations

@@ -9,3 +9,6 @@ wheels/
 # Virtual environments
 .venv
 .coverage
+
+# Local development notebook
+/src/core/other4.ipynb
