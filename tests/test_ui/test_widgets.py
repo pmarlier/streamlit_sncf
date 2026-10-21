@@ -184,9 +184,9 @@ def test_section_row():
     val_col_cancelled_departure_none = at_departure_cancelled_none.columns[1].markdown[0].value
 
         # assertions
-    assert val_col_delayed_departure_none == "None was declared"
-    assert val_col_delayed_arrival_none == "None was declared"
-    assert val_col_cancelled_departure_none == "None was declared"
+    assert val_col_delayed_departure_none == "No delayed train was declared"
+    assert val_col_delayed_arrival_none == "No delayed train was declared"
+    assert val_col_cancelled_departure_none == "No cancelled train was declared"
     
     ######################
     # CASE NO DATA EXIST

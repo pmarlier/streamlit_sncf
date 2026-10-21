@@ -48,7 +48,7 @@ def section_row(section_label: str, fields: list) -> None:
         elif np.isnan(total):
             train_info_str = "No data is available"
         else: 
-            train_info_str = "None was declared"
+            train_info_str = f"No {status} train was declared"
 
         if index == 0:
             # cols[1].markdown(label)
