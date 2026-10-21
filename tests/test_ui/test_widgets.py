@@ -129,7 +129,7 @@ def test_section_row():
         ratio_planned_cancelled} trains were cancelled"
     
     ######################
-    # CASE TRAINS DO NOT EXIST
+    # CASE NO TRAINS WERE EXPLICITELY DECLARED
     ######################
     
         # case departure delayed train
@@ -187,6 +187,72 @@ def test_section_row():
     assert val_col_delayed_departure_none == "None was declared"
     assert val_col_delayed_arrival_none == "None was declared"
     assert val_col_cancelled_departure_none == "None was declared"
+    
+    ######################
+    # CASE NO DATA EXIST
+    ######################
+    
+        # case departure delayed train
+    def display_section_row_departure_delayed_none():
+        """Render a departure delay section with no data about planned and delayed trains.
+        """
+        import numpy as np
+        
+        event = "Departure"
+        total_planned_trains = np.nan
+        total_delayed_departure_trains = np.nan
+        from ui import widgets as wg
+
+        wg.section_row(
+            event,
+            [(total_delayed_departure_trains, total_planned_trains, "delayed")],
+        )
+    at_departure_delayed_none = AppTest.from_function(
+        display_section_row_departure_delayed_none).run()
+    val_col_delayed_departure_none = at_departure_delayed_none.columns[1].markdown[0].value
+
+        # case arrival delayed train
+    def display_section_row_arrival_delayed_none():
+        """Render an arrival delay section with no data about planned and delayed trains.
+        """
+        import numpy as np
+        
+        event = "Arrival"
+        total_planned_trains = np.nan
+        total_delayed_arrival_trains = np.nan
+        from ui import widgets as wg
+
+        wg.section_row(
+            event,
+            [(total_delayed_arrival_trains, total_planned_trains, "delayed")],
+        )
+    at_arrival_delayed_none = AppTest.from_function(
+        display_section_row_arrival_delayed_none).run()
+    val_col_delayed_arrival_none = at_arrival_delayed_none.columns[1].markdown[0].value
+
+        # case departure cancelled train
+    def display_section_row_departure_cancelled_none():
+        """Render a departure section with no data about planned and cancelled trains.
+        """
+        import numpy as np
+        
+        event = "Departure"
+        total_planned_trains = np.nan
+        total_cancelled_departure_trains = np.nan
+        from ui import widgets as wg
+
+        wg.section_row(
+            event,
+            [(total_cancelled_departure_trains, total_planned_trains, "cancelled")],
+        )
+    at_departure_cancelled_none = AppTest.from_function(
+        display_section_row_departure_cancelled_none).run()
+    val_col_cancelled_departure_none = at_departure_cancelled_none.columns[1].markdown[0].value
+
+        # assertions
+    assert val_col_delayed_departure_none == "No data is available"
+    assert val_col_delayed_arrival_none == "No data is available"
+    assert val_col_cancelled_departure_none == "No data is available"
 
 def test_select_month(months_list = MONTHS_LIST):
     """Test that the dropdown list of months name under string format, when selected, 
