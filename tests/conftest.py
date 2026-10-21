@@ -1,0 +1,60 @@
+import pandas as pd
+import pytest
+from core import load_data as ld
+
+
+@pytest.fixture
+def mocked_df() -> pd.DataFrame:
+    """Small sample matching the dataframe returned by load_csv_df."""
+    return pd.DataFrame(
+        {
+            ld.YEAR_KEY: [2018, 2018, 2018, 2018, 2019, 2019, 2019, 2019, 2020, 2020, 2020, 2020],
+            ld.MONTH_KEY: [1, 2, 3, 1, 1, 2, 3, 4, 1, 2, 3, 12],
+            ld.DEPARTURE_STATION_KEY: [
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "RENNES",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "BORDEAUX ST JEAN",
+                "PARIS MONTPARNASSE",
+                "RENNES",
+                "PARIS MONTPARNASSE",
+                "NANTES",
+            ],
+            ld.ARRIVAL_STATION_KEY: [
+                "RENNES",
+                "RENNES",
+                "RENNES",
+                "PARIS MONTPARNASSE",
+                "RENNES",
+                "RENNES",
+                "BORDEAUX ST JEAN",
+                "PARIS MONTPARNASSE",
+                "RENNES",
+                "PARIS MONTPARNASSE",
+                "NANTES",
+                "PARIS MONTPARNASSE",
+            ],
+            ld.MEAN_DEPARTURE_DELAY_KEY: [
+                10.08860759, 18.19316239, 10.47901961, 7.589985994,
+                9.8, 12.4, 11.2, 8.6, 10.2, 8.8, 9.5, 7.1,
+            ],
+            ld.MEAN_ARRIVAL_DELAY_KEY: [
+                21.10280374, 34.35, 25.31081081, 18.50022523,
+                20.1, 26.3, 24.6, 19.2, 22.5, 19.8, 23.1, 18.7,
+            ],
+            ld.MENSUAL_CANCELLED_TRAINS_KEY: [1, 32, 17, 4, 2, 8, 3, 1, 6, 4, 5, 2],
+            ld.MENSUAL_PLANNED_TRAINS_KEY: [
+                590, 547, 599, 599, 580, 565, 603, 590, 610, 602, 615, 625,
+            ],
+            ld.MENSUAL_DELAYED_DEPARTURE_TRAINS_KEY: [
+                79, 117, 85, 238, 86, 105, 92, 71, 98, 82, 108, 77,
+            ],
+            ld.MENSUAL_DELAYED_ARRIVAL_TRAINS_KEY: [
+                107, 156, 74, 148, 96, 112, 88, 73, 119, 95, 104, 81,
+            ],
+        }
+    )
