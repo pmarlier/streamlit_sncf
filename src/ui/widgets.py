@@ -1,12 +1,12 @@
 """User interactions widgets definition module"""
 
-import streamlit as st
-import numpy as np
 from fractions import Fraction
+
+import numpy as np
+import streamlit as st
 
 from core import load_data as ld
 from core.statistics import amount_trains as am
-
 
 MONTHS_LIST = [
         "January", "February", "March", "April",
@@ -42,25 +42,33 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
     cols[0].markdown(f"**{section_label}**")
     
     for index, (ratio, status) in enumerate(fields):
-    # for index, (label, count, total, status) in enumerate(fields):
-
+        # for index, (label, count, total, status) in enumerate(fields):
         if ratio > 0 and ratio <= 1:
             if ratio == 1:
                 train_info_str = f"All planned trains were {status}"
             elif ratio > 0.95:
                 # avoid incorrectly approximating a ratio to "1 out of 1"
-                train_info_str = (
-                    f"More than 19 out of 20 trains were {status}"
-                )
+                train_info_str = f"More than 19 out of 20 trains were {status}"
             elif ratio < 0.05:
                 # avoid incorrectly approximating a ratio to "0 out of 1"
                 train_info_str = (
                     f"About 1 out of {round(1 / ratio)} trains were {status}"
                 )
             else:
-                # determine the best approximate fraction 
-                # with a denominator of at most 20
-                fraction = Fraction(ratio).limit_denominator(20)
+                # generate a set of the most easy-to-understand approximate fractions
+                # with a denominator of 2 to 6, 10 or 20
+                # or with a numerator of 1 and a denominator of at most 20
+                fractions = {
+                    Fraction(n, d)
+                    for d in range(2, 21)
+                    for n in range(1, d)
+                    if d <= 6 or d in (10, 20) or n == 1
+                }
+
+                # Select the closest easy-to-understand fraction to the actual ratio
+                fraction = min(
+                    fractions, key=lambda f: (abs(float(f) - ratio), f.denominator)
+                )
 
                 train_info_str = (
                     f"About {fraction.numerator} out of "
@@ -70,7 +78,7 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
             train_info_str = "No data is available"
         elif ratio == 0:
             train_info_str = f"No {status} train was declared"
-        else: 
+        else:
             train_info_str = "No consistent data is available"
 
         if index == 0:
@@ -205,7 +213,8 @@ def display_delayed_cancelled_stats_table(col: str, departure_city: str,
         arrival_city (str): arrival city
         start_month (str): first month of the time period for a given year
         end_month (str): last month of the time period
-        selected_years (np.ndarray): np.ndarray of selected years to compute the statistics
+        selected_years (np.ndarray): np.ndarray of selected years to
+            compute the statistics
     """
     with col:
         st.markdown(f"## {departure_city.title()} --> {arrival_city.title()}\n### Traffic state info ")
