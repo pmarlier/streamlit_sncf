@@ -29,9 +29,6 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
 
     Args:
         section_label (str): Label of the section, contained in the first column. 
-        This field is formatted as follows: ratio (total of delayed/cancelled trains 
-        to total of planned trains on the period and given the cities) 
-        and status (string adapted to the stat to be displayed at reader)
         
         fields (list): list of fields, tuples containing a ratio and a status.
         The ratio represents the number of delayed/cancelled trains
@@ -196,11 +193,10 @@ def display_sidebar() -> list:
 def display_delayed_cancelled_stats_table(col: str, departure_city: str, 
                                           arrival_city: str, start_month: str, 
                                           end_month: str, 
-                                          selected_years: np.array) -> None:
-    """Displays in the given col column a table displaying a ratio formatted as 1 out
-    of X, where X being total departure delayed/cancelled 
-    and arrival delayed trains amount.
-    The statistics are the mean values computed over a given months/years period, 
+                                          selected_years: np.ndarray) -> None:
+    """Displays delayed and cancelled train ratios in the given column.
+    The ratios are displayed as approximate fractions ("X out of Y trains").
+    The statistics are the ratios computed over a given months/years period, 
     for a given departure and arrival cities.
 
     Args:
@@ -209,13 +205,10 @@ def display_delayed_cancelled_stats_table(col: str, departure_city: str,
         arrival_city (str): arrival city
         start_month (str): first month of the time period for a given year
         end_month (str): last month of the time period
-        selected_years (np.array): np.array of selected years to compute the statistics
+        selected_years (np.ndarray): np.ndarray of selected years to compute the statistics
     """
     with col:
         st.markdown(f"## {departure_city.title()} --> {arrival_city.title()}\n### Traffic state info ")
-        
-        total_planned_trains = am.get_total_planned_trains(
-            departure_city, arrival_city, start_month, end_month, selected_years)
             
         st.markdown(f"Over the period from "
                     f"{get_month_from_int_str(start_month)} to "
@@ -223,22 +216,22 @@ def display_delayed_cancelled_stats_table(col: str, departure_city: str,
 
         # Departure: Delay + Cancelled
         section_row("Departure", [
-            (am.get_total_delayed_departure_trains(departure_city, arrival_city, 
+            (am.get_ratio_delayed_departure_trains(departure_city, arrival_city, 
                                                             start_month, end_month, 
                                                             selected_years),
-            total_planned_trains, "delayed"),
-            (am.get_total_cancelled_trains(departure_city, arrival_city, 
+            "delayed"),
+            (am.get_ratio_cancelled_trains(departure_city, arrival_city, 
                                                             start_month, end_month, 
                                                             selected_years),
-            total_planned_trains, "cancelled"),
+            "cancelled"),
         ])
 
         st.divider()
 
         # Arrival: Delay only
         section_row("Arrival", [
-            (am.get_total_delayed_arrival_trains(departure_city, arrival_city, 
+            (am.get_ratio_delayed_arrival_trains(departure_city, arrival_city, 
                                                                 start_month, end_month, 
                                                                 selected_years),
-            total_planned_trains, "delayed"),
+            "delayed"),
         ])
