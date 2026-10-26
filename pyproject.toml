@@ -14,7 +14,10 @@ dependencies = [
     "ipykernel",
     "sphinx",
     "streamlit-folium",
-    "unidecode"
+    "unidecode",
+    "statsmodels",
+    "scikit-learn",
+    "pmdarima"
 ]
 
 [dependency-groups]

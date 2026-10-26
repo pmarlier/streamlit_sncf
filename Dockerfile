@@ -1,6 +1,7 @@
 FROM python:3.12-slim  
 WORKDIR /streamlit_sncf
 RUN pip install uv
+EXPOSE 8501
 # Disable development dependencies
 ENV UV_NO_DEV=1
 # needed to first copy only pyproject.toml and  uv.lock

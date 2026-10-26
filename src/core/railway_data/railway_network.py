@@ -34,7 +34,7 @@ def get_railway_id_from_network(departure:str, arrival:str) -> list:
 
     return railway_id
 
-def get_railway_data_from_city(departure:str) -> list:
+def get_railway_data_between_cities(departure:str, arrival:str) -> list:
     """_summary_
 
     Args:
@@ -45,9 +45,9 @@ def get_railway_data_from_city(departure:str) -> list:
     """
     railway_data_to_draw = []
 
-    reachable_destinations_list = ld.get_reachable_destinations_list_from_city(departure)
+    # reachable_destinations_list = ld.get_reachable_destinations_list_from_city(departure)
 
-    arrival = reachable_destinations_list[0]
+    # arrival = reachable_destinations_list[0]
 
     mean_delay_on_arrival = md.get_arrival_mean_delay_for_city_pair(departure, arrival)
     

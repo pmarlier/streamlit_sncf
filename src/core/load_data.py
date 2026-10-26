@@ -49,7 +49,7 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
     df["Date"]= pd.to_datetime(df["Date"])
     df.insert(0, "month", df["Date"].dt.month)
     df.insert(0, "year", df["Date"].dt.year)
-    df = df.drop("Date", axis=1)
+    # df = df.drop("Date", axis=1)
     
     return df
 
@@ -98,7 +98,7 @@ def get_unique_railstations_df() -> pd.DataFrame:
     Returns:
         pd.DataFrame: Departure stations dataframe
     """
-    unique_railstations = list(df[DEPARTURE_STATION_KEY].unique())
+    unique_railstations = sorted(list(df[DEPARTURE_STATION_KEY].unique()))
     return unique_railstations
 
 
