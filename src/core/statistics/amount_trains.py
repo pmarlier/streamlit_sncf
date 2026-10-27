@@ -55,15 +55,12 @@ def get_ratio_cancelled_trains(
     return cancelled_trains_ratio
 
 
-def get_total_planned_trains(
-    departure_station: str,
-    arrival_station: str,
-    start_month: int,
-    end_month: int,
-    years_list: np.array,
-    data_df: pd.DataFrame | None = None,
-) -> int:
-    """Returns the amount of planned trains over a period,
+def get_total_planned_trains(departure_station: str, 
+                               arrival_station: str,  
+                               start_month: int, end_month: int,
+                               years_list: np.array,
+                               data_df: pd.DataFrame | None = None) -> int:
+    """Returns the amount of planned trains over a period, 
     given a departure and arrival stations
 
     Args:
@@ -72,7 +69,7 @@ def get_total_planned_trains(
         start_month (int): start month of period
         end_month (int): end month of period
         years_list (np.array): selected years list
-        data_df (np.array): input dataframe with MONTH, YEAR, DEPARTURE_STATION_KEY
+        data_df (np.array): input dataframe with MONTH, YEAR, DEPARTURE_STATION_KEY 
         and ARRIVAL_STATION_KEY columns
 
     Returns:
@@ -81,13 +78,9 @@ def get_total_planned_trains(
     """
     if data_df is None:
         data_df = ld.df
-
-    df_stations = ld.get_filtered_departure_arrival_stations_df(
-        departure_station, arrival_station, data_df
-    )
-    df_period = ld.get_filtered_period_df(
-        start_month, end_month, years_list, df_stations
-    )
+            
+    df_stations = ld.get_filtered_departure_arrival_stations_df(departure_station, arrival_station, data_df)
+    df_period = ld.get_filtered_period_df(start_month, end_month, years_list, df_stations)
     if df_period[ld.MONTHLY_PLANNED_TRAINS_KEY].empty:
         planned_trains_amount = np.nan
     else:

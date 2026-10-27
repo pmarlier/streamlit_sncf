@@ -16,7 +16,7 @@ YEAR_KEY = "year"
 DEPARTURE_STATION_KEY = "Gare de départ"
 ARRIVAL_STATION_KEY = "Gare d'arrivée"
 MEAN_DEPARTURE_DELAY_KEY = "Retard moyen des trains en retard au départ"
-MONTHLY_ARRIVAL_DELAY_KEY = "Retard moyen des trains en retard à l'arrivée"
+MEAN_ARRIVAL_DELAY_KEY = "Retard moyen des trains en retard à l'arrivée"
 MONTHLY_CANCELLED_TRAINS_KEY = "Nombre de trains annulés"
 MONTHLY_PLANNED_TRAINS_KEY = "Nombre de circulations prévues"
 MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY = "Nombre de trains en retard au départ"
@@ -41,7 +41,7 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
     df = preprocess_data(df)
     
     df = df[[DATE_KEY, DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY, 
-             MEAN_DEPARTURE_DELAY_KEY, MONTHLY_ARRIVAL_DELAY_KEY, 
+             MEAN_DEPARTURE_DELAY_KEY, MEAN_ARRIVAL_DELAY_KEY, 
              MONTHLY_CANCELLED_TRAINS_KEY, MONTHLY_PLANNED_TRAINS_KEY,
              MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY, MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY]]
     
