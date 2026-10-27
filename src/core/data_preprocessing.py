@@ -19,7 +19,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     7. Invalidating values from "Nombre trains en retard > 15min" when
     they exceed the overall number of trains delayed at arrival.
     8. Replacing negative average delays for all trains by
-        0 when they are between -1 and 0,
+        0 when they are between -1 (included) and 0 (excluded),
         and by NaN when they are below -1.
 
     Args:
