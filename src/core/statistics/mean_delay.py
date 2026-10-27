@@ -22,29 +22,29 @@ from core import load_data as ld
 #     return df2
 
 def weighted_mean_delay(
-    monthly_planned_trains: pd.Series, 
+    monthly_planned_trains: pd.Series,
     delay_observations_to_average: pd.Series
 ) -> float:
-    """Calculate a weighted mean of a series of delay observations weighted by 
-    the number of trains planned for each period. 
-    
-    This function can be used to calculate weighted means of the departure or 
-    arrival delays. 
+    """Calculate a weighted mean of a series of delay observations weighted by
+    the number of trains planned for each period.
+
+    This function can be used to calculate weighted means of the departure or
+    arrival delays.
 
     Both input Series must cover the same periods and have matching indexes.
-    Observations with missing values or non-positive (<= 0) 
+    Observations with missing values or non-positive (<= 0)
     monthly planned train counts are excluded.
-    
+
     Args:
-        monthly_planned_trains (pd.Series): the number of planned trains 
+        monthly_planned_trains (pd.Series): the number of planned trains
             on the selected months.
-            This Series should normally come from the MONTHLY_PLANNED_TRAINS_KEY. 
-            The Pandas Series must be filtered to only include the periods you want 
+            This Series should normally come from the MONTHLY_PLANNED_TRAINS_KEY.
+            The Pandas Series must be filtered to only include the periods you want
             to include in the calculation.
 
-        delay_observations_to_average (pd.Series): the delay measure or 
-            observations you wish to get the mean. 
-            The Pandas Series must be filtered to only include the 
+        delay_observations_to_average (pd.Series): the delay measure or
+            observations you wish to get the mean.
+            The Pandas Series must be filtered to only include the
             periods you want to average.
 
     Returns:
@@ -52,21 +52,21 @@ def weighted_mean_delay(
             or NaN if no valid observations are available.
     """
 
-    # Creating a mask to select non-NaN values and 
+    # Creating a mask to select non-NaN values and
     # strictly positive monthly_planned_trains values
     valid_values = (
-        monthly_planned_trains.notna() 
-        & (monthly_planned_trains > 0) 
+        monthly_planned_trains.notna()
+        & (monthly_planned_trains > 0)
         & delay_observations_to_average.notna()
     )
 
-    # Returning a NaN if no valid observation could be used 
+    # Returning a NaN if no valid observation could be used
     if not valid_values.any():
         return np.nan
 
     weighted_mean = float(
         np.average(
-            delay_observations_to_average[valid_values], 
+            delay_observations_to_average[valid_values],
             weights=monthly_planned_trains[valid_values],
         )
     )
@@ -75,7 +75,7 @@ def weighted_mean_delay(
 
 
 def ratio_number_of_trains(
-    monthly_planned_trains: pd.Series, 
+    monthly_planned_trains: pd.Series,
     train_observations: pd.Series
 ) -> float:
     """Calculate the ratio of observed trains to planned trains.
@@ -100,7 +100,7 @@ def ratio_number_of_trains(
             or NaN if no valid observations are available.
     """
 
-    # Creating a mask to select non-NaN values, positive planned counts 
+    # Creating a mask to select non-NaN values, positive planned counts
     # and non-negative observations
     valid_values = (
         monthly_planned_trains.notna()
@@ -119,7 +119,7 @@ def ratio_number_of_trains(
     )
 
     return train_ratio
-    
+
 
 def get_departure_mean_delay_for_city(city: str) -> float:
     return ld.df.loc[ld.df[ld.DEPARTURE_STATION_KEY] == city][ld.MEAN_DEPARTURE_DELAY_KEY].mean()
