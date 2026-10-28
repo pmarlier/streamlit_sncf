@@ -17,10 +17,10 @@ DEPARTURE_STATION_KEY = "Gare de départ"
 ARRIVAL_STATION_KEY = "Gare d'arrivée"
 MEAN_DEPARTURE_DELAY_KEY = "Retard moyen des trains en retard au départ"
 MEAN_ARRIVAL_DELAY_KEY = "Retard moyen des trains en retard à l'arrivée"
-MENSUAL_CANCELLED_TRAINS_KEY = "Nombre de trains annulés"
-MENSUAL_PLANNED_TRAINS_KEY = "Nombre de circulations prévues"
-MENSUAL_DELAYED_DEPARTURE_TRAINS_KEY = "Nombre de trains en retard au départ"
-MENSUAL_DELAYED_ARRIVAL_TRAINS_KEY = "Nombre de trains en retard à l'arrivée"
+MONTHLY_CANCELLED_TRAINS_KEY = "Nombre de trains annulés"
+MONTHLY_PLANNED_TRAINS_KEY = "Nombre de circulations prévues"
+MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY = "Nombre de trains en retard au départ"
+MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY = "Nombre de trains en retard à l'arrivée"
 
 
 @st.cache_data  # mémorise le résultat d’une fonction pour éviter de la recalculer à
@@ -42,8 +42,8 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
     
     df = df[[DATE_KEY, DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY, 
              MEAN_DEPARTURE_DELAY_KEY, MEAN_ARRIVAL_DELAY_KEY, 
-             MENSUAL_CANCELLED_TRAINS_KEY, MENSUAL_PLANNED_TRAINS_KEY,
-             MENSUAL_DELAYED_DEPARTURE_TRAINS_KEY, MENSUAL_DELAYED_ARRIVAL_TRAINS_KEY]]
+             MONTHLY_CANCELLED_TRAINS_KEY, MONTHLY_PLANNED_TRAINS_KEY,
+             MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY, MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY]]
     
     # Datetime format into year and month columns for periods selection
     df["Date"]= pd.to_datetime(df["Date"])

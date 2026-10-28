@@ -36,10 +36,10 @@ def get_total_cancelled_trains(departure_station: str,
                                                                 data_df)
     df_period = ld.get_filtered_period_df(start_month, end_month, years_list, 
                                           df_stations)
-    if df_period[ld.MENSUAL_CANCELLED_TRAINS_KEY].empty:
+    if df_period[ld.MONTHLY_CANCELLED_TRAINS_KEY].empty:
         cancelled_trains_amount = np.nan
     else:
-        cancelled_trains_amount = df_period[ld.MENSUAL_CANCELLED_TRAINS_KEY].sum()
+        cancelled_trains_amount = df_period[ld.MONTHLY_CANCELLED_TRAINS_KEY].sum()
     
     return cancelled_trains_amount
 
@@ -69,11 +69,11 @@ def get_total_planned_trains(departure_station: str,
             
     df_stations = ld.get_filtered_departure_arrival_stations_df(departure_station, arrival_station, data_df)
     df_period = ld.get_filtered_period_df(start_month, end_month, years_list, df_stations)
-    if df_period[ld.MENSUAL_PLANNED_TRAINS_KEY].empty:
+    if df_period[ld.MONTHLY_PLANNED_TRAINS_KEY].empty:
         planned_trains_amount = np.nan
     else:
-        planned_trains_amount = df_period[ld.MENSUAL_PLANNED_TRAINS_KEY].sum()
-    # planned_trains_amount = df_period[ld.MENSUAL_PLANNED_TRAINS_KEY].sum(min_count=1)
+        planned_trains_amount = df_period[ld.MONTHLY_PLANNED_TRAINS_KEY].sum()
+    # planned_trains_amount = df_period[ld.MONTHLY_PLANNED_TRAINS_KEY].sum(min_count=1)
 
     return planned_trains_amount
 
@@ -99,15 +99,15 @@ def get_total_delayed_departure_trains(departure_station: str,
         at departure over a period between two given stations
     """
     if data_df is None:
-            data_df = ld.df
+        data_df = ld.df
             
     df_stations = ld.get_filtered_departure_arrival_stations_df(departure_station, arrival_station, data_df)
     df_period = ld.get_filtered_period_df(start_month, end_month, years_list, df_stations)
-    if df_period[ld.MENSUAL_DELAYED_DEPARTURE_TRAINS_KEY].empty:
+    if df_period[ld.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY].empty:
         delayed_departure_trains_amount = np.nan
     else:
-        delayed_departure_trains_amount = df_period[ld.MENSUAL_DELAYED_DEPARTURE_TRAINS_KEY].sum()
-    # delayed_departure_trains_amount = df_period[ld.MENSUAL_DELAYED_DEPARTURE_TRAINS_KEY].sum(min_count=1)
+        delayed_departure_trains_amount = df_period[ld.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY].sum()
+    # delayed_departure_trains_amount = df_period[ld.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY].sum(min_count=1)
 
     return delayed_departure_trains_amount
 
@@ -133,14 +133,14 @@ def get_total_delayed_arrival_trains(departure_station: str,
         at arrival over a period between two given stations
     """
     if data_df is None:
-            data_df = ld.df
+        data_df = ld.df
             
     df_stations = ld.get_filtered_departure_arrival_stations_df(departure_station, arrival_station, data_df)
     df_period = ld.get_filtered_period_df(start_month, end_month, years_list, df_stations)
-    if df_period[ld.MENSUAL_DELAYED_ARRIVAL_TRAINS_KEY].empty:
+    if df_period[ld.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY].empty:
         delayed_arrival_trains_amount = np.nan
     else:
-        delayed_arrival_trains_amount = df_period[ld.MENSUAL_DELAYED_ARRIVAL_TRAINS_KEY].sum()
-    # delayed_arrival_trains_amount = df_period[ld.MENSUAL_DELAYED_ARRIVAL_TRAINS_KEY].sum(min_count=1)
+        delayed_arrival_trains_amount = df_period[ld.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY].sum()
+    # delayed_arrival_trains_amount = df_period[ld.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY].sum(min_count=1)
 
     return delayed_arrival_trains_amount
