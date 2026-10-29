@@ -53,17 +53,17 @@ def test_section_row():
     or none (return "None was declared").
     """
     # ref stats
-    total_planned_trains = 1146
-    total_delayed_departure_trains = 202
-    total_delayed_arrival_trains = 230
-    total_cancelled_trains = 49
+    # total_planned_trains = 1146
+    # total_delayed_departure_trains = 202
+    # total_delayed_arrival_trains = 230
+    # total_cancelled_trains = 49
 
-    ratio_planned_delayed_departure = round(
-        total_planned_trains/total_delayed_departure_trains)
-    ratio_planned_delayed_arrival = round(
-        total_planned_trains/total_delayed_arrival_trains)
-    ratio_planned_cancelled = round(
-        total_planned_trains/total_cancelled_trains)
+    # ratio_planned_delayed_departure = round(
+    #     total_planned_trains/total_delayed_departure_trains)
+    # ratio_planned_delayed_arrival = round(
+    #     total_planned_trains/total_delayed_arrival_trains)
+    # ratio_planned_cancelled = round(
+    #     total_planned_trains/total_cancelled_trains)
     
     ######################
     # CASE TRAINS EXIST
@@ -80,7 +80,7 @@ def test_section_row():
 
         wg.section_row(
             event,
-            [(total_delayed_departure_trains, total_planned_trains, "delayed")],
+            [(total_delayed_departure_trains / total_planned_trains, "delayed")],
         )
     at_departure_delayed = AppTest.from_function(
         display_section_row_departure_delayed).run()
@@ -97,7 +97,7 @@ def test_section_row():
 
         wg.section_row(
             event,
-            [(total_delayed_arrival_trains, total_planned_trains, "delayed")],
+            [(total_delayed_arrival_trains / total_planned_trains, "delayed")],
         )
     at_arrival_delayed = AppTest.from_function(
         display_section_row_arrival_delayed).run()
@@ -114,19 +114,16 @@ def test_section_row():
 
         wg.section_row(
             event,
-            [(total_cancelled_departure_trains, total_planned_trains, "cancelled")],
+            [(total_cancelled_departure_trains / total_planned_trains, "cancelled")],
         )
     at_departure_cancelled = AppTest.from_function(
         display_section_row_departure_cancelled).run()
     val_col_cancelled_departure = at_departure_cancelled.columns[1].markdown[0].value
 
         # assertions
-    assert val_col_delayed_departure == f"1 out of {
-        ratio_planned_delayed_departure} trains were delayed"
-    assert val_col_delayed_arrival == f"1 out of {
-        ratio_planned_delayed_arrival} trains were delayed"
-    assert val_col_cancelled_departure == f"1 out of {
-        ratio_planned_cancelled} trains were cancelled"
+    assert val_col_delayed_departure == "About 1 out of 6 trains were delayed"
+    assert val_col_delayed_arrival == "About 1 out of 5 trains were delayed"
+    assert val_col_cancelled_departure == "About 1 out of 23 trains were cancelled"
     
     ######################
     # CASE NO TRAINS WERE EXPLICITELY DECLARED
@@ -134,16 +131,16 @@ def test_section_row():
     
         # case departure delayed train
     def display_section_row_departure_delayed_none():
-        """Render a departure delay section with zero planned and delayed trains.
+        """Render a departure delay section with zero delayed trains.
         """
         event = "Departure"
-        total_planned_trains = 0
+        total_planned_trains = 1146
         total_delayed_departure_trains = 0
         from ui import widgets as wg
 
         wg.section_row(
             event,
-            [(total_delayed_departure_trains, total_planned_trains, "delayed")],
+            [(total_delayed_departure_trains / total_planned_trains, "delayed")],
         )
     at_departure_delayed_none = AppTest.from_function(
         display_section_row_departure_delayed_none).run()
@@ -151,16 +148,16 @@ def test_section_row():
 
         # case arrival delayed train
     def display_section_row_arrival_delayed_none():
-        """Render an arrival delay section with zero planned and delayed trains.
+        """Render an arrival delay section with zero delayed trains.
         """
         event = "Arrival"
-        total_planned_trains = 0
+        total_planned_trains = 1146
         total_delayed_arrival_trains = 0
         from ui import widgets as wg
 
         wg.section_row(
             event,
-            [(total_delayed_arrival_trains, total_planned_trains, "delayed")],
+            [(total_delayed_arrival_trains / total_planned_trains, "delayed")],
         )
     at_arrival_delayed_none = AppTest.from_function(
         display_section_row_arrival_delayed_none).run()
@@ -168,16 +165,16 @@ def test_section_row():
 
         # case departure cancelled train
     def display_section_row_departure_cancelled_none():
-        """Render a departure section with zero planned and cancelled trains.
+        """Render a departure section with zero cancelled trains.
         """
         event = "Departure"
-        total_planned_trains = 0
+        total_planned_trains = 1146
         total_cancelled_departure_trains = 0
         from ui import widgets as wg
 
         wg.section_row(
             event,
-            [(total_cancelled_departure_trains, total_planned_trains, "cancelled")],
+            [(total_cancelled_departure_trains / total_planned_trains, "cancelled")],
         )
     at_departure_cancelled_none = AppTest.from_function(
         display_section_row_departure_cancelled_none).run()
@@ -199,13 +196,12 @@ def test_section_row():
         import numpy as np
         
         event = "Departure"
-        total_planned_trains = np.nan
-        total_delayed_departure_trains = np.nan
+        ratio_delayed_departure_trains = np.nan
         from ui import widgets as wg
 
         wg.section_row(
             event,
-            [(total_delayed_departure_trains, total_planned_trains, "delayed")],
+            [(ratio_delayed_departure_trains, "delayed")],
         )
     at_departure_delayed_none = AppTest.from_function(
         display_section_row_departure_delayed_none).run()
@@ -218,13 +214,12 @@ def test_section_row():
         import numpy as np
         
         event = "Arrival"
-        total_planned_trains = np.nan
-        total_delayed_arrival_trains = np.nan
+        ratio_delayed_arrival_trains = np.nan
         from ui import widgets as wg
 
         wg.section_row(
             event,
-            [(total_delayed_arrival_trains, total_planned_trains, "delayed")],
+            [(ratio_delayed_arrival_trains, "delayed")],
         )
     at_arrival_delayed_none = AppTest.from_function(
         display_section_row_arrival_delayed_none).run()
@@ -237,13 +232,12 @@ def test_section_row():
         import numpy as np
         
         event = "Departure"
-        total_planned_trains = np.nan
-        total_cancelled_departure_trains = np.nan
+        ratio_cancelled_departure_trains = np.nan
         from ui import widgets as wg
 
         wg.section_row(
             event,
-            [(total_cancelled_departure_trains, total_planned_trains, "cancelled")],
+            [(ratio_cancelled_departure_trains, "cancelled")],
         )
     at_departure_cancelled_none = AppTest.from_function(
         display_section_row_departure_cancelled_none).run()
@@ -379,15 +373,15 @@ def test_display_delayed_cancelled_stats_table():
     # ├── Over the period from February to October:  markdown[1]
     # │
     # ├──────────────────┬──────────────────────────────────
-    # │ Departure        │ 1 out of 3 trains were delayed
+    # │ Departure        │ About 1 out of 3 trains were delayed
     # │ markdown[2]      │ markdown[3]
     # ├──────────────────┼──────────────────────────────────
-    # │                  │ 1 out of 117 trains were cancelled
+    # │                  │ About 1 out of 117 trains were cancelled
     # │                  │ markdown[4]
     # ├──────────────────┴──────────────────────────────────
     # │                  séparateur (divider)
     # ├──────────────────┬──────────────────────────────────
-    # │ Arrival          │ 1 out of 6 trains were delayed
+    # │ Arrival          │ About 1 out of 6 trains were delayed
     # │ markdown[5]      │ markdown[6]
     # └──────────────────┴──────────────────────────────────
     
@@ -398,12 +392,12 @@ def test_display_delayed_cancelled_stats_table():
     total_delayed_arrival_trains = 908
     total_cancelled_trains = 45
 
-    ratio_planned_delayed_departure = round(
-        total_planned_trains/total_delayed_departure_trains)
-    ratio_planned_delayed_arrival = round(
-        total_planned_trains/total_delayed_arrival_trains)
-    ratio_planned_cancelled = round(
-        total_planned_trains/total_cancelled_trains)
+    # ratio_planned_delayed_departure = round(
+    #     total_planned_trains/total_delayed_departure_trains)
+    # ratio_planned_delayed_arrival = round(
+    #     total_planned_trains/total_delayed_arrival_trains)
+    # ratio_planned_cancelled = round(
+    #     total_planned_trains/total_cancelled_trains)
     
     departure_city = "METZ"
     arrival_city = "PARIS EST"
@@ -438,10 +432,7 @@ def test_display_delayed_cancelled_stats_table():
                     f"{wg.get_month_from_int_str(start_month)} to "
                     f" {wg.get_month_from_int_str(end_month)}:")
     assert table_markdown[2].value == "**Departure**"
-    assert table_markdown[3].value == f"1 out of {
-        ratio_planned_delayed_departure} trains were delayed"
-    assert table_markdown[4].value == f"1 out of {
-        ratio_planned_cancelled} trains were cancelled"
+    assert table_markdown[3].value == "About 1 out of 3 trains were delayed"
+    assert table_markdown[4].value == "About 1 out of 117 trains were cancelled"
     assert table_markdown[5].value == "**Arrival**"
-    assert table_markdown[6].value == f"1 out of {
-        ratio_planned_delayed_arrival} trains were delayed"
+    assert table_markdown[6].value == "About 1 out of 6 trains were delayed"

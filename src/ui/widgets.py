@@ -1,11 +1,12 @@
 """User interactions widgets definition module"""
 
-import streamlit as st
+from fractions import Fraction
+
 import numpy as np
+import streamlit as st
 
 from core import load_data as ld
 from core.statistics import amount_trains as am
-
 
 MONTHS_LIST = [
         "January", "February", "March", "April",
@@ -13,23 +14,26 @@ MONTHS_LIST = [
         "September", "October", "November", "December"
     ]
 
-def section_row(section_label: str, fields: list) -> None:
+def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
     """Displays information contained in fields input, named after section_label input, 
     under the format of a 2 columns table : | section_label | field1
                                             |               | field2
                                             |               | ....
                                             |               | fieldN
                                             
-    If the trains delayed/cancelled count is greater than 0, the statistic is displayed
-    with associated string. Otherwise, "none" is output.
+    Ratios between 0 (excluded) and 1 (excluded) of trains delayed/cancelled 
+    are displayed as approximate proportions ("X out of Y trains"). 
+    Very low and very high ratios are handled separately to avoid 
+    misleading approximations.
+    Missing values, zero ratios and invalid ratios are handled separately.
 
     Args:
         section_label (str): Label of the section, contained in the first column. 
-        This field is formatted as follows: count (# of delayed/cancelled trains), total
-        (# of planned trains on the period and given the cities) 
-        and status (string adapted to the stat to be displayed at reader)
         
-        fields (list): list of fields. First field is displayed in the second column, 
+        fields (list): list of fields, tuples containing a ratio and a status.
+        The ratio represents the number of delayed/cancelled trains
+        divided by the number of planned trains over the selected period. 
+        First field is displayed in the second column, 
         same line as the section_label. Other fields are stacked on the following rows 
         on the second column.
     """
@@ -37,18 +41,45 @@ def section_row(section_label: str, fields: list) -> None:
     cols = st.columns([1, 2])
     cols[0].markdown(f"**{section_label}**")
     
-    for index, (count, total, status) in enumerate(fields):
-    # for index, (label, count, total, status) in enumerate(fields):
+    for index, (ratio, status) in enumerate(fields):
+        # for index, (label, count, total, status) in enumerate(fields):
+        if ratio > 0 and ratio <= 1:
+            if ratio == 1:
+                train_info_str = f"All planned trains were {status}"
+            elif ratio > 0.95:
+                # avoid incorrectly approximating a ratio to "1 out of 1"
+                train_info_str = f"More than 19 out of 20 trains were {status}"
+            elif ratio < 0.05:
+                # avoid incorrectly approximating a ratio to "0 out of 1"
+                train_info_str = (
+                    f"About 1 out of {round(1 / ratio)} trains were {status}"
+                )
+            else:
+                # generate a set of the most easy-to-understand approximate fractions
+                # with a denominator of 2 to 6, 10 or 20
+                # or with a numerator of 1 and a denominator of at most 20
+                fractions = {
+                    Fraction(n, d)
+                    for d in range(2, 21)
+                    for n in range(1, d)
+                    if d <= 6 or d in (10, 20) or n == 1
+                }
 
-        if count > 0:
-            ratio_tot_cnt_trains = total/count
-            train_info_str = (
-                f"1 out of {round(ratio_tot_cnt_trains)} trains were {status}"
-            )
-        elif np.isnan(total):
+                # Select the closest easy-to-understand fraction to the actual ratio
+                fraction = min(
+                    fractions, key=lambda f: (abs(float(f) - ratio), f.denominator)
+                )
+
+                train_info_str = (
+                    f"About {fraction.numerator} out of "
+                    f"{fraction.denominator} trains were {status}"
+                )
+        elif np.isnan(ratio):
             train_info_str = "No data is available"
-        else: 
+        elif ratio == 0:
             train_info_str = f"No {status} train was declared"
+        else:
+            train_info_str = "No consistent data is available"
 
         if index == 0:
             # cols[1].markdown(label)
@@ -60,6 +91,7 @@ def section_row(section_label: str, fields: list) -> None:
             # sub_label_col.markdown(label)
             with sub_input_col:
                 st.write(train_info_str)
+
 
 def select_month(msg: str) -> int:
     """Get month from a dropdown list as integer, requiring get_month_from_str_int
@@ -76,6 +108,7 @@ def select_month(msg: str) -> int:
     
     return selected_month
 
+
 def select_years(msg: str) -> list[int]:
     """Get year(s) from a multiselect dropdown.
     Initially, all years from the dataset are selected.
@@ -90,6 +123,7 @@ def select_years(msg: str) -> list[int]:
     years = sorted(ld.df.year.unique())
 
     return st.multiselect(msg, options=years, default=years)
+
 
 def get_month_from_int_str(month_int: int) -> str:
     """Converts a month as integer into string.
@@ -111,6 +145,7 @@ def get_month_from_int_str(month_int: int) -> str:
     
     return month_str
 
+
 def get_month_from_str_int(month_str: str) -> int:
     """Converts a month as string into integer. 
     This is based on a dictionnary month_dict{month_str: month_int}
@@ -130,6 +165,7 @@ def get_month_from_str_int(month_str: str) -> int:
     month_int = month_dict[month_str]
     
     return month_int
+
 
 def display_sidebar() -> list:
     """Displays sidebar containing input widgets for customer to specify 
@@ -160,15 +196,15 @@ def display_sidebar() -> list:
                                selected_years]
         
         return trip_infos
+
         
 def display_delayed_cancelled_stats_table(col: str, departure_city: str, 
                                           arrival_city: str, start_month: str, 
                                           end_month: str, 
-                                          selected_years: np.array) -> None:
-    """Displays in the given col column a table displaying a ratio formatted as 1 out
-    of X, where X being total departure delayed/cancelled 
-    and arrival delayed trains amount.
-    The statistics are the mean values computed over a given months/years period, 
+                                          selected_years: np.ndarray) -> None:
+    """Displays delayed and cancelled train ratios in the given column.
+    The ratios are displayed as approximate fractions ("X out of Y trains").
+    The statistics are the ratios computed over a given months/years period, 
     for a given departure and arrival cities.
 
     Args:
@@ -177,13 +213,11 @@ def display_delayed_cancelled_stats_table(col: str, departure_city: str,
         arrival_city (str): arrival city
         start_month (str): first month of the time period for a given year
         end_month (str): last month of the time period
-        selected_years (np.array): np.array of selected years to compute the statistics
+        selected_years (np.ndarray): np.ndarray of selected years to
+            compute the statistics
     """
     with col:
         st.markdown(f"## {departure_city.title()} --> {arrival_city.title()}\n### Traffic state info ")
-        
-        total_planned_trains = am.get_total_planned_trains(
-            departure_city, arrival_city, start_month, end_month, selected_years)
             
         st.markdown(f"Over the period from "
                     f"{get_month_from_int_str(start_month)} to "
@@ -191,22 +225,22 @@ def display_delayed_cancelled_stats_table(col: str, departure_city: str,
 
         # Departure: Delay + Cancelled
         section_row("Departure", [
-            (am.get_total_delayed_departure_trains(departure_city, arrival_city, 
+            (am.get_ratio_delayed_departure_trains(departure_city, arrival_city, 
                                                             start_month, end_month, 
                                                             selected_years),
-            total_planned_trains, "delayed"),
-            (am.get_total_cancelled_trains(departure_city, arrival_city, 
+            "delayed"),
+            (am.get_ratio_cancelled_trains(departure_city, arrival_city, 
                                                             start_month, end_month, 
                                                             selected_years),
-            total_planned_trains, "cancelled"),
+            "cancelled"),
         ])
 
         st.divider()
 
         # Arrival: Delay only
         section_row("Arrival", [
-            (am.get_total_delayed_arrival_trains(departure_city, arrival_city, 
+            (am.get_ratio_delayed_arrival_trains(departure_city, arrival_city, 
                                                                 start_month, end_month, 
                                                                 selected_years),
-            total_planned_trains, "delayed"),
+            "delayed"),
         ])
