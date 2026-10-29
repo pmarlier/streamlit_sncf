@@ -16,6 +16,11 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     The median is calculated for the same service, route and month, with at least 2 valid observations.
     6. Adding a column "Prct retard causes non renseignées" and calculating the percentage
     to have a sum of 100% for all the reasons of delay
+    7. Invalidating values from "Nombre trains en retard > 15min" when
+    they exceed the overall number of trains delayed at arrival.
+    8. Replacing negative average delays for all trains by
+        0 when they are between -1 (included) and 0 (excluded),
+        and by NaN when they are below -1.
 
     Args:
         df (pd.DataFrame): dataframe from the original SNCF dataset with these expected columns at least :
@@ -34,7 +39,10 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
             "Prct retard pour cause gestion trafic",
             "Prct retard pour cause matériel roulant",
             "Prct retard pour cause gestion en gare et réutilisation de matériel",
-            "Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH, correspondances)"
+            "Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH, correspondances)",
+            "Nombre trains en retard > 15min",
+            "Retard moyen de tous les trains à l'arrivée",
+            "Retard moyen de tous les trains au départ",
 
     Returns:
         pd.DataFrame: a dataframe with the applied transformations
@@ -153,6 +161,35 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     df_clean["Prct retard causes non renseignées"] = (
         (100 - sum_reasons).round(2).where(df_clean[delayed_trains_arr] > 0)
     )
+
+    # Seventh evolution: invalidating delays over 15 minutes when this value is greater than the overall number of delayed trains
+
+    delayed_trains_15 = "Nombre trains en retard > 15min"
+
+    mask_invalid_15 = df_clean[delayed_trains_15] > df_clean[delayed_trains_arr]
+
+    df_clean.loc[mask_invalid_15, delayed_trains_15] = np.nan
+
+    # Eighth evolution: transforming negative values in columns
+    # "Retard moyen de tous les trains à l'arrivée" and "Retard moyen de tous les trains au départ"
+
+    columns_average_delay = [
+        "Retard moyen de tous les trains à l'arrivée",
+        "Retard moyen de tous les trains au départ",
+    ]
+
+    threshold_clean = -1
+
+    # the negative values between the threshold and 0 (excluded) are converted to 0
+    # the negative values below the threshold are converted to NaN
+    for col in columns_average_delay:
+
+        mask_zero = (df_clean[col] >= threshold_clean) & (df_clean[col] < 0)
+
+        mask_nan = df_clean[col] < threshold_clean
+
+        df_clean.loc[mask_zero, col] = 0.0
+        df_clean.loc[mask_nan, col] = np.nan
 
     # Returning df_clean
 
