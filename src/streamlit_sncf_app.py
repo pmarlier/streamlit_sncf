@@ -1,16 +1,14 @@
 """
-    Streamlit App — Applications web d'informations et de prévision de retards des 
-    trains SNCF
+    Streamlit App — Informational SNCF trains delays prediction web application
     ============================================================================
 
-    Pour lancer l'application :
-        uv sync (lance le sync des dépendances)
-        cd ./
-        uv run streamlit run ./streamlit/streamlit_app.py
+    To launch the app:
+        uv sync
+        cd ./ #project's root
+        uv run streamlit run ./src/streamlit_sncf_app.py
 
-    Le fichier `regularite-mensuelle-tgv-aqst.csv` doit contenir au minimum colonnes :
-        "Gare de départ", "Retard moyen des trains en retard au départ"
-
+    The raw data file "regularite-mensuelle-tgv-aqst.csv" shall be stored in ./data/raw,
+    downloaded from https://ressources.data.sncf.com/explore/dataset/regularite-mensuelle-tgv-aqst/export/
     """
 
 import streamlit as st
@@ -23,13 +21,22 @@ from core import load_data as ld
 
 
 def main():
+    """Sets up the main page of the app by initializing data, UI and core modules loading.
+    """
+
+    # --------------------------------------------------------------------------
+    # Initialisations
+    # --------------------------------------------------------------------------
+    
     ld.init()
     railway_geo.init()
+    
     # --------------------------------------------------------------------------
-    # Configuration générale de la page
+    # Main page general configuration
     # --------------------------------------------------------------------------
+    
     st.set_page_config(
-        page_title="IADATA 700 App",
+        page_title="IADATA700 STreamlit SNFC app",
         page_icon="🚄",
         layout="wide",
     )
@@ -48,13 +55,13 @@ def main():
             text_alignment="center")
         
     # --------------------------------------------------------------------------
-    # 2. Sidebar sélection voyage
+    # 2. Sidebar trip selection
     # --------------------------------------------------------------------------
 
     departure_city, arrival_city, start_month, end_month, selected_years = wg.display_sidebar()
         
     # --------------------------------------------------------------------------
-    # 3. Corps principal
+    # 3. Main body
     # --------------------------------------------------------------------------
 
     # Create a row with 2 columns
