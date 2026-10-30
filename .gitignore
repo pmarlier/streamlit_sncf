@@ -6,6 +6,13 @@ dist/
 wheels/
 *.egg-info
 
+# Python scripts
+docs/_other/notes.txt
+docs/_build/
+data/processed/visu.ipynb
+data/processed/delayed_cancelled_trains.png
+data/processed/regularite-mensuelle-tgv-aqst.csv
+
 # Virtual environments
 .venv
 .coverage
