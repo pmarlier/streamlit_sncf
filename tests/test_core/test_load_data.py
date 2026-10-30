@@ -10,6 +10,7 @@ from pathlib import Path
 import pandas as pd
 import pytest
 from core import load_data as ld
+from core import data_preprocessing as pr
 
 CSV_PATH = "./data/raw/regularite-mensuelle-tgv-aqst.csv"
 
@@ -26,41 +27,63 @@ MONTHLY_PLANNED_TRAINS_KEY = "Nombre de circulations prévues"
 MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY = "Nombre de trains en retard au départ"
 MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY = "Nombre de trains en retard à l'arrivée"
 
+ARRIVAL_DELAY_COMMENT_KEY = "Commentaire retards à l'arrivée"
+DEPARTURE_DELAY_COMMENT_KEY = "Commentaire retards au départ"
+SERVICE_KEY = "Service"
 
-@st.cache_data  # mémorise le résultat d’une fonction pour éviter de la recalculer à
-# chaque interaction Streamlit.
+def test_load_csv_df() -> pd.DataFrame:
 
-def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
-    """Charge un fichier csv, de séparateurs ";", utilisé pour l'analyse de données.
-    Filtre les colonnes utiles, et convertit en deux colonnes "year" et "month" la 
-    colonne "Date"
-
-    Args:
-        source (str): input de type input = st.sidebar.file_uploader()
-
-    Returns:
-        df (pd.DataFrame): retourne le csv converti en DataFrame
-    """
-    df = pd.read_csv(source, sep=";")
-    df = df[[DATE_KEY, DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY, 
+    cols_to_be_dropped = [ARRIVAL_DELAY_COMMENT_KEY, 
+                          DEPARTURE_DELAY_COMMENT_KEY, 
+                          SERVICE_KEY]
+    
+    cols_to_be_kept = [DATE_KEY, DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY, 
              MEAN_DEPARTURE_DELAY_KEY, MEAN_ARRIVAL_DELAY_KEY, 
              MONTHLY_CANCELLED_TRAINS_KEY, MONTHLY_PLANNED_TRAINS_KEY,
-             MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY, MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY]]
+             MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY, MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY]
+    
+    
+    df = pd.read_csv(CSV_PATH, sep=";")
+    df = pr.preprocess_data(df)
+    
+    # Extract of columns to be dropped from the base dataframe, before filtering
+    assert all(cdrop in df.columns for cdrop in cols_to_be_dropped)
+    
+    # Columns to be kept in the dataframe
+    df = df[cols_to_be_kept]
+    
+    assert all(ckeep in df.columns for ckeep in cols_to_be_kept) 
+    assert all(cdrop not in df.columns for cdrop in cols_to_be_dropped)
     
     # Datetime format into year and month columns for periods selection
-    df["Date"]= pd.to_datetime(df["Date"])
-    df.insert(0, "month", df["Date"].dt.month)
-    df.insert(0, "year", df["Date"].dt.year)
-    df = df.drop("Date", axis=1)
+    df[DATE_KEY]= pd.to_datetime(df[DATE_KEY])
     
-    return df
+    df.insert(0, MONTH_KEY, df[DATE_KEY].dt.month)
+    df.insert(0, YEAR_KEY, df[DATE_KEY].dt.year)
+    df = df.drop(DATE_KEY, axis=1)
+    years = sorted(df.year.unique())
+
+    assert pd.api.types.is_integer_dtype(df[MONTH_KEY])
+    assert pd.api.types.is_integer_dtype(df[YEAR_KEY])
+    assert all(m in range(1,13) for m in df[MONTH_KEY])
+    assert all(y in years for y in df[YEAR_KEY])
+
+    assert DATE_KEY not in df.columns
 
 
-def init() -> None:
-    """Initialization function to make global input csv dataframe"""
+def test_init() -> None:
+    cols_to_be_kept = [MONTH_KEY, YEAR_KEY, DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY, 
+             MEAN_DEPARTURE_DELAY_KEY, MEAN_ARRIVAL_DELAY_KEY, 
+             MONTHLY_CANCELLED_TRAINS_KEY, MONTHLY_PLANNED_TRAINS_KEY,
+             MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY, MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY]
+    
     global df
-    df = load_csv_df()
+    df = ld.load_csv_df()
+    
+    assert type(df) is pd.DataFrame
+    assert all(col in cols_to_be_kept for col in df.columns)
 
+# !! Tests to be written
 def get_unique_city_pairs_list() -> list:
     """Retrieve unique pairs "departure-arrival" monitored by SNCF, 
     duplicates are dropped
@@ -72,6 +95,7 @@ def get_unique_city_pairs_list() -> list:
     unique_railway_cities = railway_cities.value_counts().index.to_list()
     return unique_railway_cities
 
+# !! Tests to be written
 def get_reachable_destinations_list_from_city(departure: str) -> list:
     """Retrieve the list of destinations available from the departure railstation
 
@@ -88,7 +112,7 @@ def get_reachable_destinations_list_from_city(departure: str) -> list:
 
     return reachable_destinations
 
-
+# !! Tests to be written
 def get_unique_railstations_df() -> pd.DataFrame:
     """Gets a dataframe list of all the departure stations of the country
 
@@ -112,9 +136,9 @@ def get_unique_railstations_df() -> pd.DataFrame:
 
     # Si l'utilisateur ne charge rien, on utilise le CSV d'exemple fourni
     if file_uploader is not None:
-        df = load_csv_df(file_uploader)
+        df = ld.load_csv_df(file_uploader)
     else:
-        df = load_csv_df("data/raw/regularite-mensuelle-tgv-aqst.csv")
+        df = ld.load_csv_df("data/raw/regularite-mensuelle-tgv-aqst.csv")
         st.sidebar.info(
             "Aucun fichier chargé : utilisation de `regularite-mensuelle-tgv-aqst.csv`."
         )
@@ -136,21 +160,13 @@ def get_unique_railstations_df() -> pd.DataFrame:
 
 #     return df.loc[df[DEPARTURE_STATION_KEY] == departure_city][MEAN_DEPARTURE_DELAY_KEY]
     
-def get_filtered_metrics_df(metrics: np.array, 
-                            data_df: pd.DataFrame | None = None) -> pd.DataFrame:
-    """Returns a dataframe containing the selected metrics list
-
-    Args:
-        metrics (np.array): list of metrics to be filtered
-        data_df (pd.DataFrame): input dataframe that contains the target metrics
-
-    Returns:
-        pd.DataFrame: filtered dataframe with only the listed metrics
-    """
-    if data_df is None:
-        data_df = df
+def test_get_filtered_metrics_df(mocked_df: pd.DataFrame) -> None:
+    test_metrics = [MONTH_KEY, YEAR_KEY]
+    result = ld.get_filtered_metrics_df(
+        test_metrics, mocked_df
+    )
         
-    return data_df[metrics]
+    assert all(metric in result.columns for metric in test_metrics)
  
 def test_get_filtered_departure_arrival_stations_df(
     mocked_df: pd.DataFrame,
