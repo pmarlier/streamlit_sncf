@@ -46,10 +46,10 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
              MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY, MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY]]
     
     # Datetime format into year and month columns for periods selection
-    df["Date"]= pd.to_datetime(df["Date"])
-    df.insert(0, "month", df["Date"].dt.month)
-    df.insert(0, "year", df["Date"].dt.year)
-    df = df.drop("Date", axis=1)
+    df[DATE_KEY]= pd.to_datetime(df[DATE_KEY])
+    df.insert(0, MONTH_KEY, df[DATE_KEY].dt.month)
+    df.insert(0, YEAR_KEY, df[DATE_KEY].dt.year)
+    df = df.drop(DATE_KEY, axis=1)
     
     return df
 
