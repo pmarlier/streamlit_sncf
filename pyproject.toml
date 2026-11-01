@@ -1,7 +1,7 @@
 [project]
 name = "streamlit-sncf"
 version = "0.1.0"
-description = "Add your description here"
+description = "IADATA700 SNCF Streamlit project"
 readme = "README.md"
 requires-python = ">=3.12"
 
@@ -13,6 +13,7 @@ dependencies = [
     "matplotlib-inline",
     "ipykernel",
     "sphinx",
+    "sphinx-autoapi",
     "streamlit-folium",
     "unidecode"
 ]
