@@ -1,10 +1,12 @@
 """Data loading module"""
 
-import pandas as pd
-import numpy as np
-import streamlit as st
-import itertools
 import datetime as dt
+import itertools
+
+import numpy as np
+import pandas as pd
+import streamlit as st
+
 from core.data_preprocessing import preprocess_data
 
 CSV_PATH = "./data/raw/regularite-mensuelle-tgv-aqst.csv"
@@ -28,7 +30,7 @@ MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY = "Nombre de trains en retard à l'arrivée"
 
 def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
     """Charge un fichier csv, de séparateurs ";", utilisé pour l'analyse de données.
-    Filtre les colonnes utiles, et convertit en deux colonnes "year" et "month" la 
+    Filtre les colonnes utiles, et convertit en deux colonnes "year" et "month" la
     colonne "Date"
 
     Args:
@@ -39,18 +41,27 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
     """
     df = pd.read_csv(source, sep=";")
     df = preprocess_data(df)
-    
-    df = df[[DATE_KEY, DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY, 
-             MEAN_DEPARTURE_DELAY_KEY, MEAN_ARRIVAL_DELAY_KEY, 
-             MONTHLY_CANCELLED_TRAINS_KEY, MONTHLY_PLANNED_TRAINS_KEY,
-             MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY, MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY]]
-    
+
+    df = df[
+        [
+            DATE_KEY,
+            DEPARTURE_STATION_KEY,
+            ARRIVAL_STATION_KEY,
+            MEAN_DEPARTURE_DELAY_KEY,
+            MEAN_ARRIVAL_DELAY_KEY,
+            MONTHLY_CANCELLED_TRAINS_KEY,
+            MONTHLY_PLANNED_TRAINS_KEY,
+            MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY,
+            MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY,
+        ]
+    ]
+
     # Datetime format into year and month columns for periods selection
-    df[DATE_KEY]= pd.to_datetime(df[DATE_KEY])
+    df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
     df.insert(0, MONTH_KEY, df[DATE_KEY].dt.month)
     df.insert(0, YEAR_KEY, df[DATE_KEY].dt.year)
     df = df.drop(DATE_KEY, axis=1)
-    
+
     return df
 
 
@@ -59,16 +70,30 @@ def init() -> None:
     global df
     df = load_csv_df()
 
-def get_unique_city_pairs_list() -> list:
-    """Retrieve unique pairs "departure-arrival" monitored by SNCF, 
-    duplicates are dropped
+
+def get_directional_city_pairs_list() -> list:
+    """Retrieve pairs "departure-arrival" monitored by SNCF,
+    duplicates are dropped but same pairs in different direction are kept
+    "departure-arrival" is different from "arrival_departure"
 
     Returns:
         list: _description_
     """
     railway_cities = df[[DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY]]
-    unique_railway_cities = railway_cities.value_counts().index.to_list()
-    return unique_railway_cities
+    directional_railway_cities = railway_cities.value_counts().index.to_list()
+    return directional_railway_cities
+
+
+def get_unique_city_pairs_list() -> list:
+    """Retrieve unique pairs "departure-arrival" monitored by SNCF,
+    duplicates and combinations "departure-arrival" and "arrival-departure" are dropped
+
+    Returns:
+        list: _description_
+    """
+    city_pairs = get_directional_city_pairs_list()
+    ordered_unique_city_pairs = list(sorted([(x, y) for y, x in city_pairs if x < y]))
+    return ordered_unique_city_pairs
 
 
 def get_reachable_destinations_list_from_city(departure: str) -> list:
@@ -78,7 +103,7 @@ def get_reachable_destinations_list_from_city(departure: str) -> list:
         list: _description_
     """
     reachable_destinations = []
-    city_pairs = get_unique_city_pairs_list()
+    city_pairs = get_directional_city_pairs_list()
     reachable_destinations = list(
         set(
             itertools.chain(
@@ -89,7 +114,7 @@ def get_reachable_destinations_list_from_city(departure: str) -> list:
     # one doesn't need to go directly to the place he came from, unless he needs an alibi...
     reachable_destinations.remove(departure)
 
-    return reachable_destinations
+    return sorted(reachable_destinations)
 
 
 def get_unique_railstations_df() -> pd.DataFrame:
@@ -98,7 +123,7 @@ def get_unique_railstations_df() -> pd.DataFrame:
     Returns:
         pd.DataFrame: Departure stations dataframe
     """
-    unique_railstations = list(df[DEPARTURE_STATION_KEY].unique())
+    unique_railstations = sorted(list(df[DEPARTURE_STATION_KEY].unique()))
     return unique_railstations
 
 
@@ -139,8 +164,10 @@ def get_mean_departure_delay_df(departure_city: str) -> pd.DataFrame:
 
     return df.loc[df[DEPARTURE_STATION_KEY] == departure_city][MEAN_DEPARTURE_DELAY_KEY]
 
-def get_filtered_metrics_df(metrics: np.array, 
-                            data_df: pd.DataFrame | None = None) -> pd.DataFrame:
+
+def get_filtered_metrics_df(
+    metrics: np.array, data_df: pd.DataFrame | None = None
+) -> pd.DataFrame:
     """Returns a dataframe containing the selected metrics list
 
     Args:
@@ -152,19 +179,19 @@ def get_filtered_metrics_df(metrics: np.array,
     """
     if data_df is None:
         data_df = df
-        
+
     return data_df[metrics]
- 
-def get_filtered_departure_arrival_stations_df(departure_station: str, 
-                                              arrival_station: str, 
-                                              data_df: pd.DataFrame | None = None
-                                              ) -> pd.DataFrame:
+
+
+def get_filtered_departure_arrival_stations_df(
+    departure_station: str, arrival_station: str, data_df: pd.DataFrame | None = None
+) -> pd.DataFrame:
     """Filters the input after the selected departure and arrival stations
 
     Args:
         departure_station (str): departure station
         arrival_station (str): arrival station
-        data_df (np.array): input dataframe with DEPARTURE_STATION 
+        data_df (np.array): input dataframe with DEPARTURE_STATION
         and ARRIVAL_STATION columns
 
     Returns:
@@ -172,14 +199,19 @@ def get_filtered_departure_arrival_stations_df(departure_station: str,
     """
     if data_df is None:
         data_df = df
-        
-    return data_df[(data_df[DEPARTURE_STATION_KEY] == departure_station) 
-                   & (data_df[ARRIVAL_STATION_KEY] == arrival_station)]
-    
-def get_filtered_period_df(start_month: int, 
-                           end_month: int, 
-                           years_list: np.array, 
-                           data_df: pd.DataFrame | None = None) -> pd.DataFrame:
+
+    return data_df[
+        (data_df[DEPARTURE_STATION_KEY] == departure_station)
+        & (data_df[ARRIVAL_STATION_KEY] == arrival_station)
+    ]
+
+
+def get_filtered_period_df(
+    start_month: int,
+    end_month: int,
+    years_list: np.array,
+    data_df: pd.DataFrame | None = None,
+) -> pd.DataFrame:
     """Filters the input dataframe after a given period of year and months
 
     Args:
@@ -193,6 +225,8 @@ def get_filtered_period_df(start_month: int,
     """
     if data_df is None:
         data_df = df
-        
-    return data_df[(data_df[MONTH_KEY].isin(range(start_month, end_month + 1))) 
-                   & (data_df[YEAR_KEY].isin(years_list))]
+
+    return data_df[
+        (data_df[MONTH_KEY].isin(range(start_month, end_month + 1)))
+        & (data_df[YEAR_KEY].isin(years_list))
+    ]

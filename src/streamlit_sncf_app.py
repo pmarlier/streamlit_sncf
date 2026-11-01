@@ -1,40 +1,45 @@
 """
-    Streamlit App — Informational SNCF trains delays prediction web application
-    ============================================================================
+Streamlit App — Informational SNCF trains delays prediction web application
+============================================================================
 
-    To launch the app:
-        uv sync
-        cd ./ #project's root
-        uv run streamlit run ./src/streamlit_sncf_app.py
+To launch the app:
+    uv sync
+    cd ./ #project's root
+    uv run streamlit run ./src/streamlit_sncf_app.py
 
-    The raw data file "regularite-mensuelle-tgv-aqst.csv" shall be stored in ./data/raw,
-    downloaded from https://ressources.data.sncf.com/explore/dataset/regularite-mensuelle-tgv-aqst/export/
-    """
+The raw data file "regularite-mensuelle-tgv-aqst.csv" shall be stored in ./data/raw,
+downloaded from https://ressources.data.sncf.com/explore/dataset/regularite-mensuelle-tgv-aqst/export/
+"""
 
 import streamlit as st
-from ui.carto import st_folium
-from ui.carto import map_drawing, railway_drawing
+
+from core import load_data as ld
+from core.railway_data import railway_geo, railway_network
 from ui import graphs as gr
 from ui import widgets as wg
-from core.railway_data import railway_geo,railway_network
-from core import load_data as ld
+from ui.carto import map_drawing, railway_drawing, st_folium
 
 
 def main():
-    """Sets up the main page of the app by initializing data, UI and core modules loading.
-    """
+    """Sets up the main page of the app by initializing data, UI and core modules loading."""
 
     # --------------------------------------------------------------------------
     # Initialisations
     # --------------------------------------------------------------------------
-    
-    ld.init()
-    railway_geo.init()
-    
+
+    if "is_app_initialized" not in st.session_state:
+        ld.init()
+        railway_geo.init()
+
+        st.session_state.is_app_initialized = True
+        st.session_state.first_map_load = True
+
+        print("Fin de l'import des données par le CSV")
+
     # --------------------------------------------------------------------------
     # Main page general configuration
     # --------------------------------------------------------------------------
-    
+
     st.set_page_config(
         page_title="IADATA700 STreamlit SNFC app",
         page_icon="🚄",
@@ -46,44 +51,152 @@ def main():
     # --------------------------------------------------------------------------
 
     # Create a row with 2 columns
-    col1, col2, _ = st.columns([1, 3, 1], gap="large")
-    with col1:
-        st.image("./resources/logo_sncf.png", width = "stretch")
-    with col2:
+    (logo_sncf_container, title_container, logo_telecom_paris_container) = st.columns(
+        [1, 3, 1], gap="large"
+    )
+
+    with logo_sncf_container:
+        st.image("./resources/logo_sncf.png")
+
+    with title_container:
         st.title(
-            "Et si nous organisions la rencontre parfaite avec votre prochain train ?", 
-            text_alignment="center")
-        
+            "Et si nous organisions la rencontre parfaite avec votre prochain train ?",
+            text_alignment="center",
+        )
+
+    with logo_telecom_paris_container:
+        st.image("./resources/logo_tp.png", width="stretch")
+
     # --------------------------------------------------------------------------
     # 2. Sidebar trip selection
     # --------------------------------------------------------------------------
+    if "is_trip_set" not in st.session_state:
+        st.session_state.is_trip_set = False
 
-    departure_city, arrival_city, start_month, end_month, selected_years = wg.display_sidebar()
-        
+    # Note : display sidebar only if the user wants to display
+    # informations on a specific railway link
+    st.session_state.sidebar_state = (
+        "collapsed" if st.session_state.is_trip_set == False else "expanded"
+    )
+
+    st.set_page_config(initial_sidebar_state=st.session_state.sidebar_state)
+
+    # HomePage mode - no specific railway link set
+    # Display the button to pick departure and arrival
+
+    if st.session_state.is_trip_set is False:
+        # Center the button within the HomePage
+        _, button_container, _ = st.columns([1, 1, 1], gap="large")
+
+        with button_container:
+            if st.button(
+                "Je veux étudier les statistiques  d'un trajet précis", type="primary"
+            ):
+                st.session_state.is_trip_set = True
+                st.rerun()
+
+    if st.session_state.is_trip_set:
+        with st.sidebar:
+            wg.display_sidebar()
+
     # --------------------------------------------------------------------------
     # 3. Main body
     # --------------------------------------------------------------------------
 
-    # Create a row with 2 columns
-    col1, col2 = st.columns(2)
-
+    if st.session_state.is_trip_set:
         # -------------------------------------------
         # a. Delayed/cancelled stats for selected trip #
         # -------------------------------------------
-    wg.display_delayed_cancelled_stats_table(col1, departure_city, 
-                                          arrival_city, start_month, 
-                                          end_month, 
-                                          selected_years)
+        # Create a row with 2 columns
+        info_container, map_container = st.columns([1.5, 2.5], gap="large")
+
+        wg.display_delayed_cancelled_stats_table(
+            info_container,
+            st.session_state.departure_city,
+            st.session_state.arrival_city,
+            st.session_state.start_month,
+            st.session_state.end_month,
+            st.session_state.selected_years,
+        )
         # -------------------------------------------
         # b. France map of trip #
         # -------------------------------------------
-        
-    map = map_drawing.create_map()
-    railway_drawing.draw_railway(railway_network.
-                                 get_railway_data_from_city(departure_city), map)
 
-    with col2:
-        st_folium(map, width=725)
+    map = map_drawing.create_map()
+
+    if st.session_state.is_trip_set:
+        railway_drawing.draw_railway(
+            railway_network.get_railway_data_between_cities(
+                st.session_state.departure_city, st.session_state.arrival_city
+            ),
+            map,
+        )
+
+    else:
+        # Create a row with 2 columns
+        info_container, map_container = st.columns([1, 1], gap="large")
+
+        if st.session_state.first_map_load:
+            progress_text = "Traitement des données en cours. Merci de patienter..."
+            my_bar = st.progress(0, text=progress_text)
+
+            all_railways_to_draw = []
+            city_pairs = ld.get_unique_city_pairs_list()
+
+            total_railway_number = len(city_pairs)
+
+            for railway_index, city_pair in enumerate(city_pairs):
+                if st.session_state.first_map_load:
+                    # display a loading widget
+                    ratio = railway_index / total_railway_number
+                    if ratio > 0.6:
+                        progress_text = "C'est presque fini. Nous vous promettons que l'attente en vaut la peine !"
+
+                    my_bar.progress(ratio, text=progress_text)
+
+                departure, arrival = city_pair
+                all_railways_to_draw.append(
+                    railway_network.get_railway_data_between_cities(departure, arrival)
+                )
+
+            print("Fin du chargement des données")
+            my_bar.empty()
+
+            print(
+                "Préparation de l'affichage de la carte - stockage des données dans le st.session_state"
+            )
+
+            # never show loading bar again
+            st.session_state.first_map_load = False
+            st.session_state.all_railways_to_draw = all_railways_to_draw
+
+        if "all_railways_to_draw" in st.session_state:
+            print("Dessin des lignes sur la carte")
+
+            for railway_to_draw in st.session_state.all_railways_to_draw:
+                railway_drawing.draw_railway(railway_to_draw, map)
+
+        # TODO : Test one railway at a time
+
+        # all_railways_to_draw = []
+        # city_pairs = ld.get_unique_city_pairs_list()
+
+        # # FAIL 17 - 20 - 35 - 50
+        # # stop_index = 53
+
+        # for railway_index, city_pair in enumerate(city_pairs):
+
+        #     # if railway_index < stop_index:
+        #     #     continue
+
+        #     # if railway_index > stop_index:
+        #     #     break
+
+        #     departure, arrival = city_pair
+        #     all_railways_to_draw.append(railway_network.get_railway_data_between_cities(departure, arrival))
+
+    with map_container.container(height=620):
+        st_folium(map, width=740)
 
 
 if __name__ == "__main__":

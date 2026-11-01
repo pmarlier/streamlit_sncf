@@ -9,38 +9,48 @@ from core import load_data as ld
 from core.statistics import amount_trains as am
 
 MONTHS_LIST = [
-        "January", "February", "March", "April",
-        "May", "June", "July", "August",
-        "September", "October", "November", "December"
-    ]
+    "Janvier",
+    "Février",
+    "Mars",
+    "Avril",
+    "Mai",
+    "Juin",
+    "Juillet",
+    "Août",
+    "Septembre",
+    "Octobre",
+    "Novembre",
+    "Décembre",
+]
+
 
 def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
-    """Displays information contained in fields input, named after section_label input, 
+    """Displays information contained in fields input, named after section_label input,
     under the format of a 2 columns table : | section_label | field1
                                             |               | field2
                                             |               | ....
                                             |               | fieldN
-                                            
-    Ratios between 0 (excluded) and 1 (excluded) of trains delayed/cancelled 
-    are displayed as approximate proportions ("X out of Y trains"). 
-    Very low and very high ratios are handled separately to avoid 
+
+    Ratios between 0 (excluded) and 1 (excluded) of trains delayed/cancelled
+    are displayed as approximate proportions ("X out of Y trains").
+    Very low and very high ratios are handled separately to avoid
     misleading approximations.
     Missing values, zero ratios and invalid ratios are handled separately.
 
     Args:
-        section_label (str): Label of the section, contained in the first column. 
-        
+        section_label (str): Label of the section, contained in the first column.
+
         fields (list): list of fields, tuples containing a ratio and a status.
         The ratio represents the number of delayed/cancelled trains
-        divided by the number of planned trains over the selected period. 
-        First field is displayed in the second column, 
-        same line as the section_label. Other fields are stacked on the following rows 
+        divided by the number of planned trains over the selected period.
+        First field is displayed in the second column,
+        same line as the section_label. Other fields are stacked on the following rows
         on the second column.
     """
-    
+
     cols = st.columns([1, 2])
     cols[0].markdown(f"**{section_label}**")
-    
+
     for index, (ratio, status) in enumerate(fields):
         # for index, (label, count, total, status) in enumerate(fields):
         if ratio > 0 and ratio <= 1:
@@ -105,7 +115,7 @@ def select_month(msg: str) -> int:
     """
 
     selected_month = get_month_from_str_int(st.selectbox(msg, MONTHS_LIST))
-    
+
     return selected_month
 
 
@@ -135,19 +145,17 @@ def get_month_from_int_str(month_int: int) -> str:
     Returns:
         month_str (str): month as string
     """
-    
+
     month_dict = {
-        index: month
-        for index, month in enumerate(MONTHS_LIST, start=1)
-        if month
+        index: month for index, month in enumerate(MONTHS_LIST, start=1) if month
     }
     month_str = month_dict[month_int]
-    
+
     return month_str
 
 
 def get_month_from_str_int(month_str: str) -> int:
-    """Converts a month as string into integer. 
+    """Converts a month as string into integer.
     This is based on a dictionnary month_dict{month_str: month_int}
 
     Args:
@@ -156,55 +164,59 @@ def get_month_from_str_int(month_str: str) -> int:
     Returns:
         month_int (int): month as integer
     """
-    
+
     month_dict = {
-        month: index for index, 
-        month in enumerate(MONTHS_LIST, start=1) 
-        if month
+        month: index for index, month in enumerate(MONTHS_LIST, start=1) if month
     }
     month_int = month_dict[month_str]
-    
+
     return month_int
 
 
-def display_sidebar() -> list:
-    """Displays sidebar containing input widgets for customer to specify 
+def display_sidebar() -> None:
+    """Displays sidebar containing input widgets for customer to specify
     a trip to vizualize
-    
+
     Returns:
-        trip_infos (np.array): array of trip infos departure_city, arrival_city, 
+        trip_infos (np.array): array of trip infos departure_city, arrival_city,
         start_month, end_month, selected_years
     """
-    
-    with st.sidebar:
-        st.set_page_config(initial_sidebar_state="expanded")
 
-        st.sidebar.title("Tell us more about your trip")
-        
-        departure_city = st.selectbox(
-                    "Departure:",
-                    ld.get_unique_railstations_df(),
-                )
-        arrival_city = st.selectbox(
-                    "Destination:",
-                    ld.get_reachable_destinations_list_from_city(departure_city),
-                )
-        start_month = select_month("Period from:")
-        end_month = select_month(" to:")
-        selected_years = select_years("Years:")
-        trip_infos = [departure_city, arrival_city, start_month, end_month, 
-                               selected_years]
-        
-        return trip_infos
+    st.sidebar.title("Quelles villes souhaitez-vous relier ?")
 
-        
-def display_delayed_cancelled_stats_table(col: str, departure_city: str, 
-                                          arrival_city: str, start_month: str, 
-                                          end_month: str, 
-                                          selected_years: np.ndarray) -> None:
+    st.session_state.departure_city = st.selectbox(
+        "Ville de départ :",
+        ld.get_unique_railstations_df(),
+    )
+    st.session_state.arrival_city = st.selectbox(
+        "Ville de destination :",
+        ld.get_reachable_destinations_list_from_city(st.session_state.departure_city),
+    )
+    st.session_state.start_month = select_month(
+        "Traitement des données entre le mois de :"
+    )
+    st.session_state.end_month = select_month(" et de :")
+    st.session_state.selected_years = select_years("pour les années :")
+
+    # Bouton personnalisé pour basculer l'état
+    if st.button("Retour à la page d'accueil", type="primary"):
+        st.session_state.is_trip_set = False
+        st.rerun()
+
+    return
+
+
+def display_delayed_cancelled_stats_table(
+    col: str,
+    departure_city: str,
+    arrival_city: str,
+    start_month: str,
+    end_month: str,
+    selected_years: np.ndarray,
+) -> None:
     """Displays delayed and cancelled train ratios in the given column.
     The ratios are displayed as approximate fractions ("X out of Y trains").
-    The statistics are the ratios computed over a given months/years period, 
+    The statistics are the ratios computed over a given months/years period,
     for a given departure and arrival cities.
 
     Args:
@@ -217,30 +229,75 @@ def display_delayed_cancelled_stats_table(col: str, departure_city: str,
             compute the statistics
     """
     with col:
-        st.markdown(f"## {departure_city.title()} --> {arrival_city.title()}\n### Traffic state info ")
-            
-        st.markdown(f"Over the period from "
-                    f"{get_month_from_int_str(start_month)} to "
-                    f" {get_month_from_int_str(end_month)}:")
+        departure_icon_container, railway_icon_container, arrival_icon_container = (
+            st.columns([1.5, 2, 1.5], gap="large")
+        )
+
+        with departure_icon_container:
+            st.image("./resources/departure_arrival_icon.png")
+
+        with railway_icon_container:
+            st.image("./resources/railway_tracks_icon.png")
+
+        with arrival_icon_container:
+            st.image("./resources/departure_arrival_icon.png")
+
+        departure_city_container, _, arrival_city_container = st.columns([2, 1, 2])
+
+        with arrival_city_container:
+            st.markdown(f"{departure_city}")
+
+        with departure_city_container:
+            st.markdown(f"{arrival_city}")
+
+        st.markdown(
+            f"Sur la période de  "
+            f"{get_month_from_int_str(start_month)} à "
+            f" {get_month_from_int_str(end_month)}:"
+        )
 
         # Departure: Delay + Cancelled
-        section_row("Departure", [
-            (am.get_ratio_delayed_departure_trains(departure_city, arrival_city, 
-                                                            start_month, end_month, 
-                                                            selected_years),
-            "delayed"),
-            (am.get_ratio_cancelled_trains(departure_city, arrival_city, 
-                                                            start_month, end_month, 
-                                                            selected_years),
-            "cancelled"),
-        ])
+        section_row(
+            "Departure",
+            [
+                (
+                    am.get_ratio_delayed_departure_trains(
+                        departure_city,
+                        arrival_city,
+                        start_month,
+                        end_month,
+                        selected_years,
+                    ),
+                    "delayed",
+                ),
+                (
+                    am.get_ratio_cancelled_trains(
+                        departure_city,
+                        arrival_city,
+                        start_month,
+                        end_month,
+                        selected_years,
+                    ),
+                    "cancelled",
+                ),
+            ],
+        )
 
         st.divider()
 
         # Arrival: Delay only
-        section_row("Arrival", [
-            (am.get_ratio_delayed_arrival_trains(departure_city, arrival_city, 
-                                                                start_month, end_month, 
-                                                                selected_years),
-            "delayed"),
-        ])
+        section_row(
+            "Arrival",
+            [
+                (
+                    am.get_ratio_delayed_arrival_trains(
+                        departure_city,
+                        arrival_city,
+                        start_month,
+                        end_month,
+                        selected_years,
+                    ),
+                    "delayed",
+                ),
+            ],
+        )

@@ -1,11 +1,13 @@
 from core import railway_data
 from unidecode import unidecode
 import pandas as pd
+from geopy import distance
 import json
 import itertools
 
 CSV_GEO_PATH = "./data/raw/lignes-par-region-administrative.csv"
 CSV_RAILSTATIONS_PATH = "./data/raw/liste-des-gares.csv"
+
 
 def load_railway_geo_data(filepath: str = CSV_GEO_PATH) -> pd.DataFrame:
     """Load geographical points dataframe from all the French railway network
@@ -18,7 +20,7 @@ def load_railway_geo_data(filepath: str = CSV_GEO_PATH) -> pd.DataFrame:
     """
     try:
         railway_geo_df = pd.read_table(filepath, delimiter=";")
-    except Exception as exception:
+    except Exception:
         print(f"{__name__} : FAIL Loading geo file at {filepath}")
         return None
 
@@ -35,20 +37,23 @@ def load_railstation_geo_data(filepath: str = CSV_RAILSTATIONS_PATH) -> pd.DataF
         pd.DataFrame: _description_
     """
     railstation_geo_df = pd.read_table(filepath, delimiter=";")
-    railstation_geo_df["LIBELLE"] = [unidecode(railway_station.lower().replace(" ", "-")) for railway_station in railstation_geo_df["LIBELLE"]]
+    railstation_geo_df["LIBELLE"] = [
+        unidecode(railway_station.lower().replace(" ", "-"))
+        for railway_station in railstation_geo_df["LIBELLE"]
+    ]
     return railstation_geo_df
 
 
 def init() -> None:
-    """_summary_
-    """
+    """_summary_"""
     global railway_geo_df
     global railstation_geo_df
-    
+
     railway_geo_df = load_railway_geo_data()
     railstation_geo_df = load_railstation_geo_data()
 
-def build_geo_box_for_city_pair(departure_city:str, arrival_city:str) -> list:
+
+def get_coords_for_city_pair(departure_city: str, arrival_city: str) -> list:
     """_summary_
 
     Args:
@@ -59,34 +64,28 @@ def build_geo_box_for_city_pair(departure_city:str, arrival_city:str) -> list:
         list: The geo bounding box encompassing departure and arrival cities
         The bounding box coordinates are stored under the format [min_latitude (N/S), max_latitude (N/S), min_longitude (E/W), max_longitude (E/W)]
     """
-    geo_box = [0, 0, 0, 0]
-    departure_railstation_geo = railstation_geo_df[railstation_geo_df["LIBELLE"] == railway_data.get_processed_city_name(departure_city)]
-    arrival_railstation_geo = railstation_geo_df[railstation_geo_df["LIBELLE"] == railway_data.get_processed_city_name(arrival_city)]
+    departure_railstation_geo = railstation_geo_df[
+        railstation_geo_df["LIBELLE"]
+        == railway_data.get_processed_city_name(departure_city)
+    ]
+    arrival_railstation_geo = railstation_geo_df[
+        railstation_geo_df["LIBELLE"]
+        == railway_data.get_processed_city_name(arrival_city)
+    ]
 
-    departure_railstation_geo_point = departure_railstation_geo["Geo Point"].values[0].split(", ")
-    arrival_railstation_geo_point = arrival_railstation_geo["Geo Point"].values[0].split(", ")
+    departure_railstation_geo_point = (
+        departure_railstation_geo["Geo Point"].values[0].split(", ")
+    )
+    arrival_railstation_geo_point = (
+        arrival_railstation_geo["Geo Point"].values[0].split(", ")
+    )
 
-    try: 
-        sorted_latitude = sorted([float(arrival_railstation_geo_point[0]), float(departure_railstation_geo_point[0])])
-        sorted_longitude = sorted([float(arrival_railstation_geo_point[1]), float(departure_railstation_geo_point[1])])
+    return departure_railstation_geo_point, arrival_railstation_geo_point
 
-        geo_box = list(itertools.chain(*[sorted_latitude, sorted_longitude]))
-    except:
-        print(f"{__name__} : Fail building geo box for {departure_city} and {arrival_city}, returning {geo_box}")
-    
-    return geo_box
 
-def is_in_bounding_box(latitude:float, longitude:float, bounding_box:list) -> bool:
-
-    test_1 = bounding_box[0] <= latitude <= bounding_box[1] or bounding_box[2] >= longitude >= bounding_box[3]
-
-    # TODO : fix bounding box algorithm
-    # test_2 = bounding_box[0] >= latitude >= bounding_box[1] or bounding_box[2] <= longitude <= bounding_box[3]
-    # return test_1 or test_2
-
-    return test_1
-
-def get_railway_geo_point_by_id(railway_id:int, departure_city:str, arrival_city:str) -> list:
+def get_railway_geo_point_by_id(
+    railway_id: int, departure_city: str, arrival_city: str
+) -> list:
     """_summary_
 
     Args:
@@ -97,24 +96,133 @@ def get_railway_geo_point_by_id(railway_id:int, departure_city:str, arrival_city
     Returns:
         list: _description_
     """
-    selected_railway_section_geo_list = railway_geo_df[railway_geo_df["CODE_LIGNE"] == railway_id]["Geo Shape"]
+    selected_railway_section_geo_list = railway_geo_df[
+        railway_geo_df["CODE_LIGNE"] == railway_id
+    ]["Geo Shape"]
 
     selected_railway_section_geo_point = []
 
+    (departure_railstation_geo_point, arrival_railstation_geo_point) = (
+        get_coords_for_city_pair(departure_city, arrival_city)
+    )
+
+    trip_distance = distance.geodesic(
+        departure_railstation_geo_point, arrival_railstation_geo_point
+    )
+
     for selected_railway_section in selected_railway_section_geo_list:
-        # turn the LineString in dictionnary {"coordinates", "type"}
+        stop_found = False
+        # turn the LineString in dictionnary {"coordinates", "type"} using json module
         selected_railway_section_dict = json.loads(selected_railway_section)
+
         # extract only coordinates and concatenate them together
-        selected_railway_section_to_reverse = selected_railway_section_dict["coordinates"]
+        selected_railway_section_to_reverse = selected_railway_section_dict[
+            "coordinates"
+        ]
 
-        bounding_box = build_geo_box_for_city_pair(departure_city, arrival_city)
+        # coordinates in the SNCF file are stored in reverse side,
+        # outputed in format long / lat in the csv,
+        # instead of the conventional lat / long format
+        lat_long_railway_section = [
+            (x, y) for y, x in selected_railway_section_to_reverse
+        ]
 
-        # coordinates stored in reverse side, outputed in format long / lat in the csv, instead of the conventional lat / long format
-        lat_long_railway_section = [(x, y) for y, x in selected_railway_section_to_reverse 
-                                    if is_in_bounding_box(x,y,bounding_box)]
+        if len(lat_long_railway_section) == 0:
+            continue
 
-        if len(lat_long_railway_section) > 0:
-            selected_railway_section_geo_point.append(lat_long_railway_section)
-    
+        distance_from_start_to_departure = distance.geodesic(
+            lat_long_railway_section[0], departure_railstation_geo_point
+        )
+        distance_from_start_to_arrival = distance.geodesic(
+            lat_long_railway_section[0], arrival_railstation_geo_point
+        )
+
+        distance_from_end_to_departure = distance.geodesic(
+            lat_long_railway_section[-1], departure_railstation_geo_point
+        )
+        distance_from_end_to_arrival = distance.geodesic(
+            lat_long_railway_section[-1], arrival_railstation_geo_point
+        )
+
+        if (
+            distance_from_start_to_departure > trip_distance
+            and distance_from_end_to_departure > trip_distance
+        ):
+            continue
+
+        if (
+            distance_from_start_to_arrival > trip_distance
+            and distance_from_end_to_arrival > trip_distance
+        ):
+            continue
+
+        # check if the current rail section exceeds the path
+        # between departure and arrival
+        if distance_from_start_to_departure > trip_distance:
+            for geo_coord in lat_long_railway_section:
+                if (
+                    abs(
+                        distance.geodesic(geo_coord, departure_railstation_geo_point)
+                        - trip_distance
+                    )
+                    < 0.3
+                ):
+                    stop_index = lat_long_railway_section.index(geo_coord)
+                    stop_found = True
+                    break
+
+            if stop_found:
+                lat_long_railway_section = lat_long_railway_section[stop_index:]
+
+        elif distance_from_start_to_arrival > trip_distance:
+            for geo_coord in lat_long_railway_section:
+                if (
+                    abs(
+                        distance.geodesic(geo_coord, arrival_railstation_geo_point)
+                        - trip_distance
+                    )
+                    < 0.3
+                ):
+                    stop_index = lat_long_railway_section.index(geo_coord)
+                    stop_found = True
+                    break
+
+            if stop_found:
+                lat_long_railway_section = lat_long_railway_section[stop_index:]
+
+        elif distance_from_end_to_departure > trip_distance:
+            for geo_coord in list(reversed(lat_long_railway_section)):
+                if (
+                    abs(
+                        distance.geodesic(geo_coord, departure_railstation_geo_point)
+                        - trip_distance
+                    )
+                    < 0.3
+                ):
+                    stop_index = lat_long_railway_section.index(geo_coord)
+                    stop_found = True
+                    break
+
+            if stop_found:
+                lat_long_railway_section = lat_long_railway_section[:stop_index]
+
+        elif distance_from_end_to_arrival > trip_distance:
+            for geo_coord in list(reversed(lat_long_railway_section)):
+                if (
+                    abs(
+                        distance.geodesic(geo_coord, arrival_railstation_geo_point)
+                        - trip_distance
+                    )
+                    < 0.3
+                ):
+                    stop_index = lat_long_railway_section.index(geo_coord)
+                    stop_found = True
+                    break
+
+            if stop_found:
+                lat_long_railway_section = lat_long_railway_section[:stop_index]
+
+        selected_railway_section_geo_point.append(lat_long_railway_section)
+
     # remove duplicated coordinates
     return selected_railway_section_geo_point

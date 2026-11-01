@@ -15,7 +15,8 @@ dependencies = [
     "sphinx",
     "sphinx-autoapi",
     "streamlit-folium",
-    "unidecode"
+    "unidecode",
+    "geopy"
 ]
 
 [dependency-groups]
