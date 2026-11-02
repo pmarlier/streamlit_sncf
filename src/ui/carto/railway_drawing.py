@@ -10,7 +10,7 @@ def draw_railway(railway_data_list: list, map_to_update: folium.Map) -> folium.M
     cmap = matplotlib.colors.ListedColormap(NAMED_COLOR_MAP)
 
     for railway_data in railway_data_list:
-        railway_id = railway_data[0]
+        # railway_id = railway_data[0]
         railway_coords_list = railway_data[1]
         departure = railway_data[2]
         arrival = railway_data[3]
@@ -25,8 +25,7 @@ def draw_railway(railway_data_list: list, map_to_update: folium.Map) -> folium.M
                     weight=4,
                     opacity=0.8,
                     tooltip=str(
-                        f"{departure.capitalize()} - {arrival.capitalize()} : ",
-                        f"{mean_delay_on_arrival:.0f} min de retard moyen",
+                        f"{departure.capitalize()} - {arrival.capitalize()} : {mean_delay_on_arrival:.0f} min de retard moyen"
                     ),
                 ).add_to(map_to_update)
 

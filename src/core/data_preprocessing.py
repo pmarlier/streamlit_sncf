@@ -6,32 +6,32 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     """Preprocess a dataframe to clean the data. It has been designed to preprocess the SNCF dataset.
 
     Transformations :
-    
+
     1. Invalidate the data from the Covid period
-    
-    2. Invalidate the data from the columns "Nombre trains en retard > 30min" and 
+
+    2. Invalidate the data from the columns "Nombre trains en retard > 30min" and
     "Nombre trains en retard > 60min" in Q1 2025
-    
+
     3. If no train is delayed at arrival, replacing 0 values of average delay by NaN
-    
+
     4. If no train is delayed at departure, invalidating values of average delay by NaN
-    
-    5. Imputing historical median if trains are delayed but the average delay 
-    "Retard moyen des trains en retard à l'arrivée" is less than or equal to 0. 
-    The median is calculated for the same service, route and month, with at least 2 
+
+    5. Imputing historical median if trains are delayed but the average delay
+    "Retard moyen des trains en retard à l'arrivée" is less than or equal to 0.
+    The median is calculated for the same service, route and month, with at least 2
     valid observations.
-    
-    6. Adding a column "Prct retard causes non renseignées" and calculating the 
+
+    6. Adding a column "Prct retard causes non renseignées" and calculating the
     percentage to have a sum of 100% for all the reasons of delay
-    
-    7. Invalidating values from "Nombre trains en retard > 15min" when they exceed the 
+
+    7. Invalidating values from "Nombre trains en retard > 15min" when they exceed the
     overall number of trains delayed at arrival.
-    
-    8. Replacing negative average delays for all trains by 0 when they are between -1 
+
+    8. Replacing negative average delays for all trains by 0 when they are between -1
     (included) and 0 (excluded), and by NaN when they are below -1.
 
     Args:
-        df (pd.DataFrame): dataframe from the original SNCF dataset with these expected 
+        df (pd.DataFrame): dataframe from the original SNCF dataset with these expected
         columns at least :
             "Date",
             "Service",
@@ -48,7 +48,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
             "Prct retard pour cause gestion trafic",
             "Prct retard pour cause matériel roulant",
             "Prct retard pour cause gestion en gare et réutilisation de matériel",
-            "Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH, 
+            "Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH,
             correspondances)",
             "Nombre trains en retard > 15min",
             "Retard moyen de tous les trains à l'arrivée",
@@ -118,7 +118,8 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
         df_clean[average_delay_arr] <= 0
     )
 
-    # Selecting valid observations and calculating medians and counts in the different groups
+    # Selecting valid observations and calculating medians and counts
+    # in the different groups
 
     references = df_clean[
         (df_clean["Date"].dt.year.between(2018, 2025))
@@ -159,7 +160,10 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
         "Prct retard pour cause gestion trafic",
         "Prct retard pour cause matériel roulant",
         "Prct retard pour cause gestion en gare et réutilisation de matériel",
-        "Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH, correspondances)",
+        (
+            "Prct retard pour cause prise en compte voyageurs "
+            "(affluence, gestions PSH, correspondances)"
+        ),
     ]
 
     # Calculating the sum of the 6 reasons
@@ -172,7 +176,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
         (100 - sum_reasons).round(2).where(df_clean[delayed_trains_arr] > 0)
     )
 
-    # Seventh evolution: invalidating delays over 15 minutes when this value is greater 
+    # Seventh evolution: invalidating delays over 15 minutes when this value is greater
     # than the overall number of delayed trains
 
     delayed_trains_15 = "Nombre trains en retard > 15min"
@@ -195,7 +199,6 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     # the negative values between the threshold and 0 (excluded) are converted to 0
     # the negative values below the threshold are converted to NaN
     for col in columns_average_delay:
-
         mask_zero = (df_clean[col] >= threshold_clean) & (df_clean[col] < 0)
 
         mask_nan = df_clean[col] < threshold_clean

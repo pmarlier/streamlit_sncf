@@ -1,9 +1,10 @@
-from core import railway_data
-from unidecode import unidecode
+import json
+
 import pandas as pd
 from geopy import distance
-import json
-import itertools
+from unidecode import unidecode
+
+from core import railway_data
 
 CSV_GEO_PATH = "./data/raw/lignes-par-region-administrative.csv"
 CSV_RAILSTATIONS_PATH = "./data/raw/liste-des-gares.csv"
@@ -13,7 +14,8 @@ def load_railway_geo_data(filepath: str = CSV_GEO_PATH) -> pd.DataFrame:
     """Load geographical points dataframe from all the French railway network
 
     Args:
-        filepath (str, optional): The filepath of the csv file furnished by . Defaults to CSV_PATH.
+        filepath (str, optional): The filepath of the csv file furnished by .
+        Defaults to CSV_PATH.
 
     Returns:
         pd.DataFrame: _description_
@@ -62,7 +64,8 @@ def get_coords_for_city_pair(departure_city: str, arrival_city: str) -> list:
 
     Returns:
         list: The geo bounding box encompassing departure and arrival cities
-        The bounding box coordinates are stored under the format [min_latitude (N/S), max_latitude (N/S), min_longitude (E/W), max_longitude (E/W)]
+        The bounding box coordinates are stored under the format [min_latitude (N/S),
+        max_latitude (N/S), min_longitude (E/W), max_longitude (E/W)]
     """
     departure_railstation_geo = railstation_geo_df[
         railstation_geo_df["LIBELLE"]

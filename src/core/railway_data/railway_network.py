@@ -1,13 +1,17 @@
-from core import railway_data
-from core import load_data as ld
-from core.statistics import mean_delay as md
-from core.railway_data import railway_geo
-from unidecode import unidecode
 import streamlit as st
 
-# fusion : "marne-la-vallee - paris-gare-de-lyon" pour cause d'absence d'affichage de la ligne
-# station name are not written identically between SNCF datasets : a bit of processing to make syntax match
-# use of UNIDECODE to replace accent and every special character with the closest character in ascii
+from core import load_data as ld
+from core import railway_data
+from core.railway_data import railway_geo
+from core.statistics import mean_delay as md
+
+# fusion : "marne-la-vallee - paris-gare-de-lyon"
+# pour cause d'absence d'affichage de la ligne
+
+# station name are not written identically between SNCF datasets :
+# a bit of processing to make syntax match
+# use of UNIDECODE to replace accent and every special character
+# with the closest character in ascii
 # lower case, replace " " with "-"
 
 # cas particuliers :
@@ -15,7 +19,8 @@ import streamlit as st
 # paris - chambery -> chambery - bellegarde - lyon - paris
 
 # anomalies :
-# MACON LOCHE - PARIS LYON dans fichier retard, mais ligne entre MACON VILLE - PARIS LYON
+# MACON LOCHE - PARIS LYON dans fichier retard,
+# mais ligne entre MACON VILLE - PARIS LYON
 # PARIS LYON - MULHOUSE dans fichier retard, mais ligne entre PARIS EST - MULHOUSE VILLE
 
 
