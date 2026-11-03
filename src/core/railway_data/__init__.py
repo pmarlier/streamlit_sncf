@@ -50,7 +50,8 @@ RAILWAY_ID_NETWORK = {  # OK
     # OK
     "angouleme-paris-montparnasse-pasteur": [570000],
     "paris-montparnasse-pasteur-angouleme": [570000],
-    # 'annecy-paris-gare-de-lyon': [897000, 900000, 890000, 686000, 570000, 569000, 590000, 690000, 750000, 830000, 981000],
+    # 'annecy-paris-gare-de-lyon': [897000, 900000, 890000, 686000,
+    # 570000, 569000, 590000, 690000, 750000, 830000, 981000],
     "annecy-paris-gare-de-lyon": [750000, 897000, 900000],
     "paris-gare-de-lyon-annecy": [750000, 897000, 900000],
     # OK
@@ -175,7 +176,7 @@ RAILWAY_ID_NETWORK = {  # OK
     "paris-est-nancy-ville": [70000],
     # 43
     "paris-montparnasse-pasteur-nantes": [420000, 450000, 515000],
-    "paris-montparnasse-pasteur-nantes": [420000, 450000, 515000],
+    "nantes-paris-montparnasse-pasteur": [420000, 450000, 515000],
     # 44
     "nantes-paris-vaugirard": [420000, 450000, 515000],
     "paris-vaugirard-nantes": [420000, 450000, 515000],
@@ -249,9 +250,7 @@ RAILWAY_ID_NETWORK = {  # OK
     "rennes-paris-vaugirard": [420000],
     "paris-vaugirard-rennes": [420000],
     "stuttgart-paris-est": [],
-    "paris-gare-de-lyon-barcelona": [],
     "paris-est-stuttgart": [],
-    "paris-est-francfort": [],
     "paris-gare-de-lyon-zurich": [],
     "zurich-paris-gare-de-lyon": [],
     "paris-gare-de-lyon-italie": [],

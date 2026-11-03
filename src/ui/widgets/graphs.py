@@ -23,7 +23,7 @@ from ui import widgets as wg
 #     st.caption(legende)
 
 
-def display_departure_city_delay_hist(ville_depart:str) -> None:
+def display_departure_city_delay_hist(ville_depart: str) -> None:
     """Display the histogram of the mean delays of a selected city from a drop down
     list, with the mean delays of both the select city, and the whole country.
     """

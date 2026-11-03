@@ -1,6 +1,5 @@
 """Data loading module"""
 
-import datetime as dt
 import itertools
 
 import numpy as np
@@ -11,7 +10,7 @@ from core.data_preprocessing import preprocess_data
 
 CSV_PATH = "./data/raw/regularite-mensuelle-tgv-aqst.csv"
 
-# to simplify access to the column, keys are made up to avoid typing endless column names
+# to simplify access to the column, keys are made up to avoid typing endless column name
 DATE_KEY = "Date"
 MONTH_KEY = "month"
 YEAR_KEY = "year"
@@ -23,6 +22,15 @@ MONTHLY_CANCELLED_TRAINS_KEY = "Nombre de trains annulés"
 MONTHLY_PLANNED_TRAINS_KEY = "Nombre de circulations prévues"
 MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY = "Nombre de trains en retard au départ"
 MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY = "Nombre de trains en retard à l'arrivée"
+MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT = "Prct retard pour causes externes"
+MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT = "Prct retard pour cause infrastructure"
+MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT = "Prct retard pour cause gestion trafic"
+MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT = "Prct retard pour cause matériel roulant"
+MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT = (
+    "Prct retard pour cause gestion en gare et réutilisation de matériel"
+)
+MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT = "Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH, correspondances)"
+MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT = "Prct retard causes non renseignées"
 
 
 @st.cache_data  # mémorise le résultat d’une fonction pour éviter de la recalculer à
@@ -53,6 +61,13 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
             MONTHLY_PLANNED_TRAINS_KEY,
             MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY,
             MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY,
+            MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT,
+            MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT,
+            MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT,
+            MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT,
+            MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT,
+            MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT,
+            MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT,
         ]
     ]
 
@@ -111,7 +126,7 @@ def get_reachable_destinations_list_from_city(departure: str) -> list:
             )
         )
     )
-    # one doesn't need to go directly to the place he came from, unless he needs an alibi...
+    # no one need to go directly to the place he came from, unless he needs an alibi
     reachable_destinations.remove(departure)
 
     return sorted(reachable_destinations)
@@ -125,31 +140,6 @@ def get_unique_railstations_df() -> pd.DataFrame:
     """
     unique_railstations = sorted(list(df[DEPARTURE_STATION_KEY].unique()))
     return unique_railstations
-
-
-# def file_upload() -> pd.DataFrame:
-#     """Affiche la barre latérale avec les modules choisis
-
-#     Returns:
-#         pd.Dataframe: le dataframe contenant les données importées
-#     """
-
-#     file_uploader = st.sidebar.file_uploader(
-#         "Charger un CSV (colonnes: Gares, Retards ...)", type=["csv"]
-#     )
-
-#     # Si l'utilisateur ne charge rien, on utilise le CSV d'exemple fourni
-#     if file_uploader is not None:
-#         df = load_csv_df(file_uploader)
-#     else:
-#         df = load_csv_df("data/raw/regularite-mensuelle-tgv-aqst.csv")
-#         st.sidebar.info(
-#             "Aucun fichier chargé : utilisation de `regularite-mensuelle-tgv-aqst.csv`."
-#         )
-
-#     st.sidebar.write(f"**{len(df)}** données chargées")
-
-#     return df
 
 
 def get_mean_departure_delay_df(departure_city: str) -> pd.DataFrame:

@@ -15,13 +15,14 @@ import streamlit as st
 
 from core import load_data as ld
 from core.railway_data import railway_geo, railway_network
-from ui import graphs as gr
-from ui import widgets as wg
+from core.statistics import delay_cause
 from ui.carto import map_drawing, railway_drawing, st_folium
+from ui.widgets import pie_chart, sidebar
 
 
 def main():
-    """Sets up the main page of the app by initializing data, UI and core modules loading."""
+    """Sets up the main page of the app by initializing data,
+    UI and core modules loading."""
 
     # --------------------------------------------------------------------------
     # Initialisations
@@ -76,7 +77,7 @@ def main():
     # Note : display sidebar only if the user wants to display
     # informations on a specific railway link
     st.session_state.sidebar_state = (
-        "collapsed" if st.session_state.is_trip_set == False else "expanded"
+        "collapsed" if not st.session_state.is_trip_set else "expanded"
     )
 
     st.set_page_config(initial_sidebar_state=st.session_state.sidebar_state)
@@ -84,25 +85,22 @@ def main():
     # HomePage mode - no specific railway link set
     # Display the button to pick departure and arrival
 
-    if st.session_state.is_trip_set is False:
-        # Center the button within the HomePage
-        _, button_container, _ = st.columns([1, 1, 1], gap="large")
-
-        with button_container:
-            if st.button(
-                "Je veux étudier les statistiques  d'un trajet précis", type="primary"
-            ):
-                st.session_state.is_trip_set = True
-                st.rerun()
-
     if st.session_state.is_trip_set:
         with st.sidebar:
-            wg.display_sidebar()
+            sidebar.display_sidebar()
+    else:
+        st.header(
+            "Mais tout d'abord, voici un aperçu des statistiques nationales",
+            text_alignment="center",
+        )
 
     # --------------------------------------------------------------------------
     # 3. Main body
     # --------------------------------------------------------------------------
 
+    map = map_drawing.create_map()
+
+    # sidebar active: user configuration for trip defintion in progress
     if st.session_state.is_trip_set:
         # -------------------------------------------
         # a. Delayed/cancelled stats for selected trip #
@@ -110,7 +108,7 @@ def main():
         # Create a row with 2 columns
         info_container, map_container = st.columns([1.5, 2.5], gap="large")
 
-        wg.display_delayed_cancelled_stats_table(
+        sidebar.display_delayed_cancelled_stats_table(
             info_container,
             st.session_state.departure_city,
             st.session_state.arrival_city,
@@ -118,13 +116,10 @@ def main():
             st.session_state.end_month,
             st.session_state.selected_years,
         )
+
         # -------------------------------------------
         # b. France map of trip #
         # -------------------------------------------
-
-    map = map_drawing.create_map()
-
-    if st.session_state.is_trip_set:
         railway_drawing.draw_railway(
             railway_network.get_railway_data_between_cities(
                 st.session_state.departure_city, st.session_state.arrival_city
@@ -132,14 +127,17 @@ def main():
             map,
         )
 
+    # homepage mode: national data display
     else:
         # Create a row with 2 columns
         info_container, map_container = st.columns([1, 1], gap="large")
 
         if st.session_state.first_map_load:
+            # display a loading widget
             progress_text = "Traitement des données en cours. Merci de patienter..."
             my_bar = st.progress(0, text=progress_text)
 
+            # retrieve unique couple departure-arrival (no matter the order)
             all_railways_to_draw = []
             city_pairs = ld.get_unique_city_pairs_list()
 
@@ -147,7 +145,6 @@ def main():
 
             for railway_index, city_pair in enumerate(city_pairs):
                 if st.session_state.first_map_load:
-                    # display a loading widget
                     ratio = railway_index / total_railway_number
                     if ratio > 0.6:
                         progress_text = "C'est presque fini. Nous vous promettons que l'attente en vaut la peine !"
@@ -155,6 +152,7 @@ def main():
                     my_bar.progress(ratio, text=progress_text)
 
                 departure, arrival = city_pair
+
                 all_railways_to_draw.append(
                     railway_network.get_railway_data_between_cities(departure, arrival)
                 )
@@ -163,18 +161,16 @@ def main():
             my_bar.empty()
 
             print(
-                "Préparation de l'affichage de la carte - stockage des données dans le st.session_state"
+                "Préparation de l'affichage de la carte - ",
+                "stockage des données dans le st.session_state",
             )
 
             # never show loading bar again
             st.session_state.first_map_load = False
             st.session_state.all_railways_to_draw = all_railways_to_draw
 
-        if "all_railways_to_draw" in st.session_state:
-            print("Dessin des lignes sur la carte")
-
-            for railway_to_draw in st.session_state.all_railways_to_draw:
-                railway_drawing.draw_railway(railway_to_draw, map)
+        for railway_to_draw in st.session_state.all_railways_to_draw:
+            railway_drawing.draw_railway(railway_to_draw, map)
 
         # TODO : Test one railway at a time
 
@@ -193,10 +189,31 @@ def main():
         #     #     break
 
         #     departure, arrival = city_pair
-        #     all_railways_to_draw.append(railway_network.get_railway_data_between_cities(departure, arrival))
+        #     all_railways_to_draw.append(
+        #       railway_network.get_railway_data_between_cities(departure, arrival)
+        #     )
 
     with map_container.container(height=620):
         st_folium(map, width=740)
+
+    with info_container:
+        if st.session_state.is_trip_set:
+            pie_chart.display_pie_chart(
+                delay_cause.get_mean_cause_list(
+                    st.session_state.departure_city, st.session_state.arrival_city
+                )
+            )
+        else:
+            pie_chart.display_pie_chart(delay_cause.get_mean_cause_list())
+
+        if st.session_state.is_trip_set is False:
+            # Set the button to define trip configuration within the HomePage
+            if st.button(
+                "Je veux étudier les statistiques  d'un trajet précis",
+                type="primary",
+            ):
+                st.session_state.is_trip_set = True
+                st.rerun()
 
 
 if __name__ == "__main__":
