@@ -2,6 +2,7 @@
 
 import matplotlib.pyplot as plt
 import streamlit as st
+
 from core import load_data as ld
 from core.statistics import mean_delay as dl
 from ui import widgets as wg

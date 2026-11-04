@@ -21,8 +21,8 @@ release = "0.1.0"
 autoapi_dirs = ["../src"]
 autoapi_type = "python"
 # autoapi_template_dir = "_templates/autoapi"
-extensions = ["autoapi.extension", "sphinx.ext.napoleon"]   # Napoleon handles 
-                                                            # docstrings formatting
+extensions = ["autoapi.extension", "sphinx.ext.napoleon"]  # Napoleon handles
+# docstrings formatting
 # extensions = ["sphinx.ext.autodoc"]
 
 # templates_path = ["_templates"]
