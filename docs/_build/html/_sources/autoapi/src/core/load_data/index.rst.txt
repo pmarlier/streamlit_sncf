@@ -1,0 +1,243 @@
+src.core.load_data
+==================
+
+.. py:module:: src.core.load_data
+
+.. autoapi-nested-parse::
+
+   Data loading module
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   src.core.load_data.CSV_PATH
+   src.core.load_data.DATE_KEY
+   src.core.load_data.MONTH_KEY
+   src.core.load_data.YEAR_KEY
+   src.core.load_data.DEPARTURE_STATION_KEY
+   src.core.load_data.ARRIVAL_STATION_KEY
+   src.core.load_data.MEAN_DEPARTURE_DELAY_KEY
+   src.core.load_data.MEAN_ARRIVAL_DELAY_KEY
+   src.core.load_data.MONTHLY_CANCELLED_TRAINS_KEY
+   src.core.load_data.MONTHLY_PLANNED_TRAINS_KEY
+   src.core.load_data.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY
+   src.core.load_data.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY
+   src.core.load_data.MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT
+   src.core.load_data.MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT
+   src.core.load_data.MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT
+   src.core.load_data.MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT
+   src.core.load_data.MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT
+   src.core.load_data.MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT
+   src.core.load_data.MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.core.load_data.load_csv_df
+   src.core.load_data.init
+   src.core.load_data.get_directional_city_pairs_list
+   src.core.load_data.get_unique_city_pairs_list
+   src.core.load_data.get_reachable_destinations_list_from_city
+   src.core.load_data.get_unique_railstations_df
+   src.core.load_data.get_mean_departure_delay_df
+   src.core.load_data.get_filtered_metrics_df
+   src.core.load_data.get_filtered_departure_arrival_stations_df
+   src.core.load_data.get_filtered_period_df
+
+
+Module Contents
+---------------
+
+.. py:data:: CSV_PATH
+   :value: './data/raw/regularite-mensuelle-tgv-aqst.csv'
+
+
+.. py:data:: DATE_KEY
+   :value: 'Date'
+
+
+.. py:data:: MONTH_KEY
+   :value: 'month'
+
+
+.. py:data:: YEAR_KEY
+   :value: 'year'
+
+
+.. py:data:: DEPARTURE_STATION_KEY
+   :value: 'Gare de départ'
+
+
+.. py:data:: ARRIVAL_STATION_KEY
+   :value: "Gare d'arrivée"
+
+
+.. py:data:: MEAN_DEPARTURE_DELAY_KEY
+   :value: 'Retard moyen des trains en retard au départ'
+
+
+.. py:data:: MEAN_ARRIVAL_DELAY_KEY
+   :value: "Retard moyen des trains en retard à l'arrivée"
+
+
+.. py:data:: MONTHLY_CANCELLED_TRAINS_KEY
+   :value: 'Nombre de trains annulés'
+
+
+.. py:data:: MONTHLY_PLANNED_TRAINS_KEY
+   :value: 'Nombre de circulations prévues'
+
+
+.. py:data:: MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY
+   :value: 'Nombre de trains en retard au départ'
+
+
+.. py:data:: MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY
+   :value: "Nombre de trains en retard à l'arrivée"
+
+
+.. py:data:: MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT
+   :value: 'Prct retard pour causes externes'
+
+
+.. py:data:: MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT
+   :value: 'Prct retard pour cause infrastructure'
+
+
+.. py:data:: MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT
+   :value: 'Prct retard pour cause gestion trafic'
+
+
+.. py:data:: MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT
+   :value: 'Prct retard pour cause matériel roulant'
+
+
+.. py:data:: MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT
+   :value: 'Prct retard pour cause gestion en gare et réutilisation de matériel'
+
+
+.. py:data:: MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT
+   :value: 'Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH, correspondances)'
+
+
+.. py:data:: MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT
+   :value: 'Prct retard causes non renseignées'
+
+
+.. py:function:: load_csv_df(source: str = CSV_PATH) -> pandas.DataFrame
+
+   Charge un fichier csv, de séparateurs ";", utilisé pour l'analyse de données.
+   Filtre les colonnes utiles, et convertit en deux colonnes "year" et "month" la
+   colonne "Date"
+
+   :param source: input de type input = st.sidebar.file_uploader()
+   :type source: str
+
+   :returns: retourne le csv converti en DataFrame
+   :rtype: df (pd.DataFrame)
+
+
+.. py:function:: init() -> None
+
+   Initialization function to make global input csv dataframe
+
+
+.. py:function:: get_directional_city_pairs_list() -> list
+
+   Retrieve pairs "departure-arrival" monitored by SNCF,
+   duplicates are dropped but same pairs in different direction are kept
+   "departure-arrival" is different from "arrival_departure"
+
+   :returns: _description_
+   :rtype: list
+
+
+.. py:function:: get_unique_city_pairs_list() -> list
+
+   Retrieve unique pairs "departure-arrival" monitored by SNCF,
+   duplicates and combinations "departure-arrival" and "arrival-departure" are dropped
+
+   :returns: _description_
+   :rtype: list
+
+
+.. py:function:: get_reachable_destinations_list_from_city(departure: str) -> list
+
+   Retrieve the list of destinations available from the departure railstation
+
+   :returns: _description_
+   :rtype: list
+
+
+.. py:function:: get_unique_railstations_df() -> pandas.DataFrame
+
+   Gets a dataframe list of all the departure stations of the country
+
+   :returns: Departure stations dataframe
+   :rtype: pd.DataFrame
+
+
+.. py:function:: get_mean_departure_delay_df(departure_city: str) -> pandas.DataFrame
+
+   Returns the list of the mean delays of a departure city
+
+   :param departure_city: Departure city
+   :type departure_city: str
+
+   :returns: Mean delays of a departure city
+   :rtype: pd.DataFrame
+
+
+.. py:function:: get_filtered_metrics_df(metrics: numpy.array, data_df: pandas.DataFrame | None = None) -> pandas.DataFrame
+
+   Returns a dataframe containing the selected metrics list
+
+   :param metrics: list of metrics to be filtered
+   :type metrics: np.array
+   :param data_df: input dataframe that contains the target metrics
+   :type data_df: pd.DataFrame
+
+   :returns: filtered dataframe with only the listed metrics
+   :rtype: pd.DataFrame
+
+
+.. py:function:: get_filtered_departure_arrival_stations_df(departure_station: str, arrival_station: str, data_df: pandas.DataFrame | None = None) -> pandas.DataFrame
+
+   Filters the input after the selected departure and arrival stations
+
+   :param departure_station: departure station
+   :type departure_station: str
+   :param arrival_station: arrival station
+   :type arrival_station: str
+   :param data_df: input dataframe with DEPARTURE_STATION
+   :type data_df: np.array
+   :param and ARRIVAL_STATION columns:
+
+   :returns: Filtered dataframe from selected departure and arrival stations
+   :rtype: pd.DataFrame
+
+
+.. py:function:: get_filtered_period_df(start_month: int, end_month: int, years_list: numpy.array, data_df: pandas.DataFrame | None = None) -> pandas.DataFrame
+
+   Filters the input dataframe after a given period of year and months
+
+   :param start_month: start month of period
+   :type start_month: int
+   :param end_month: end month of period
+   :type end_month: int
+   :param years_list: selected years list
+   :type years_list: np.array
+   :param data_df: input dataframe with MONTH and YEAR columns
+   :type data_df: np.array
+
+   :returns: filtered dataframe with selected years and months
+   :rtype: pd.DataFrame
+
+

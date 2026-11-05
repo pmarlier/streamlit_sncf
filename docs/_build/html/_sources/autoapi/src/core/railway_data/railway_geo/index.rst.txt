@@ -1,0 +1,96 @@
+src.core.railway_data.railway_geo
+=================================
+
+.. py:module:: src.core.railway_data.railway_geo
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   src.core.railway_data.railway_geo.CSV_GEO_PATH
+   src.core.railway_data.railway_geo.CSV_RAILSTATIONS_PATH
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.core.railway_data.railway_geo.load_railway_geo_data
+   src.core.railway_data.railway_geo.load_railstation_geo_data
+   src.core.railway_data.railway_geo.init
+   src.core.railway_data.railway_geo.get_coords_for_city_pair
+   src.core.railway_data.railway_geo.get_railway_geo_point_by_id
+
+
+Module Contents
+---------------
+
+.. py:data:: CSV_GEO_PATH
+   :value: './data/raw/lignes-par-region-administrative.csv'
+
+
+.. py:data:: CSV_RAILSTATIONS_PATH
+   :value: './data/raw/liste-des-gares.csv'
+
+
+.. py:function:: load_railway_geo_data(filepath: str = CSV_GEO_PATH) -> pandas.DataFrame
+
+   Load geographical points dataframe from all the French railway network
+
+   :param filepath: The filepath of the csv file furnished by .
+   :type filepath: str, optional
+   :param Defaults to CSV_PATH.:
+
+   :returns: _description_
+   :rtype: pd.DataFrame
+
+
+.. py:function:: load_railstation_geo_data(filepath: str = CSV_RAILSTATIONS_PATH) -> pandas.DataFrame
+
+   _summary_
+
+   :param filepath: _description_. Defaults to CSV_RAILSTATIONS_PATH.
+   :type filepath: str, optional
+
+   :returns: _description_
+   :rtype: pd.DataFrame
+
+
+.. py:function:: init() -> None
+
+   _summary_
+
+
+.. py:function:: get_coords_for_city_pair(departure_city: str, arrival_city: str) -> list
+
+   _summary_
+
+   :param departure_city: _description_
+   :type departure_city: str
+   :param arrival_city: _description_
+   :type arrival_city: str
+
+   :returns: The geo bounding box encompassing departure and arrival cities
+             The bounding box coordinates are stored under the format [min_latitude (N/S),
+             max_latitude (N/S), min_longitude (E/W), max_longitude (E/W)]
+   :rtype: list
+
+
+.. py:function:: get_railway_geo_point_by_id(railway_id: int, departure_city: str, arrival_city: str) -> list
+
+   _summary_
+
+   :param railway_id: _description_
+   :type railway_id: int
+   :param departure_city: _description_
+   :type departure_city: str
+   :param arrival_city: _description_
+   :type arrival_city: str
+
+   :returns: _description_
+   :rtype: list
+
+

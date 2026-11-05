@@ -1,0 +1,6 @@
+src.core.statistics.duration_delay_correlation
+==============================================
+
+.. py:module:: src.core.statistics.duration_delay_correlation
+
+

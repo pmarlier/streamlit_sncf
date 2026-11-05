@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>src.core.statistics.mean_delay &#8212; Streamlit_SNCF 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="src.core.statistics.season_delay_correlation" href="../season_delay_correlation/index.html" />
+    <link rel="prev" title="src.core.statistics.geographic_delay_correlation" href="../geographic_delay_correlation/index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../season_delay_correlation/index.html" title="src.core.statistics.season_delay_correlation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../geographic_delay_correlation/index.html" title="src.core.statistics.geographic_delay_correlation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../../index.html" >src.core</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="../index.html" accesskey="U">src.core.statistics</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.core.statistics.mean_delay</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-src.core.statistics.mean_delay">
+<span id="src-core-statistics-mean-delay"></span><h1>src.core.statistics.mean_delay<a class="headerlink" href="#module-src.core.statistics.mean_delay" title="Link to this heading">¶</a></h1>
+<p>Mean delay computing module feeding UI functions</p>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.statistics.mean_delay.weighted_mean_delay" title="src.core.statistics.mean_delay.weighted_mean_delay"><code class="xref py py-obj docutils literal notranslate"><span class="pre">weighted_mean_delay</span></code></a>(→ float)</p></td>
+<td><p>Calculate a weighted mean of a series of delay observations weighted by</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.statistics.mean_delay.ratio_number_of_trains" title="src.core.statistics.mean_delay.ratio_number_of_trains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ratio_number_of_trains</span></code></a>(→ float)</p></td>
+<td><p>Calculate the ratio of observed trains to planned trains.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.statistics.mean_delay.get_departure_mean_delay_for_city" title="src.core.statistics.mean_delay.get_departure_mean_delay_for_city"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_departure_mean_delay_for_city</span></code></a>(→ float)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.statistics.mean_delay.get_arrival_mean_delay_for_city_pair" title="src.core.statistics.mean_delay.get_arrival_mean_delay_for_city_pair"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_arrival_mean_delay_for_city_pair</span></code></a>(→ float)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.statistics.mean_delay.get_departure_city_mean_delay_df" title="src.core.statistics.mean_delay.get_departure_city_mean_delay_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_departure_city_mean_delay_df</span></code></a>(→ pandas.DataFrame)</p></td>
+<td><p>Returns a dataframe containing the mean delay from a departure city, to display</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.statistics.mean_delay.get_national_global_delay_mean_df" title="src.core.statistics.mean_delay.get_national_global_delay_mean_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_national_global_delay_mean_df</span></code></a>(→ pandas.DataFrame)</p></td>
+<td><p>Returns a dataframe containing the mean delay of</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.statistics.mean_delay.weighted_mean_delay">
+<span class="sig-prename descclassname"><span class="pre">src.core.statistics.mean_delay.</span></span><span class="sig-name descname"><span class="pre">weighted_mean_delay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monthly_planned_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay_observations_to_average</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#src.core.statistics.mean_delay.weighted_mean_delay" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate a weighted mean of a series of delay observations weighted by
+the number of trains planned for each period.</p>
+<p>This function can be used to calculate weighted means of the departure or
+arrival delays.</p>
+<p>Both input Series must cover the same periods and have matching indexes.
+Observations with missing values or non-positive (&lt;= 0)
+monthly planned train counts are excluded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>monthly_planned_trains</strong> (<em>pd.Series</em>) – the number of planned trains
+on the selected months.
+This Series should normally come from the MONTHLY_PLANNED_TRAINS_KEY.
+The Pandas Series must be filtered to only include the periods you want
+to include in the calculation.</p></li>
+<li><p><strong>delay_observations_to_average</strong> (<em>pd.Series</em>) – the delay measure or
+observations you wish to get the mean.
+The Pandas Series must be filtered to only include the
+periods you want to average.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>the delay weighted mean of the valid observations,</dt><dd><p>or NaN if no valid observations are available.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.statistics.mean_delay.ratio_number_of_trains">
+<span class="sig-prename descclassname"><span class="pre">src.core.statistics.mean_delay.</span></span><span class="sig-name descname"><span class="pre">ratio_number_of_trains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monthly_planned_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_observations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#src.core.statistics.mean_delay.ratio_number_of_trains" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the ratio of observed trains to planned trains.</p>
+<p>This function can be used to calculate the proportion of delayed or
+cancelled trains among planned trains over the selected periods.</p>
+<p>Both input Series must cover the same periods and have matching indexes.
+Observations with missing values or invalid counts are excluded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>monthly_planned_trains</strong> (<em>pd.Series</em>) – Number of planned trains for each
+selected month, usually from MONTHLY_PLANNED_TRAINS_KEY.
+The Series must be filtered to the periods being studied.</p></li>
+<li><p><strong>train_observations</strong> (<em>pd.Series</em>) – Number of delayed or cancelled trains
+for each selected month. The Series must cover the same periods
+as monthly_planned_trains.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The ratio of valid train observations to planned trains,</dt><dd><p>or NaN if no valid observations are available.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.statistics.mean_delay.get_departure_mean_delay_for_city">
+<span class="sig-prename descclassname"><span class="pre">src.core.statistics.mean_delay.</span></span><span class="sig-name descname"><span class="pre">get_departure_mean_delay_for_city</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#src.core.statistics.mean_delay.get_departure_mean_delay_for_city" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.statistics.mean_delay.get_arrival_mean_delay_for_city_pair">
+<span class="sig-prename descclassname"><span class="pre">src.core.statistics.mean_delay.</span></span><span class="sig-name descname"><span class="pre">get_arrival_mean_delay_for_city_pair</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">departure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrival</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#src.core.statistics.mean_delay.get_arrival_mean_delay_for_city_pair" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.statistics.mean_delay.get_departure_city_mean_delay_df">
+<span class="sig-prename descclassname"><span class="pre">src.core.statistics.mean_delay.</span></span><span class="sig-name descname"><span class="pre">get_departure_city_mean_delay_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">departure_city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.statistics.mean_delay.get_departure_city_mean_delay_df" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a dataframe containing the mean delay from a departure city, to display
+the horizontal reference on histogram</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe from which get the length</p></li>
+<li><p><strong>departure_city</strong> (<em>str</em>) – Departure city to compute the mean departure delays from</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe duplicating the computed mean departure delays
+of the length of df</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.statistics.mean_delay.get_national_global_delay_mean_df">
+<span class="sig-prename descclassname"><span class="pre">src.core.statistics.mean_delay.</span></span><span class="sig-name descname"><span class="pre">get_national_global_delay_mean_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.statistics.mean_delay.get_national_global_delay_mean_df" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a dataframe containing the mean delay of
+the whole country, to display the horizontal reference on histogram</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pd.DataFrame</em>) – Dataframe from which get the length</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Dataframe duplicating the computed mean departure delays
+of the length of df</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">src.core.statistics.mean_delay</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#src.core.statistics.mean_delay.weighted_mean_delay"><code class="docutils literal notranslate"><span class="pre">weighted_mean_delay()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.statistics.mean_delay.ratio_number_of_trains"><code class="docutils literal notranslate"><span class="pre">ratio_number_of_trains()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.statistics.mean_delay.get_departure_mean_delay_for_city"><code class="docutils literal notranslate"><span class="pre">get_departure_mean_delay_for_city()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.statistics.mean_delay.get_arrival_mean_delay_for_city_pair"><code class="docutils literal notranslate"><span class="pre">get_arrival_mean_delay_for_city_pair()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.statistics.mean_delay.get_departure_city_mean_delay_df"><code class="docutils literal notranslate"><span class="pre">get_departure_city_mean_delay_df()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.statistics.mean_delay.get_national_global_delay_mean_df"><code class="docutils literal notranslate"><span class="pre">get_national_global_delay_mean_df()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../geographic_delay_correlation/index.html"
+                          title="previous chapter">src.core.statistics.geographic_delay_correlation</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../season_delay_correlation/index.html"
+                          title="next chapter">src.core.statistics.season_delay_correlation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../../_sources/autoapi/src/core/statistics/mean_delay/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../season_delay_correlation/index.html" title="src.core.statistics.season_delay_correlation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../geographic_delay_correlation/index.html" title="src.core.statistics.geographic_delay_correlation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../../index.html" >src.core</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="../index.html" >src.core.statistics</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.core.statistics.mean_delay</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Pierre MARLIER, Ulysse PERRUCHON-MONGE, Christophe VANDENBORRE.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,143 @@
+src.core.statistics.amount_trains
+=================================
+
+.. py:module:: src.core.statistics.amount_trains
+
+.. autoapi-nested-parse::
+
+   This module computes from given departure and arrival stations, the ratio of delayed
+   at departure and arrival, and cancelled trains. The ratio is computed
+   from the amount of delayed/cancelled trains over the total planned trains on a given
+   period.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.core.statistics.amount_trains.get_ratio_cancelled_trains
+   src.core.statistics.amount_trains.get_total_planned_trains
+   src.core.statistics.amount_trains.get_ratio_delayed_departure_trains
+   src.core.statistics.amount_trains.get_ratio_delayed_arrival_trains
+
+
+Module Contents
+---------------
+
+.. py:function:: get_ratio_cancelled_trains(departure_station: str, arrival_station: str, start_month: int, end_month: int, years_list: numpy.array, data_df: pandas.DataFrame | None = None) -> float
+
+   Calculate the ratio of cancelled trains
+   to the total number of planned trains
+   over a period, given a departure and arrival stations.
+
+   The ratio is calculated using only valid monthly observations.
+
+   :param departure_station: departure station
+   :type departure_station: str
+   :param arrival_station: arrival station
+   :type arrival_station: str
+   :param start_month: start month of period
+   :type start_month: int
+   :param end_month: end month of period
+   :type end_month: int
+   :param years_list: selected years list
+   :type years_list: np.array
+   :param data_df: input dataframe with MONTH, YEAR, DEPARTURE_STATION_KEY
+   :type data_df: pd.DataFrame
+   :param and ARRIVAL_STATION_KEY columns:
+
+   :returns:
+
+             the ratio of cancelled trains
+                 to the total number of planned trains
+                 over a period between two given stations,
+                 or NaN if no valid observations are available
+   :rtype: cancelled_trains_ratio (float)
+
+
+.. py:function:: get_total_planned_trains(departure_station: str, arrival_station: str, start_month: int, end_month: int, years_list: numpy.array, data_df: pandas.DataFrame | None = None) -> int
+
+   Returns the amount of planned trains over a period,
+   given a departure and arrival stations
+
+   :param departure_station: departure station
+   :type departure_station: str
+   :param arrival_station: arrival station
+   :type arrival_station: str
+   :param start_month: start month of period
+   :type start_month: int
+   :param end_month: end month of period
+   :type end_month: int
+   :param years_list: selected years list
+   :type years_list: np.array
+   :param data_df: input dataframe with MONTH, YEAR, DEPARTURE_STATION_KEY
+   :type data_df: np.array
+   :param and ARRIVAL_STATION_KEY columns:
+
+   :returns: the amount of planned trains
+             over a period between two given stations
+   :rtype: planned_trains_amount (int)
+
+
+.. py:function:: get_ratio_delayed_departure_trains(departure_station: str, arrival_station: str, start_month: int, end_month: int, years_list: numpy.array, data_df: pandas.DataFrame | None = None) -> float
+
+   Calculate the ratio of delayed trains at departure
+   to the total number of planned trains,
+   over a selected period and
+   given a departure and arrival stations.
+
+   The ratio is calculated using only valid monthly observations.
+
+   :param departure_station: departure station
+   :type departure_station: str
+   :param arrival_station: arrival station
+   :type arrival_station: str
+   :param start_month: start month of period
+   :type start_month: int
+   :param end_month: end month of period
+   :type end_month: int
+   :param years_list: selected years list
+   :type years_list: np.array
+   :param data_df: input dataframe with MONTH, YEAR, DEPARTURE_STATION_KEY
+   :type data_df: pd.DataFrame
+   :param and ARRIVAL_STATION_KEY columns:
+
+   :returns: the ratio of delayed trains
+             at departure to the total number of planned trains
+             over a period between two given stations,
+             or NaN if no valid observations are available.
+   :rtype: delayed_departure_trains_ratio (float)
+
+
+.. py:function:: get_ratio_delayed_arrival_trains(departure_station: str, arrival_station: str, start_month: int, end_month: int, years_list: numpy.array, data_df: pandas.DataFrame | None = None) -> float
+
+   Calculate the ratio of delayed trains at arrival
+   to the total number of planned trains,
+   over a selected period and
+   given a departure and arrival stations.
+
+   The ratio is calculated using only valid monthly observations.
+
+   :param departure_station: departure station
+   :type departure_station: str
+   :param arrival_station: arrival station
+   :type arrival_station: str
+   :param start_month: start month of period
+   :type start_month: int
+   :param end_month: end month of period
+   :type end_month: int
+   :param years_list: selected years list
+   :type years_list: np.array
+   :param data_df: input dataframe with MONTH, YEAR, DEPARTURE_STATION_KEY
+   :type data_df: pd.DataFrame
+   :param and ARRIVAL_STATION_KEY columns:
+
+   :returns: the ratio of delayed trains
+             at arrival to the total number of planned trains
+             over a period between two given stations,
+             or NaN if no valid observations are available.
+   :rtype: delayed_arrival_trains_ratio (float)
+
+

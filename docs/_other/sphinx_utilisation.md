@@ -1,14 +1,39 @@
-# Utilisation de Sphinx
+# Utilisation de Sphinx avec AutoAPI
 
-## `make.bat`
+> [!NOTE]
+> Avec AutoAPI, les docstrings et la structuration du projet avec les modules est identifiée automatiquement.
+
+## Lancer la génération de la doc
+
+Depuis la racine du projet :
+
+```powershell
+uv run docs\make.bat html
+```
+
+Les pages HTML sont générées dans `docs/_build/html` :
+- `index.html` : page d'accueil
+- `autoapi/index.html` : documentation de l'API
+
+## Si des modules ont été supprimés ou renommés
+
+Clean puis regénérer la doc :
+
+```powershell
+.\docs\make.bat clean
+.\docs\make.bat html
+```
+
+## Explication des fichiers de configuration :
+
+### `make.bat`
 
 - `SOURCEDIR=.` indique que la racine Sphinx est le dossier `docs`.
 - `BUILDDIR=_build` génère le résultat dans `docs/_build`.
 
-## `conf.py`
+### `conf.py`
 
-Le dossier `../src` est ajouté au `sys.path` pour rendre le paquet
-`streamlit_SNCF` importable :
+Le dossier `../src` est ajouté au `sys.path` pour rendre le code importable :
 
 ```python
 import sys
@@ -17,40 +42,18 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 ```
 
-L'extension `sphinx.ext.autodoc` est activée pour extraire les docstrings du
-code Python :
+Les extensions `autoapi.extension` et `sphinx.ext.napoleon` sont activées :
 
 ```python
-extensions = ["sphinx.ext.autodoc"]
+extensions = ["autoapi.extension", "sphinx.ext.napoleon"]
+autoapi_dirs = ["../src"]
+autoapi_type = "python"
 ```
 
-## `index.rst`
+- **AutoAPI** scanne automatiquement tout le dossier `src/` et génère les
+  pages de documentation à partir des docstrings.
+- **Napoleon** gère le format des docstrings.
 
-La page `api` est ajoutée au `toctree` afin de l'intégrer à la documentation.
+### `index.rst`
 
-## `api.rst`
-
-Cette page utilise les directives `automodule` et `:members:` pour documenter
-les fonctions
-
-L'ajout des fonctions dans l'api.rst se fait de la manière suivante :
-Titre
-=====
-    #^ l'underline doit matcher la longueur du titre
-Sous-titre
-----------
-        #^ l'underline doit matcher la longueur du titre
-Sections
-~~~~~~~~
-       #^ l'underline doit matcher la longueur du titre
-
-.. automodule:: nom_package_projet.module.sous-module
-   :members:
-
-Sphinx lit ainsi sa configuration dans `docs`, importe le code depuis `src`,
-puis génère les pages HTML dans `docs/_build/html`.
-
->[!NOTE] il faut ajouter manuellement les nouveeaux modules
-
-## Lancer la doc génération
-.\docs\make.bat html
+AutoAPI ajoute automatiquement sa page d'index (`autoapi/index`) au `toctree`.

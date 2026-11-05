@@ -1,0 +1,37 @@
+src.streamlit_sncf_app
+======================
+
+.. py:module:: src.streamlit_sncf_app
+
+.. autoapi-nested-parse::
+
+   Streamlit App — Informational SNCF trains delays prediction web application
+   ============================================================================
+
+   To launch the app:
+       uv sync
+       cd ./ #project's root
+       uv run streamlit run ./src/streamlit_sncf_app.py
+
+   The raw data file "regularite-mensuelle-tgv-aqst.csv" shall be stored in ./data/raw,
+   downloaded from https://ressources.data.sncf.com/explore/dataset/regularite-mensuelle-tgv-aqst/export/
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.streamlit_sncf_app.main
+
+
+Module Contents
+---------------
+
+.. py:function:: main()
+
+   Sets up the main page of the app by initializing data,
+   UI and core modules loading.
+
+

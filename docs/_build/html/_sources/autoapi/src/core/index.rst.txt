@@ -1,0 +1,23 @@
+src.core
+========
+
+.. py:module:: src.core
+
+.. autoapi-nested-parse::
+
+   Core modules are in charge of data processing and computing.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/src/core/data_preprocessing/index
+   /autoapi/src/core/load_data/index
+   /autoapi/src/core/railway_data/index
+   /autoapi/src/core/statistics/index
+
+

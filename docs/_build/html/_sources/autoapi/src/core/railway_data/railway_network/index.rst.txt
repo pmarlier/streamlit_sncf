@@ -1,0 +1,68 @@
+src.core.railway_data.railway_network
+=====================================
+
+.. py:module:: src.core.railway_data.railway_network
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.core.railway_data.railway_network.get_railway_id_from_network
+   src.core.railway_data.railway_network.get_railway_data_from_city
+   src.core.railway_data.railway_network.get_railway_data_between_cities
+   src.core.railway_data.railway_network.get_all_railways_to_draw
+
+
+Module Contents
+---------------
+
+.. py:function:: get_railway_id_from_network(departure: str, arrival: str) -> list
+
+   _summary_
+
+   :param departure: _description_
+   :type departure: str
+   :param arrival: _description_
+   :type arrival: str
+
+   :returns: _description_
+   :rtype: list
+
+
+.. py:function:: get_railway_data_from_city(departure: str) -> list
+
+   _summary_
+
+   :param departure: _description_
+   :type departure: str
+
+   :returns: _description_
+   :rtype: list
+
+
+.. py:function:: get_railway_data_between_cities(departure: str, arrival: str) -> list
+
+   _summary_
+
+   :param departure: _description_
+   :type departure: str
+   :param arrival: _description_
+   :type arrival: str
+
+   :returns: _description_
+   :rtype: list
+
+
+.. py:function:: get_all_railways_to_draw() -> list
+
+   _summary_
+
+   :param departure: _description_
+   :type departure: str
+
+   :returns: _description_
+   :rtype: list
+
+

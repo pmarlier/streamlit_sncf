@@ -1,0 +1,6 @@
+src.core.statistics.season_delay_correlation
+============================================
+
+.. py:module:: src.core.statistics.season_delay_correlation
+
+

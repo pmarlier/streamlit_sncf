@@ -1,0 +1,28 @@
+src.core.statistics
+===================
+
+.. py:module:: src.core.statistics
+
+.. autoapi-nested-parse::
+
+   Statistics consist of metrics that are computed from raw data,
+   for information extraction such as trains amounts, durations and correlations regarding
+   delays and cancellations.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/src/core/statistics/amount_trains/index
+   /autoapi/src/core/statistics/delay_cause/index
+   /autoapi/src/core/statistics/delay_seasonal_distribution/index
+   /autoapi/src/core/statistics/duration_delay_correlation/index
+   /autoapi/src/core/statistics/geographic_delay_correlation/index
+   /autoapi/src/core/statistics/mean_delay/index
+   /autoapi/src/core/statistics/season_delay_correlation/index
+
+

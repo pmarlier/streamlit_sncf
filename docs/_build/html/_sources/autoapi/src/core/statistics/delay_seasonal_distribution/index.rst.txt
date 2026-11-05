@@ -1,0 +1,162 @@
+src.core.statistics.delay_seasonal_distribution
+===============================================
+
+.. py:module:: src.core.statistics.delay_seasonal_distribution
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.core.statistics.delay_seasonal_distribution.calculate_mean_arrival_delay_distribution_per_month
+   src.core.statistics.delay_seasonal_distribution.generate_historical_monthly_mean_arrival_delay_distribution_dataframe
+   src.core.statistics.delay_seasonal_distribution.get_monthly_mean_arrival_delay_global_dataframe
+
+
+Module Contents
+---------------
+
+.. py:function:: calculate_mean_arrival_delay_distribution_per_month(departure_station: str, arrival_station: str, selected_month: int, historical_years: list[int], data_df: pandas.DataFrame) -> dict[str, float | int | None]
+
+   Return different statistics about the mean train delays at arrival
+   for a specific calendar month of the year and a specific railway line.
+
+   The distribution is calculated using the monthly mean of arrival delays
+   from the selected historical years.
+
+   Statistics are calculated depending on the number of available
+   and valid observations:
+       - 0 observations: all distribution statistics are NaN
+       - 1 observation: median only
+       - 2 to 4 observations: minimum, median and maximum
+       - 5+ observations: minimum, Q1, median, Q3 and maximum
+   The function also returns the total number of delayed trains at arrival,
+   which have been used for the calculation of the means. This number is
+   returned only if values are valid and available.
+   The function returns also the number of observations
+   (number of historical years)
+
+   Unavailable statistics are represented by NaN.
+   The total number of delayed trains at arrival is None when
+   it cannot be determined.
+
+   :param departure_station: departure railway station
+   :type departure_station: str
+   :param arrival_station: arrival railway station
+   :type arrival_station: str
+   :param selected_month: calendar month (1 to 12)
+   :type selected_month: int
+   :param historical_years: past years selected for calculations,
+                            which should be available in the dataset
+   :type historical_years: list[int]
+   :param data_df: DataFrame containing the preprocessed data
+   :type data_df: pd.DataFrame
+
+   :returns:     - minimum: minimum of monthly mean delay (minutes)
+                 - q1: first quartile of monthly mean delay (minutes)
+                 - median: median of monthly mean delay (minutes)
+                 - q3: third quartile of monthly mean delay (minutes)
+                 - maximum: maximum of monthly mean delay (minutes)
+                 - number_historical_year_observations: number of
+                     valid observations (historical years)
+                 - sum_arr_delayed_trains: total number of delayed trains
+                         associated with the valid monthly mean arrival delays
+   :rtype: dict[str, float | int | None]
+
+
+.. py:function:: generate_historical_monthly_mean_arrival_delay_distribution_dataframe(departure_station: str, arrival_station: str, start_month: int, end_month: int, historical_years: list[int], data_df: pandas.DataFrame) -> pandas.DataFrame
+
+   Generate a dataframe containing statistics of the mean train delays at arrival
+       for each calendar month of the selected period and selected railway line.
+
+       Statistics are calculated from the monthly mean arrival delays observed
+       during the selected historical years.
+
+   :param departure_station: departure railway station
+   :type departure_station: str
+   :param arrival_station: arrival railway station
+   :type arrival_station: str
+   :param start_month: first month of the selected period (included)
+   :type start_month: int
+   :param end_month: last month of the selected period (included)
+   :type end_month: int
+   :param historical_years: past years selected for calculations,
+                            which should be available in the dataset
+   :type historical_years: list[int]
+   :param data_df: DataFrame containing the preprocessed data
+   :type data_df: pd.DataFrame
+
+   :returns:
+
+             A DataFrame containing one row per calendar month
+                 of the selected period, with the following columns:
+                     month : calendar month (1 to 12)
+                     minimum: minimum of monthly mean delay (minutes)
+                     q1: first quartile of monthly mean delay (minutes)
+                     median: median of monthly mean delay (minutes)
+                     q3: third quartile of monthly mean delay (minutes)
+                     maximum: maximum of monthly mean delay (minutes)
+                     number_historical_year_observations: number of
+                         valid observations (historical years)
+                     sum_arr_delayed_trains: total number of delayed trains
+                         associated with the valid monthly mean arrival delays
+   :rtype: pd.DataFrame
+
+
+.. py:function:: get_monthly_mean_arrival_delay_global_dataframe(departure_station: str, arrival_station: str, start_month: int, end_month: int, years_list: list[int], data_df: pandas.DataFrame, actual_year: int = 2026) -> pandas.DataFrame
+
+   Generate a DataFrame combining historical statistics of mean arrival delays
+       with the monthly mean arrival delays of the selected actual year,
+       for a specific railway line and period of months.
+
+       Historical statistics are calculated from the selected past years,
+       excluding the actual year if present in the list.
+       The actual year's observations are then added to the historical
+       distribution for each calendar month.
+
+       Months without valid observations from the actual year are kept
+       in the DataFrame, with NaN values for the corresponding metrics.
+
+   :param departure_station: departure railway station
+   :type departure_station: str
+   :param arrival_station: arrival railway station
+   :type arrival_station: str
+   :param start_month: first month of the selected period (included)
+   :type start_month: int
+   :param end_month: last month of the selected period (included)
+   :type end_month: int
+   :param years_list: years selected for the historical calculations,
+                      excluding the actual year
+   :type years_list: list[int]
+   :param data_df: DataFrame containing the preprocessed data
+   :type data_df: pd.DataFrame
+   :param actual_year: year whose observations are compared
+                       with the historical distribution. Defaults to 2026.
+   :type actual_year: int, optional
+
+   :returns:
+
+             a DataFrame containing one row per calendar month
+                 of the selected period, with the following columns:
+
+                 Historical statistics:
+                     month: calendar month (1 to 12)
+                     minimum: minimum of monthly mean arrival delay (minutes)
+                     q1: first quartile of monthly mean arrival delay (minutes)
+                     median: median of monthly mean arrival delay (minutes)
+                     q3: third quartile of monthly mean arrival delay (minutes)
+                     maximum: maximum of monthly mean arrival delay (minutes)
+                     number_historical_year_observations: number of valid
+                         historical observations
+                     sum_arr_delayed_trains: total number of delayed trains
+                         associated with valid historical monthly mean delays
+
+                 Actual year :
+                     mean_arrival_delay_actual_year: mean arrival delay (minutes)
+                         for the corresponding month of the actual year
+                     number_arr_delayed_trains_actual_year: number of delayed trains
+                         at arrival for the corresponding month of the actual year
+   :rtype: pd.DataFrame
+
+

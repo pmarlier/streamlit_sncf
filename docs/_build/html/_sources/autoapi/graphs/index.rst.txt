@@ -1,0 +1,28 @@
+graphs
+======
+
+.. py:module:: graphs
+
+.. autoapi-nested-parse::
+
+   Graphs display module
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   graphs.display_departure_city_delay_hist
+
+
+Module Contents
+---------------
+
+.. py:function:: display_departure_city_delay_hist(ville_depart: str) -> None
+
+   Display the histogram of the mean delays of a selected city from a drop down
+   list, with the mean delays of both the select city, and the whole country.
+
+

@@ -1,0 +1,19 @@
+src.ui.carto.railway_drawing
+============================
+
+.. py:module:: src.ui.carto.railway_drawing
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.ui.carto.railway_drawing.draw_railway
+
+
+Module Contents
+---------------
+
+.. py:function:: draw_railway(railway_data_list: list, map_to_update: folium.Map) -> folium.Map
+

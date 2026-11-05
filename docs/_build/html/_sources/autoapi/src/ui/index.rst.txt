@@ -1,0 +1,21 @@
+src.ui
+======
+
+.. py:module:: src.ui
+
+.. autoapi-nested-parse::
+
+   User interface modules are intended to display given information on front-end
+   interface, computed from core modules.
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/src/ui/carto/index
+
+

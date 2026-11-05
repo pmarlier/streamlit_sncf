@@ -1,0 +1,146 @@
+sidebar
+=======
+
+.. py:module:: sidebar
+
+.. autoapi-nested-parse::
+
+   User interactions widgets definition module
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   sidebar.MONTHS_LIST
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   sidebar.section_row
+   sidebar.select_month
+   sidebar.select_years
+   sidebar.get_month_from_int_str
+   sidebar.get_month_from_str_int
+   sidebar.display_sidebar
+   sidebar.display_delayed_cancelled_stats_table
+
+
+Module Contents
+---------------
+
+.. py:data:: MONTHS_LIST
+   :value: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',...
+
+
+.. py:function:: section_row(section_label: str, fields: list[tuple[float, str]]) -> None
+
+   Displays information contained in fields input, named after section_label input,
+   under the format of a 2 columns table : | section_label | field1
+                                           |               | field2
+                                           |               | ....
+                                           |               | fieldN
+
+   Ratios between 0 (excluded) and 1 (excluded) of trains delayed/cancelled
+   are displayed as approximate proportions ("X out of Y trains").
+   Very low and very high ratios are handled separately to avoid
+   misleading approximations.
+   Missing values, zero ratios and invalid ratios are handled separately.
+
+   :param section_label: Label of the section, contained in the first column.
+   :type section_label: str
+   :param fields: list of fields, tuples containing a ratio and a status.
+   :type fields: list
+   :param The ratio represents the number of delayed/cancelled trains:
+   :param divided by the number of planned trains over the selected period.:
+   :param First field is displayed in the second column:
+   :param :
+   :param same line as the section_label. Other fields are stacked on the following rows:
+   :param on the second column.:
+
+
+.. py:function:: select_month(msg: str) -> int
+
+   Get month from a dropdown list as integer, requiring get_month_from_str_int
+   function to convert a month string to integer for further functions.
+
+   :param msg: Message to be displayed aside the dropdown list
+   :type msg: str
+
+   :returns: Selected month as integer (bewteen 1 and 12)
+   :rtype: selected_month (int)
+
+
+.. py:function:: select_years(msg: str) -> list[int]
+
+   Get year(s) from a multiselect dropdown.
+   Initially, all years from the dataset are selected.
+
+   :param msg: Message to be displayed aside the dropdown list
+   :type msg: str
+
+   :returns: Selected years from the initialized dataset.
+   :rtype: selected_years (list[int])
+
+
+.. py:function:: get_month_from_int_str(month_int: int) -> str
+
+   Converts a month as integer into string.
+   This is based on a dictionnary month_dict{month_int: month_str}
+
+   :param month_int: month as integer
+   :type month_int: int
+
+   :returns: month as string
+   :rtype: month_str (str)
+
+
+.. py:function:: get_month_from_str_int(month_str: str) -> int
+
+   Converts a month as string into integer.
+   This is based on a dictionnary month_dict{month_str: month_int}
+
+   :param month_str: month as string
+   :type month_str: str
+
+   :returns: month as integer
+   :rtype: month_int (int)
+
+
+.. py:function:: display_sidebar() -> None
+
+   Displays sidebar containing input widgets for customer to specify
+   a trip to vizualize
+
+   :returns: array of trip infos departure_city, arrival_city,
+             start_month, end_month, selected_years
+   :rtype: trip_infos (np.array)
+
+
+.. py:function:: display_delayed_cancelled_stats_table(col: str, departure_city: str, arrival_city: str, start_month: str, end_month: str, selected_years: numpy.ndarray) -> None
+
+   Displays delayed and cancelled train ratios in the given column.
+   The ratios are displayed as approximate fractions ("X out of Y trains").
+   The statistics are the ratios computed over a given months/years period,
+   for a given departure and arrival cities.
+
+   :param col: body column number to place the table
+   :type col: str
+   :param departure_city: departure city to compute the statistics
+   :type departure_city: str
+   :param arrival_city: arrival city
+   :type arrival_city: str
+   :param start_month: first month of the time period for a given year
+   :type start_month: str
+   :param end_month: last month of the time period
+   :type end_month: str
+   :param selected_years: np.ndarray of selected years to
+                          compute the statistics
+   :type selected_years: np.ndarray
+
+

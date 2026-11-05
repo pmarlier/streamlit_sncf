@@ -1,0 +1,56 @@
+src.core.railway_data
+=====================
+
+.. py:module:: src.core.railway_data
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/src/core/railway_data/railway_geo/index
+   /autoapi/src/core/railway_data/railway_network/index
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   src.core.railway_data.FOREIGN_CITY
+   src.core.railway_data.MAP_CITY
+   src.core.railway_data.RAILWAY_ID_NETWORK
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.core.railway_data.get_processed_city_name
+
+
+Package Contents
+----------------
+
+.. py:data:: FOREIGN_CITY
+   :value: ['zurich', 'barcelona', 'madrid', 'francfort', 'italie', 'lausanne', 'geneve', 'stuttgart']
+
+
+.. py:data:: MAP_CITY
+
+.. py:data:: RAILWAY_ID_NETWORK
+
+.. py:function:: get_processed_city_name(city_name: str) -> str
+
+   _summary_
+
+   :param city_name: _description_
+   :type city_name: str
+
+   :returns: _description_
+   :rtype: str
+
+

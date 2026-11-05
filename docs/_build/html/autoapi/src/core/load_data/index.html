@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>src.core.load_data &#8212; Streamlit_SNCF 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="src.core.railway_data" href="../railway_data/index.html" />
+    <link rel="prev" title="src.core.data_preprocessing" href="../data_preprocessing/index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../railway_data/index.html" title="src.core.railway_data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../data_preprocessing/index.html" title="src.core.data_preprocessing"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../index.html" accesskey="U">src.core</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.core.load_data</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-src.core.load_data">
+<span id="src-core-load-data"></span><h1>src.core.load_data<a class="headerlink" href="#module-src.core.load_data" title="Link to this heading">¶</a></h1>
+<p>Data loading module</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.CSV_PATH" title="src.core.load_data.CSV_PATH"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CSV_PATH</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.DATE_KEY" title="src.core.load_data.DATE_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DATE_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.MONTH_KEY" title="src.core.load_data.MONTH_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTH_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.YEAR_KEY" title="src.core.load_data.YEAR_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">YEAR_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.DEPARTURE_STATION_KEY" title="src.core.load_data.DEPARTURE_STATION_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DEPARTURE_STATION_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.ARRIVAL_STATION_KEY" title="src.core.load_data.ARRIVAL_STATION_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ARRIVAL_STATION_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.MEAN_DEPARTURE_DELAY_KEY" title="src.core.load_data.MEAN_DEPARTURE_DELAY_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MEAN_DEPARTURE_DELAY_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.MEAN_ARRIVAL_DELAY_KEY" title="src.core.load_data.MEAN_ARRIVAL_DELAY_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MEAN_ARRIVAL_DELAY_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_CANCELLED_TRAINS_KEY" title="src.core.load_data.MONTHLY_CANCELLED_TRAINS_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_CANCELLED_TRAINS_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_PLANNED_TRAINS_KEY" title="src.core.load_data.MONTHLY_PLANNED_TRAINS_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_PLANNED_TRAINS_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY" title="src.core.load_data.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY" title="src.core.load_data.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT" title="src.core.load_data.MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT" title="src.core.load_data.MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT" title="src.core.load_data.MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT" title="src.core.load_data.MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT" title="src.core.load_data.MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT" title="src.core.load_data.MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT" title="src.core.load_data.MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.load_csv_df" title="src.core.load_data.load_csv_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_csv_df</span></code></a>(→ pandas.DataFrame)</p></td>
+<td><p>Charge un fichier csv, de séparateurs &quot;;&quot;, utilisé pour l'analyse de données.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.init" title="src.core.load_data.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a>(→ None)</p></td>
+<td><p>Initialization function to make global input csv dataframe</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.get_directional_city_pairs_list" title="src.core.load_data.get_directional_city_pairs_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_directional_city_pairs_list</span></code></a>(→ list)</p></td>
+<td><p>Retrieve pairs &quot;departure-arrival&quot; monitored by SNCF,</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.get_unique_city_pairs_list" title="src.core.load_data.get_unique_city_pairs_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_unique_city_pairs_list</span></code></a>(→ list)</p></td>
+<td><p>Retrieve unique pairs &quot;departure-arrival&quot; monitored by SNCF,</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.get_reachable_destinations_list_from_city" title="src.core.load_data.get_reachable_destinations_list_from_city"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_reachable_destinations_list_from_city</span></code></a>(→ list)</p></td>
+<td><p>Retrieve the list of destinations available from the departure railstation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.get_unique_railstations_df" title="src.core.load_data.get_unique_railstations_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_unique_railstations_df</span></code></a>(→ pandas.DataFrame)</p></td>
+<td><p>Gets a dataframe list of all the departure stations of the country</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.get_mean_departure_delay_df" title="src.core.load_data.get_mean_departure_delay_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mean_departure_delay_df</span></code></a>(→ pandas.DataFrame)</p></td>
+<td><p>Returns the list of the mean delays of a departure city</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.get_filtered_metrics_df" title="src.core.load_data.get_filtered_metrics_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filtered_metrics_df</span></code></a>(→ pandas.DataFrame)</p></td>
+<td><p>Returns a dataframe containing the selected metrics list</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.get_filtered_departure_arrival_stations_df" title="src.core.load_data.get_filtered_departure_arrival_stations_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filtered_departure_arrival_stations_df</span></code></a>(...)</p></td>
+<td><p>Filters the input after the selected departure and arrival stations</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.get_filtered_period_df" title="src.core.load_data.get_filtered_period_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filtered_period_df</span></code></a>(→ pandas.DataFrame)</p></td>
+<td><p>Filters the input dataframe after a given period of year and months</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.CSV_PATH">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">CSV_PATH</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'./data/raw/regularite-mensuelle-tgv-aqst.csv'</span></span><a class="headerlink" href="#src.core.load_data.CSV_PATH" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.DATE_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">DATE_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Date'</span></span><a class="headerlink" href="#src.core.load_data.DATE_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTH_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTH_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'month'</span></span><a class="headerlink" href="#src.core.load_data.MONTH_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.YEAR_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">YEAR_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'year'</span></span><a class="headerlink" href="#src.core.load_data.YEAR_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.DEPARTURE_STATION_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">DEPARTURE_STATION_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Gare</span> <span class="pre">de</span> <span class="pre">départ'</span></span><a class="headerlink" href="#src.core.load_data.DEPARTURE_STATION_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.ARRIVAL_STATION_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">ARRIVAL_STATION_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;Gare</span> <span class="pre">d'arrivée&quot;</span></span><a class="headerlink" href="#src.core.load_data.ARRIVAL_STATION_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MEAN_DEPARTURE_DELAY_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MEAN_DEPARTURE_DELAY_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Retard</span> <span class="pre">moyen</span> <span class="pre">des</span> <span class="pre">trains</span> <span class="pre">en</span> <span class="pre">retard</span> <span class="pre">au</span> <span class="pre">départ'</span></span><a class="headerlink" href="#src.core.load_data.MEAN_DEPARTURE_DELAY_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MEAN_ARRIVAL_DELAY_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MEAN_ARRIVAL_DELAY_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;Retard</span> <span class="pre">moyen</span> <span class="pre">des</span> <span class="pre">trains</span> <span class="pre">en</span> <span class="pre">retard</span> <span class="pre">à</span> <span class="pre">l'arrivée&quot;</span></span><a class="headerlink" href="#src.core.load_data.MEAN_ARRIVAL_DELAY_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_CANCELLED_TRAINS_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_CANCELLED_TRAINS_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Nombre</span> <span class="pre">de</span> <span class="pre">trains</span> <span class="pre">annulés'</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_CANCELLED_TRAINS_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_PLANNED_TRAINS_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_PLANNED_TRAINS_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Nombre</span> <span class="pre">de</span> <span class="pre">circulations</span> <span class="pre">prévues'</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_PLANNED_TRAINS_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Nombre</span> <span class="pre">de</span> <span class="pre">trains</span> <span class="pre">en</span> <span class="pre">retard</span> <span class="pre">au</span> <span class="pre">départ'</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;Nombre</span> <span class="pre">de</span> <span class="pre">trains</span> <span class="pre">en</span> <span class="pre">retard</span> <span class="pre">à</span> <span class="pre">l'arrivée&quot;</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Prct</span> <span class="pre">retard</span> <span class="pre">pour</span> <span class="pre">causes</span> <span class="pre">externes'</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Prct</span> <span class="pre">retard</span> <span class="pre">pour</span> <span class="pre">cause</span> <span class="pre">infrastructure'</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Prct</span> <span class="pre">retard</span> <span class="pre">pour</span> <span class="pre">cause</span> <span class="pre">gestion</span> <span class="pre">trafic'</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Prct</span> <span class="pre">retard</span> <span class="pre">pour</span> <span class="pre">cause</span> <span class="pre">matériel</span> <span class="pre">roulant'</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Prct</span> <span class="pre">retard</span> <span class="pre">pour</span> <span class="pre">cause</span> <span class="pre">gestion</span> <span class="pre">en</span> <span class="pre">gare</span> <span class="pre">et</span> <span class="pre">réutilisation</span> <span class="pre">de</span> <span class="pre">matériel'</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Prct</span> <span class="pre">retard</span> <span class="pre">pour</span> <span class="pre">cause</span> <span class="pre">prise</span> <span class="pre">en</span> <span class="pre">compte</span> <span class="pre">voyageurs</span> <span class="pre">(affluence,</span> <span class="pre">gestions</span> <span class="pre">PSH,</span> <span class="pre">correspondances)'</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="src.core.load_data.MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Prct</span> <span class="pre">retard</span> <span class="pre">causes</span> <span class="pre">non</span> <span class="pre">renseignées'</span></span><a class="headerlink" href="#src.core.load_data.MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.load_csv_df">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">load_csv_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">CSV_PATH</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.load_data.load_csv_df" title="Link to this definition">¶</a></dt>
+<dd><p>Charge un fichier csv, de séparateurs “;”, utilisé pour l’analyse de données.
+Filtre les colonnes utiles, et convertit en deux colonnes “year” et “month” la
+colonne “Date”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source</strong> (<em>str</em>) – input de type input = st.sidebar.file_uploader()</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>retourne le csv converti en DataFrame</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>df (pd.DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.init">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.core.load_data.init" title="Link to this definition">¶</a></dt>
+<dd><p>Initialization function to make global input csv dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.get_directional_city_pairs_list">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_directional_city_pairs_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#src.core.load_data.get_directional_city_pairs_list" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve pairs “departure-arrival” monitored by SNCF,
+duplicates are dropped but same pairs in different direction are kept
+“departure-arrival” is different from “arrival_departure”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.get_unique_city_pairs_list">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_unique_city_pairs_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#src.core.load_data.get_unique_city_pairs_list" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve unique pairs “departure-arrival” monitored by SNCF,
+duplicates and combinations “departure-arrival” and “arrival-departure” are dropped</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.get_reachable_destinations_list_from_city">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_reachable_destinations_list_from_city</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">departure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#src.core.load_data.get_reachable_destinations_list_from_city" title="Link to this definition">¶</a></dt>
+<dd><p>Retrieve the list of destinations available from the departure railstation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.get_unique_railstations_df">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_unique_railstations_df</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.load_data.get_unique_railstations_df" title="Link to this definition">¶</a></dt>
+<dd><p>Gets a dataframe list of all the departure stations of the country</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Departure stations dataframe</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.get_mean_departure_delay_df">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_mean_departure_delay_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">departure_city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.load_data.get_mean_departure_delay_df" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the list of the mean delays of a departure city</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>departure_city</strong> (<em>str</em>) – Departure city</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mean delays of a departure city</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.get_filtered_metrics_df">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_filtered_metrics_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.load_data.get_filtered_metrics_df" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a dataframe containing the selected metrics list</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metrics</strong> (<em>np.array</em>) – list of metrics to be filtered</p></li>
+<li><p><strong>data_df</strong> (<em>pd.DataFrame</em>) – input dataframe that contains the target metrics</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>filtered dataframe with only the listed metrics</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.get_filtered_departure_arrival_stations_df">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_filtered_departure_arrival_stations_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">departure_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrival_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.load_data.get_filtered_departure_arrival_stations_df" title="Link to this definition">¶</a></dt>
+<dd><p>Filters the input after the selected departure and arrival stations</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>departure_station</strong> (<em>str</em>) – departure station</p></li>
+<li><p><strong>arrival_station</strong> (<em>str</em>) – arrival station</p></li>
+<li><p><strong>data_df</strong> (<em>np.array</em>) – input dataframe with DEPARTURE_STATION</p></li>
+<li><p><strong>columns</strong> (<em>and ARRIVAL_STATION</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Filtered dataframe from selected departure and arrival stations</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.get_filtered_period_df">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_filtered_period_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">years_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.load_data.get_filtered_period_df" title="Link to this definition">¶</a></dt>
+<dd><p>Filters the input dataframe after a given period of year and months</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_month</strong> (<em>int</em>) – start month of period</p></li>
+<li><p><strong>end_month</strong> (<em>int</em>) – end month of period</p></li>
+<li><p><strong>years_list</strong> (<em>np.array</em>) – selected years list</p></li>
+<li><p><strong>data_df</strong> (<em>np.array</em>) – input dataframe with MONTH and YEAR columns</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>filtered dataframe with selected years and months</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">src.core.load_data</a><ul>
+<li><a class="reference internal" href="#attributes">Attributes</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#src.core.load_data.CSV_PATH"><code class="docutils literal notranslate"><span class="pre">CSV_PATH</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.DATE_KEY"><code class="docutils literal notranslate"><span class="pre">DATE_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTH_KEY"><code class="docutils literal notranslate"><span class="pre">MONTH_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.YEAR_KEY"><code class="docutils literal notranslate"><span class="pre">YEAR_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.DEPARTURE_STATION_KEY"><code class="docutils literal notranslate"><span class="pre">DEPARTURE_STATION_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.ARRIVAL_STATION_KEY"><code class="docutils literal notranslate"><span class="pre">ARRIVAL_STATION_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MEAN_DEPARTURE_DELAY_KEY"><code class="docutils literal notranslate"><span class="pre">MEAN_DEPARTURE_DELAY_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MEAN_ARRIVAL_DELAY_KEY"><code class="docutils literal notranslate"><span class="pre">MEAN_ARRIVAL_DELAY_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_CANCELLED_TRAINS_KEY"><code class="docutils literal notranslate"><span class="pre">MONTHLY_CANCELLED_TRAINS_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_PLANNED_TRAINS_KEY"><code class="docutils literal notranslate"><span class="pre">MONTHLY_PLANNED_TRAINS_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY"><code class="docutils literal notranslate"><span class="pre">MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY"><code class="docutils literal notranslate"><span class="pre">MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT"><code class="docutils literal notranslate"><span class="pre">MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT"><code class="docutils literal notranslate"><span class="pre">MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT"><code class="docutils literal notranslate"><span class="pre">MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT"><code class="docutils literal notranslate"><span class="pre">MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT"><code class="docutils literal notranslate"><span class="pre">MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT"><code class="docutils literal notranslate"><span class="pre">MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT"><code class="docutils literal notranslate"><span class="pre">MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.load_csv_df"><code class="docutils literal notranslate"><span class="pre">load_csv_df()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.get_directional_city_pairs_list"><code class="docutils literal notranslate"><span class="pre">get_directional_city_pairs_list()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.get_unique_city_pairs_list"><code class="docutils literal notranslate"><span class="pre">get_unique_city_pairs_list()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.get_reachable_destinations_list_from_city"><code class="docutils literal notranslate"><span class="pre">get_reachable_destinations_list_from_city()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.get_unique_railstations_df"><code class="docutils literal notranslate"><span class="pre">get_unique_railstations_df()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.get_mean_departure_delay_df"><code class="docutils literal notranslate"><span class="pre">get_mean_departure_delay_df()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.get_filtered_metrics_df"><code class="docutils literal notranslate"><span class="pre">get_filtered_metrics_df()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.get_filtered_departure_arrival_stations_df"><code class="docutils literal notranslate"><span class="pre">get_filtered_departure_arrival_stations_df()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.get_filtered_period_df"><code class="docutils literal notranslate"><span class="pre">get_filtered_period_df()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../data_preprocessing/index.html"
+                          title="previous chapter">src.core.data_preprocessing</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../railway_data/index.html"
+                          title="next chapter">src.core.railway_data</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../_sources/autoapi/src/core/load_data/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../railway_data/index.html" title="src.core.railway_data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../data_preprocessing/index.html" title="src.core.data_preprocessing"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../index.html" >src.core</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.core.load_data</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Pierre MARLIER, Ulysse PERRUCHON-MONGE, Christophe VANDENBORRE.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

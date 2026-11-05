@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>src.core.statistics.delay_seasonal_distribution &#8212; Streamlit_SNCF 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="src.core.statistics.duration_delay_correlation" href="../duration_delay_correlation/index.html" />
+    <link rel="prev" title="src.core.statistics.delay_cause" href="../delay_cause/index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../duration_delay_correlation/index.html" title="src.core.statistics.duration_delay_correlation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../delay_cause/index.html" title="src.core.statistics.delay_cause"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../../index.html" >src.core</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="../index.html" accesskey="U">src.core.statistics</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.core.statistics.delay_seasonal_distribution</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-src.core.statistics.delay_seasonal_distribution">
+<span id="src-core-statistics-delay-seasonal-distribution"></span><h1>src.core.statistics.delay_seasonal_distribution<a class="headerlink" href="#module-src.core.statistics.delay_seasonal_distribution" title="Link to this heading">¶</a></h1>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.statistics.delay_seasonal_distribution.calculate_mean_arrival_delay_distribution_per_month" title="src.core.statistics.delay_seasonal_distribution.calculate_mean_arrival_delay_distribution_per_month"><code class="xref py py-obj docutils literal notranslate"><span class="pre">calculate_mean_arrival_delay_distribution_per_month</span></code></a>(...)</p></td>
+<td><p>Return different statistics about the mean train delays at arrival</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.statistics.delay_seasonal_distribution.generate_historical_monthly_mean_arrival_delay_distribution_dataframe" title="src.core.statistics.delay_seasonal_distribution.generate_historical_monthly_mean_arrival_delay_distribution_dataframe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_historical_monthly_mean_arrival_delay_distribution_dataframe</span></code></a>(...)</p></td>
+<td><p>Generate a dataframe containing statistics of the mean train delays at arrival</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.statistics.delay_seasonal_distribution.get_monthly_mean_arrival_delay_global_dataframe" title="src.core.statistics.delay_seasonal_distribution.get_monthly_mean_arrival_delay_global_dataframe"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_monthly_mean_arrival_delay_global_dataframe</span></code></a>(...)</p></td>
+<td><p>Generate a DataFrame combining historical statistics of mean arrival delays</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.statistics.delay_seasonal_distribution.calculate_mean_arrival_delay_distribution_per_month">
+<span class="sig-prename descclassname"><span class="pre">src.core.statistics.delay_seasonal_distribution.</span></span><span class="sig-name descname"><span class="pre">calculate_mean_arrival_delay_distribution_per_month</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">departure_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrival_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">historical_years</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.core.statistics.delay_seasonal_distribution.calculate_mean_arrival_delay_distribution_per_month" title="Link to this definition">¶</a></dt>
+<dd><p>Return different statistics about the mean train delays at arrival
+for a specific calendar month of the year and a specific railway line.</p>
+<p>The distribution is calculated using the monthly mean of arrival delays
+from the selected historical years.</p>
+<p>Statistics are calculated depending on the number of available
+and valid observations:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>0 observations: all distribution statistics are NaN</p></li>
+<li><p>1 observation: median only</p></li>
+<li><p>2 to 4 observations: minimum, median and maximum</p></li>
+<li><p>5+ observations: minimum, Q1, median, Q3 and maximum</p></li>
+</ul>
+</div></blockquote>
+<p>The function also returns the total number of delayed trains at arrival,
+which have been used for the calculation of the means. This number is
+returned only if values are valid and available.
+The function returns also the number of observations
+(number of historical years)</p>
+<p>Unavailable statistics are represented by NaN.
+The total number of delayed trains at arrival is None when
+it cannot be determined.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>departure_station</strong> (<em>str</em>) – departure railway station</p></li>
+<li><p><strong>arrival_station</strong> (<em>str</em>) – arrival railway station</p></li>
+<li><p><strong>selected_month</strong> (<em>int</em>) – calendar month (1 to 12)</p></li>
+<li><p><strong>historical_years</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – past years selected for calculations,
+which should be available in the dataset</p></li>
+<li><p><strong>data_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing the preprocessed data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>minimum: minimum of monthly mean delay (minutes)</p></li>
+<li><p>q1: first quartile of monthly mean delay (minutes)</p></li>
+<li><p>median: median of monthly mean delay (minutes)</p></li>
+<li><p>q3: third quartile of monthly mean delay (minutes)</p></li>
+<li><p>maximum: maximum of monthly mean delay (minutes)</p></li>
+<li><dl class="simple">
+<dt>number_historical_year_observations: number of</dt><dd><p>valid observations (historical years)</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>sum_arr_delayed_trains: total number of delayed trains</dt><dd><p>associated with the valid monthly mean arrival delays</p>
+</dd>
+</dl>
+</li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, float | int | None]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.statistics.delay_seasonal_distribution.generate_historical_monthly_mean_arrival_delay_distribution_dataframe">
+<span class="sig-prename descclassname"><span class="pre">src.core.statistics.delay_seasonal_distribution.</span></span><span class="sig-name descname"><span class="pre">generate_historical_monthly_mean_arrival_delay_distribution_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">departure_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrival_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">historical_years</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.statistics.delay_seasonal_distribution.generate_historical_monthly_mean_arrival_delay_distribution_dataframe" title="Link to this definition">¶</a></dt>
+<dd><dl>
+<dt>Generate a dataframe containing statistics of the mean train delays at arrival</dt><dd><p>for each calendar month of the selected period and selected railway line.</p>
+<p>Statistics are calculated from the monthly mean arrival delays observed
+during the selected historical years.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>departure_station</strong> (<em>str</em>) – departure railway station</p></li>
+<li><p><strong>arrival_station</strong> (<em>str</em>) – arrival railway station</p></li>
+<li><p><strong>start_month</strong> (<em>int</em>) – first month of the selected period (included)</p></li>
+<li><p><strong>end_month</strong> (<em>int</em>) – last month of the selected period (included)</p></li>
+<li><p><strong>historical_years</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – past years selected for calculations,
+which should be available in the dataset</p></li>
+<li><p><strong>data_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing the preprocessed data</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl>
+<dt>A DataFrame containing one row per calendar month</dt><dd><dl>
+<dt>of the selected period, with the following columns:</dt><dd><p>month : calendar month (1 to 12)
+minimum: minimum of monthly mean delay (minutes)
+q1: first quartile of monthly mean delay (minutes)
+median: median of monthly mean delay (minutes)
+q3: third quartile of monthly mean delay (minutes)
+maximum: maximum of monthly mean delay (minutes)
+number_historical_year_observations: number of</p>
+<blockquote>
+<div><p>valid observations (historical years)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>sum_arr_delayed_trains: total number of delayed trains</dt><dd><p>associated with the valid monthly mean arrival delays</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.statistics.delay_seasonal_distribution.get_monthly_mean_arrival_delay_global_dataframe">
+<span class="sig-prename descclassname"><span class="pre">src.core.statistics.delay_seasonal_distribution.</span></span><span class="sig-name descname"><span class="pre">get_monthly_mean_arrival_delay_global_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">departure_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrival_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">years_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual_year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2026</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.statistics.delay_seasonal_distribution.get_monthly_mean_arrival_delay_global_dataframe" title="Link to this definition">¶</a></dt>
+<dd><dl>
+<dt>Generate a DataFrame combining historical statistics of mean arrival delays</dt><dd><p>with the monthly mean arrival delays of the selected actual year,
+for a specific railway line and period of months.</p>
+<p>Historical statistics are calculated from the selected past years,
+excluding the actual year if present in the list.
+The actual year’s observations are then added to the historical
+distribution for each calendar month.</p>
+<p>Months without valid observations from the actual year are kept
+in the DataFrame, with NaN values for the corresponding metrics.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>departure_station</strong> (<em>str</em>) – departure railway station</p></li>
+<li><p><strong>arrival_station</strong> (<em>str</em>) – arrival railway station</p></li>
+<li><p><strong>start_month</strong> (<em>int</em>) – first month of the selected period (included)</p></li>
+<li><p><strong>end_month</strong> (<em>int</em>) – last month of the selected period (included)</p></li>
+<li><p><strong>years_list</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – years selected for the historical calculations,
+excluding the actual year</p></li>
+<li><p><strong>data_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing the preprocessed data</p></li>
+<li><p><strong>actual_year</strong> (<em>int</em><em>, </em><em>optional</em>) – year whose observations are compared
+with the historical distribution. Defaults to 2026.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl>
+<dt>a DataFrame containing one row per calendar month</dt><dd><p>of the selected period, with the following columns:</p>
+<dl>
+<dt>Historical statistics:</dt><dd><p>month: calendar month (1 to 12)
+minimum: minimum of monthly mean arrival delay (minutes)
+q1: first quartile of monthly mean arrival delay (minutes)
+median: median of monthly mean arrival delay (minutes)
+q3: third quartile of monthly mean arrival delay (minutes)
+maximum: maximum of monthly mean arrival delay (minutes)
+number_historical_year_observations: number of valid</p>
+<blockquote>
+<div><p>historical observations</p>
+</div></blockquote>
+<dl class="simple">
+<dt>sum_arr_delayed_trains: total number of delayed trains</dt><dd><p>associated with valid historical monthly mean delays</p>
+</dd>
+</dl>
+</dd>
+<dt>Actual year :</dt><dd><dl class="simple">
+<dt>mean_arrival_delay_actual_year: mean arrival delay (minutes)</dt><dd><p>for the corresponding month of the actual year</p>
+</dd>
+<dt>number_arr_delayed_trains_actual_year: number of delayed trains</dt><dd><p>at arrival for the corresponding month of the actual year</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">src.core.statistics.delay_seasonal_distribution</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#src.core.statistics.delay_seasonal_distribution.calculate_mean_arrival_delay_distribution_per_month"><code class="docutils literal notranslate"><span class="pre">calculate_mean_arrival_delay_distribution_per_month()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.statistics.delay_seasonal_distribution.generate_historical_monthly_mean_arrival_delay_distribution_dataframe"><code class="docutils literal notranslate"><span class="pre">generate_historical_monthly_mean_arrival_delay_distribution_dataframe()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.statistics.delay_seasonal_distribution.get_monthly_mean_arrival_delay_global_dataframe"><code class="docutils literal notranslate"><span class="pre">get_monthly_mean_arrival_delay_global_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../delay_cause/index.html"
+                          title="previous chapter">src.core.statistics.delay_cause</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../duration_delay_correlation/index.html"
+                          title="next chapter">src.core.statistics.duration_delay_correlation</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../../_sources/autoapi/src/core/statistics/delay_seasonal_distribution/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../duration_delay_correlation/index.html" title="src.core.statistics.duration_delay_correlation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../delay_cause/index.html" title="src.core.statistics.delay_cause"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../../index.html" >src.core</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="../index.html" >src.core.statistics</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.core.statistics.delay_seasonal_distribution</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Pierre MARLIER, Ulysse PERRUCHON-MONGE, Christophe VANDENBORRE.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

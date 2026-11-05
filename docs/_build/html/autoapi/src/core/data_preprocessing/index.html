@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>src.core.data_preprocessing &#8212; Streamlit_SNCF 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="src.core.load_data" href="../load_data/index.html" />
+    <link rel="prev" title="src.core" href="../index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../load_data/index.html" title="src.core.load_data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="src.core"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../index.html" accesskey="U">src.core</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.core.data_preprocessing</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-src.core.data_preprocessing">
+<span id="src-core-data-preprocessing"></span><h1>src.core.data_preprocessing<a class="headerlink" href="#module-src.core.data_preprocessing" title="Link to this heading">¶</a></h1>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.data_preprocessing.preprocess_data" title="src.core.data_preprocessing.preprocess_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocess_data</span></code></a>(→ pandas.DataFrame)</p></td>
+<td><p>Preprocess a dataframe to clean the data. It has been designed to preprocess the SNCF dataset.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.data_preprocessing.preprocess_data">
+<span class="sig-prename descclassname"><span class="pre">src.core.data_preprocessing.</span></span><span class="sig-name descname"><span class="pre">preprocess_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.data_preprocessing.preprocess_data" title="Link to this definition">¶</a></dt>
+<dd><p>Preprocess a dataframe to clean the data. It has been designed to preprocess the SNCF dataset.</p>
+<p>Transformations :</p>
+<ol class="arabic simple">
+<li><p>Invalidate the data from the Covid period</p></li>
+</ol>
+<p>2. Invalidate the data from the columns “Nombre trains en retard &gt; 30min” and
+“Nombre trains en retard &gt; 60min” in Q1 2025</p>
+<ol class="arabic simple" start="3">
+<li><p>If no train is delayed at arrival, replacing 0 values of average delay by NaN</p></li>
+<li><p>If no train is delayed at departure, invalidating values of average delay by NaN</p></li>
+</ol>
+<p>5. Imputing historical median if trains are delayed but the average delay
+“Retard moyen des trains en retard à l’arrivée” is less than or equal to 0.
+The median is calculated for the same service, route and month, with at least 2
+valid observations.</p>
+<p>6. Adding a column “Prct retard causes non renseignées” and calculating the
+percentage to have a sum of 100% for all the reasons of delay</p>
+<p>7. Invalidating values from “Nombre trains en retard &gt; 15min” when they exceed the
+overall number of trains delayed at arrival.</p>
+<p>8. Replacing negative average delays for all trains by 0 when they are between -1
+(included) and 0 (excluded), and by NaN when they are below -1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – dataframe from the original SNCF dataset with these expected</p></li>
+<li><p><strong>least</strong> (<em>columns at</em>) – “Date”,
+“Service”,
+“Gare de départ”,
+“Gare d’arrivée”,
+“Nombre de trains en retard à l’arrivée”,
+“Nombre de trains en retard au départ”,
+“Nombre trains en retard &gt; 30min”,
+“Nombre trains en retard &gt; 60min”,
+“Retard moyen des trains en retard à l’arrivée”,
+“Retard moyen des trains en retard au départ”,
+“Prct retard pour causes externes”,
+“Prct retard pour cause infrastructure”,
+“Prct retard pour cause gestion trafic”,
+“Prct retard pour cause matériel roulant”,
+“Prct retard pour cause gestion en gare et réutilisation de matériel”,
+“Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH,
+correspondances)”,
+“Nombre trains en retard &gt; 15min”,
+“Retard moyen de tous les trains à l’arrivée”,
+“Retard moyen de tous les trains au départ”,</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a dataframe with the applied transformations</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">src.core.data_preprocessing</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#src.core.data_preprocessing.preprocess_data"><code class="docutils literal notranslate"><span class="pre">preprocess_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../index.html"
+                          title="previous chapter">src.core</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../load_data/index.html"
+                          title="next chapter">src.core.load_data</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../_sources/autoapi/src/core/data_preprocessing/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../load_data/index.html" title="src.core.load_data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="src.core"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../index.html" >src.core</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.core.data_preprocessing</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Pierre MARLIER, Ulysse PERRUCHON-MONGE, Christophe VANDENBORRE.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

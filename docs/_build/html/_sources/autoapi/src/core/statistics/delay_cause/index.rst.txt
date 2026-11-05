@@ -1,0 +1,40 @@
+src.core.statistics.delay_cause
+===============================
+
+.. py:module:: src.core.statistics.delay_cause
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.core.statistics.delay_cause.get_mean_cause_list
+   src.core.statistics.delay_cause.get_mean_of_external_cause
+   src.core.statistics.delay_cause.get_mean_of_infrastructural_cause
+   src.core.statistics.delay_cause.get_mean_of_traffic_management_cause
+   src.core.statistics.delay_cause.get_mean_of_mobile_equipment_cause
+   src.core.statistics.delay_cause.get_mean_of_railstation_management_cause
+   src.core.statistics.delay_cause.get_mean_of_traveler_cause
+   src.core.statistics.delay_cause.get_mean_of_unknown_cause
+
+
+Module Contents
+---------------
+
+.. py:function:: get_mean_cause_list(departure_city: str = None, arrival_city: str = None) -> list
+
+.. py:function:: get_mean_of_external_cause(departure_city: str = None, arrival_city: str = None) -> float
+
+.. py:function:: get_mean_of_infrastructural_cause(departure_city: str = None, arrival_city: str = None) -> float
+
+.. py:function:: get_mean_of_traffic_management_cause(departure_city: str = None, arrival_city: str = None) -> float
+
+.. py:function:: get_mean_of_mobile_equipment_cause(departure_city: str = None, arrival_city: str = None) -> float
+
+.. py:function:: get_mean_of_railstation_management_cause(departure_city: str = None, arrival_city: str = None) -> float
+
+.. py:function:: get_mean_of_traveler_cause(departure_city: str = None, arrival_city: str = None) -> float
+
+.. py:function:: get_mean_of_unknown_cause(departure_city: str = None, arrival_city: str = None) -> float
+

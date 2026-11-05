@@ -1,0 +1,116 @@
+src.core.statistics.mean_delay
+==============================
+
+.. py:module:: src.core.statistics.mean_delay
+
+.. autoapi-nested-parse::
+
+   Mean delay computing module feeding UI functions
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.core.statistics.mean_delay.weighted_mean_delay
+   src.core.statistics.mean_delay.ratio_number_of_trains
+   src.core.statistics.mean_delay.get_departure_mean_delay_for_city
+   src.core.statistics.mean_delay.get_arrival_mean_delay_for_city_pair
+   src.core.statistics.mean_delay.get_departure_city_mean_delay_df
+   src.core.statistics.mean_delay.get_national_global_delay_mean_df
+
+
+Module Contents
+---------------
+
+.. py:function:: weighted_mean_delay(monthly_planned_trains: pandas.Series, delay_observations_to_average: pandas.Series) -> float
+
+   Calculate a weighted mean of a series of delay observations weighted by
+   the number of trains planned for each period.
+
+   This function can be used to calculate weighted means of the departure or
+   arrival delays.
+
+   Both input Series must cover the same periods and have matching indexes.
+   Observations with missing values or non-positive (<= 0)
+   monthly planned train counts are excluded.
+
+   :param monthly_planned_trains: the number of planned trains
+                                  on the selected months.
+                                  This Series should normally come from the MONTHLY_PLANNED_TRAINS_KEY.
+                                  The Pandas Series must be filtered to only include the periods you want
+                                  to include in the calculation.
+   :type monthly_planned_trains: pd.Series
+   :param delay_observations_to_average: the delay measure or
+                                         observations you wish to get the mean.
+                                         The Pandas Series must be filtered to only include the
+                                         periods you want to average.
+   :type delay_observations_to_average: pd.Series
+
+   :returns:
+
+             the delay weighted mean of the valid observations,
+                 or NaN if no valid observations are available.
+   :rtype: float
+
+
+.. py:function:: ratio_number_of_trains(monthly_planned_trains: pandas.Series, train_observations: pandas.Series) -> float
+
+   Calculate the ratio of observed trains to planned trains.
+
+   This function can be used to calculate the proportion of delayed or
+   cancelled trains among planned trains over the selected periods.
+
+   Both input Series must cover the same periods and have matching indexes.
+   Observations with missing values or invalid counts are excluded.
+
+   :param monthly_planned_trains: Number of planned trains for each
+                                  selected month, usually from MONTHLY_PLANNED_TRAINS_KEY.
+                                  The Series must be filtered to the periods being studied.
+   :type monthly_planned_trains: pd.Series
+   :param train_observations: Number of delayed or cancelled trains
+                              for each selected month. The Series must cover the same periods
+                              as monthly_planned_trains.
+   :type train_observations: pd.Series
+
+   :returns:
+
+             The ratio of valid train observations to planned trains,
+                 or NaN if no valid observations are available.
+   :rtype: float
+
+
+.. py:function:: get_departure_mean_delay_for_city(city: str) -> float
+
+.. py:function:: get_arrival_mean_delay_for_city_pair(departure: str, arrival: str) -> float
+
+.. py:function:: get_departure_city_mean_delay_df(df: pandas.DataFrame, departure_city: str) -> pandas.DataFrame
+
+   Returns a dataframe containing the mean delay from a departure city, to display
+   the horizontal reference on histogram
+
+   :param df: Dataframe from which get the length
+   :type df: pd.DataFrame
+   :param departure_city: Departure city to compute the mean departure delays from
+   :type departure_city: str
+
+   :returns: Dataframe duplicating the computed mean departure delays
+             of the length of df
+   :rtype: pd.DataFrame
+
+
+.. py:function:: get_national_global_delay_mean_df(df: pandas.DataFrame) -> pandas.DataFrame
+
+   Returns a dataframe containing the mean delay of
+   the whole country, to display the horizontal reference on histogram
+
+   :param df: Dataframe from which get the length
+   :type df: pd.DataFrame
+
+   :returns: Dataframe duplicating the computed mean departure delays
+             of the length of df
+   :rtype: pd.DataFrame
+
+

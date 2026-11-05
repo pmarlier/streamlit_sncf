@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>sidebar &#8212; Streamlit_SNCF 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pie_chart" href="../pie_chart/index.html" />
+    <link rel="prev" title="graphs" href="../graphs/index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../pie_chart/index.html" title="pie_chart"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../graphs/index.html" title="graphs"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">sidebar</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-sidebar">
+<span id="sidebar"></span><h1>sidebar<a class="headerlink" href="#module-sidebar" title="Link to this heading">¶</a></h1>
+<p>User interactions widgets definition module</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sidebar.MONTHS_LIST" title="sidebar.MONTHS_LIST"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHS_LIST</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sidebar.section_row" title="sidebar.section_row"><code class="xref py py-obj docutils literal notranslate"><span class="pre">section_row</span></code></a>(→ None)</p></td>
+<td><p>Displays information contained in fields input, named after section_label input,</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sidebar.select_month" title="sidebar.select_month"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_month</span></code></a>(→ int)</p></td>
+<td><p>Get month from a dropdown list as integer, requiring get_month_from_str_int</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sidebar.select_years" title="sidebar.select_years"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_years</span></code></a>(→ list[int])</p></td>
+<td><p>Get year(s) from a multiselect dropdown.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sidebar.get_month_from_int_str" title="sidebar.get_month_from_int_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_month_from_int_str</span></code></a>(→ str)</p></td>
+<td><p>Converts a month as integer into string.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sidebar.get_month_from_str_int" title="sidebar.get_month_from_str_int"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_month_from_str_int</span></code></a>(→ int)</p></td>
+<td><p>Converts a month as string into integer.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#sidebar.display_sidebar" title="sidebar.display_sidebar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_sidebar</span></code></a>(→ None)</p></td>
+<td><p>Displays sidebar containing input widgets for customer to specify</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#sidebar.display_delayed_cancelled_stats_table" title="sidebar.display_delayed_cancelled_stats_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_delayed_cancelled_stats_table</span></code></a>(→ None)</p></td>
+<td><p>Displays delayed and cancelled train ratios in the given column.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="sidebar.MONTHS_LIST">
+<span class="sig-prename descclassname"><span class="pre">sidebar.</span></span><span class="sig-name descname"><span class="pre">MONTHS_LIST</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Janvier',</span> <span class="pre">'Février',</span> <span class="pre">'Mars',</span> <span class="pre">'Avril',</span> <span class="pre">'Mai',</span> <span class="pre">'Juin',</span> <span class="pre">'Juillet',</span> <span class="pre">'Août',</span> <span class="pre">'Septembre',...</span></span><a class="headerlink" href="#sidebar.MONTHS_LIST" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sidebar.section_row">
+<span class="sig-prename descclassname"><span class="pre">sidebar.</span></span><span class="sig-name descname"><span class="pre">section_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">section_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sidebar.section_row" title="Link to this definition">¶</a></dt>
+<dd><p>Displays information contained in fields input, named after section_label input,
+under the format of a 2 columns table : | section_label | field1</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">| field2</div>
+<div class="line">| ….</div>
+<div class="line">| fieldN</div>
+</div>
+</div></blockquote>
+<p>Ratios between 0 (excluded) and 1 (excluded) of trains delayed/cancelled
+are displayed as approximate proportions (“X out of Y trains”).
+Very low and very high ratios are handled separately to avoid
+misleading approximations.
+Missing values, zero ratios and invalid ratios are handled separately.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>section_label</strong> (<em>str</em>) – Label of the section, contained in the first column.</p></li>
+<li><p><strong>fields</strong> (<em>list</em>) – list of fields, tuples containing a ratio and a status.</p></li>
+<li><p><strong>trains</strong> (<em>The ratio represents the number</em><em> of </em><em>delayed/cancelled</em>)</p></li>
+<li><p><strong>period.</strong> (<em>divided by the number</em><em> of </em><em>planned trains over the selected</em>)</p></li>
+<li><p><strong>column</strong> (<em>First field is displayed in the second</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>:param :
+:param same line as the section_label. Other fields are stacked on the following rows:
+:param on the second column.:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sidebar.select_month">
+<span class="sig-prename descclassname"><span class="pre">sidebar.</span></span><span class="sig-name descname"><span class="pre">select_month</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#sidebar.select_month" title="Link to this definition">¶</a></dt>
+<dd><p>Get month from a dropdown list as integer, requiring get_month_from_str_int
+function to convert a month string to integer for further functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – Message to be displayed aside the dropdown list</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Selected month as integer (bewteen 1 and 12)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>selected_month (int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sidebar.select_years">
+<span class="sig-prename descclassname"><span class="pre">sidebar.</span></span><span class="sig-name descname"><span class="pre">select_years</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#sidebar.select_years" title="Link to this definition">¶</a></dt>
+<dd><p>Get year(s) from a multiselect dropdown.
+Initially, all years from the dataset are selected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – Message to be displayed aside the dropdown list</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Selected years from the initialized dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>selected_years (list[int])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sidebar.get_month_from_int_str">
+<span class="sig-prename descclassname"><span class="pre">sidebar.</span></span><span class="sig-name descname"><span class="pre">get_month_from_int_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">month_int</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#sidebar.get_month_from_int_str" title="Link to this definition">¶</a></dt>
+<dd><p>Converts a month as integer into string.
+This is based on a dictionnary month_dict{month_int: month_str}</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>month_int</strong> (<em>int</em>) – month as integer</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>month as string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>month_str (str)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sidebar.get_month_from_str_int">
+<span class="sig-prename descclassname"><span class="pre">sidebar.</span></span><span class="sig-name descname"><span class="pre">get_month_from_str_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">month_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#sidebar.get_month_from_str_int" title="Link to this definition">¶</a></dt>
+<dd><p>Converts a month as string into integer.
+This is based on a dictionnary month_dict{month_str: month_int}</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>month_str</strong> (<em>str</em>) – month as string</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>month as integer</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>month_int (int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sidebar.display_sidebar">
+<span class="sig-prename descclassname"><span class="pre">sidebar.</span></span><span class="sig-name descname"><span class="pre">display_sidebar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sidebar.display_sidebar" title="Link to this definition">¶</a></dt>
+<dd><p>Displays sidebar containing input widgets for customer to specify
+a trip to vizualize</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array of trip infos departure_city, arrival_city,
+start_month, end_month, selected_years</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>trip_infos (np.array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sidebar.display_delayed_cancelled_stats_table">
+<span class="sig-prename descclassname"><span class="pre">sidebar.</span></span><span class="sig-name descname"><span class="pre">display_delayed_cancelled_stats_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">departure_city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrival_city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_years</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#sidebar.display_delayed_cancelled_stats_table" title="Link to this definition">¶</a></dt>
+<dd><p>Displays delayed and cancelled train ratios in the given column.
+The ratios are displayed as approximate fractions (“X out of Y trains”).
+The statistics are the ratios computed over a given months/years period,
+for a given departure and arrival cities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>str</em>) – body column number to place the table</p></li>
+<li><p><strong>departure_city</strong> (<em>str</em>) – departure city to compute the statistics</p></li>
+<li><p><strong>arrival_city</strong> (<em>str</em>) – arrival city</p></li>
+<li><p><strong>start_month</strong> (<em>str</em>) – first month of the time period for a given year</p></li>
+<li><p><strong>end_month</strong> (<em>str</em>) – last month of the time period</p></li>
+<li><p><strong>selected_years</strong> (<em>np.ndarray</em>) – np.ndarray of selected years to
+compute the statistics</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">sidebar</a><ul>
+<li><a class="reference internal" href="#attributes">Attributes</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#sidebar.MONTHS_LIST"><code class="docutils literal notranslate"><span class="pre">MONTHS_LIST</span></code></a></li>
+<li><a class="reference internal" href="#sidebar.section_row"><code class="docutils literal notranslate"><span class="pre">section_row()</span></code></a></li>
+<li><a class="reference internal" href="#sidebar.select_month"><code class="docutils literal notranslate"><span class="pre">select_month()</span></code></a></li>
+<li><a class="reference internal" href="#sidebar.select_years"><code class="docutils literal notranslate"><span class="pre">select_years()</span></code></a></li>
+<li><a class="reference internal" href="#sidebar.get_month_from_int_str"><code class="docutils literal notranslate"><span class="pre">get_month_from_int_str()</span></code></a></li>
+<li><a class="reference internal" href="#sidebar.get_month_from_str_int"><code class="docutils literal notranslate"><span class="pre">get_month_from_str_int()</span></code></a></li>
+<li><a class="reference internal" href="#sidebar.display_sidebar"><code class="docutils literal notranslate"><span class="pre">display_sidebar()</span></code></a></li>
+<li><a class="reference internal" href="#sidebar.display_delayed_cancelled_stats_table"><code class="docutils literal notranslate"><span class="pre">display_delayed_cancelled_stats_table()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../graphs/index.html"
+                          title="previous chapter">graphs</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../pie_chart/index.html"
+                          title="next chapter">pie_chart</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/autoapi/sidebar/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../pie_chart/index.html" title="pie_chart"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../graphs/index.html" title="graphs"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >API Reference</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">sidebar</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Pierre MARLIER, Ulysse PERRUCHON-MONGE, Christophe VANDENBORRE.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

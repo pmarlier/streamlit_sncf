@@ -1,0 +1,37 @@
+src.ui.carto.map_drawing
+========================
+
+.. py:module:: src.ui.carto.map_drawing
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.ui.carto.map_drawing.create_map
+
+
+Module Contents
+---------------
+
+.. py:function:: create_map(latitude: float = 46.3, longitude: float = 2.34, zoom: int = 6) -> ui.carto.folium.Map
+
+   Instantiate a Folium map
+
+   :param latitude: Latitude (North / South coordinates) of the center point of the map
+                    Written in float : ex. 46° 51' 24''N ~ 46.86
+                    Defaults to almost the latitude of the most beautiful city: 46.86.
+   :type latitude: float, optional
+   :param longitude: Longitude (East / West coordinates) of the center point of the map
+                     Written in float : ex. 2° 21' 07''E ~ 2.34
+                     Defaults to almost the longitude of the most beautiful city : 2.34.
+   :type longitude: float, optional
+   :param zoom: The zoom level of the map visualization.
+                Defaults to the level adapted for France display : 6
+   :type zoom: int, optional
+
+   :returns: the instance reference of the created Folium map
+   :rtype: folium.Map
+
+
