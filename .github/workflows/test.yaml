@@ -5,7 +5,9 @@ permissions:
   contents: read
 
 on:
+# call test on each pull request and on each final push
   push:
+  pull_request:
     branches: main
 
 jobs:
@@ -19,7 +21,8 @@ jobs:
           python-version: '3.14'
 
       - name: Checkout project 
-        uses: actions/checkout@v4 # official reference for GitHub checkout service
+      # official reference for GitHub checkout service
+        uses: actions/checkout@v4 
 
       - name: Install Dependancies
         run: | 
@@ -30,3 +33,5 @@ jobs:
       - name: Lancer les tests
         run: .venv/bin/py.test
     
+# we don't have any linting jobs here because we set our RUFF config
+# in a settings.json file in a .vscode
