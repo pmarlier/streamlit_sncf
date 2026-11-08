@@ -1,8 +1,5 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import streamlit as st
-
-from core import load_data as ld
 
 
 def display_pie_chart(cause_list: list) -> None:
@@ -27,16 +24,17 @@ def display_pie_chart(cause_list: list) -> None:
         cause_list,
         colors=colors,
         labels=delay_cause,
-        autopct="%1.1f%%",
+        autopct="%.0f%%",
         pctdistance=0.85,
         explode=explode,
     )
 
-    # draw circle
-    centre_circle = plt.Circle((0, 0), 0.70, fc="white")
+    # draw circle in the middle to make a pie into a donut
+    # tastes way better by the way :)
+    centre_circle = plt.Circle((0, 0), 0.30, fc="white")
     fig = plt.gcf()
 
-    # Adding Circle in Pie chart
+    # Adding the circle in Pie chart
     fig.gca().add_artist(centre_circle)
 
     # Adding Title of chart

@@ -60,7 +60,7 @@ def main():
         st.image("./resources/logo_sncf.png")
 
     with title_container:
-        st.title(
+        st.header(
             "Et si nous organisions la rencontre parfaite avec votre prochain train ?",
             text_alignment="center",
         )
@@ -89,7 +89,7 @@ def main():
         with st.sidebar:
             sidebar.display_sidebar()
     else:
-        st.header(
+        st.markdown(
             "Mais tout d'abord, voici un aperçu des statistiques nationales",
             text_alignment="center",
         )
@@ -106,7 +106,7 @@ def main():
         # a. Delayed/cancelled stats for selected trip #
         # -------------------------------------------
         # Create a row with 2 columns
-        info_container, map_container = st.columns([1.5, 2.5], gap="large")
+        info_container, map_container = st.columns([2.5, 1.5], gap="large")
 
         sidebar.display_delayed_cancelled_stats_table(
             info_container,
@@ -193,7 +193,7 @@ def main():
         #       railway_network.get_railway_data_between_cities(departure, arrival)
         #     )
 
-    with map_container.container(height=620):
+    with map_container.container(height=300):
         st_folium(map, width=740)
 
     with info_container:

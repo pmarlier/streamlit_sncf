@@ -96,6 +96,8 @@ def get_directional_city_pairs_list() -> list:
     """
     railway_cities = df[[DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY]]
     directional_railway_cities = railway_cities.value_counts().index.to_list()
+
+    print(directional_railway_cities)
     return directional_railway_cities
 
 
@@ -104,10 +106,11 @@ def get_unique_city_pairs_list() -> list:
     duplicates and combinations "departure-arrival" and "arrival-departure" are dropped
 
     Returns:
-        list: _description_
+        list: sorted alphabetically list of unique railstation couple,
     """
     city_pairs = get_directional_city_pairs_list()
     ordered_unique_city_pairs = list(sorted([(x, y) for y, x in city_pairs if x < y]))
+
     return ordered_unique_city_pairs
 
 
@@ -128,8 +131,9 @@ def get_reachable_destinations_list_from_city(departure: str) -> list:
     )
     # no one need to go directly to the place he came from, unless he needs an alibi
     reachable_destinations.remove(departure)
+    reachable_destinations = sorted(reachable_destinations)
 
-    return sorted(reachable_destinations)
+    return reachable_destinations
 
 
 def get_unique_railstations_df() -> pd.DataFrame:
@@ -139,6 +143,7 @@ def get_unique_railstations_df() -> pd.DataFrame:
         pd.DataFrame: Departure stations dataframe
     """
     unique_railstations = sorted(list(df[DEPARTURE_STATION_KEY].unique()))
+
     return unique_railstations
 
 

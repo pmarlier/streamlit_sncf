@@ -24,6 +24,9 @@ MAP_CITY = {
     "paris-montparnasse": "paris-montparnasse-pasteur",
     "bellegarde-(ain)": "bellegarde",
     "lyon-part-dieu": "lyon-perrache",
+    # as long as we don't have any railway geo coordinates for foreign countries
+    # we mapped foreign railstation with the closest city in France
+    # that is only for railpath drawing
     "madrid": "perpignan",
     "barcelona": "perpignan",
     "italie": "monaco",
