@@ -120,336 +120,72 @@ def test_init() -> None:
         MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT,
     ]
 
-    global df
-    df = ld.load_csv_df()
+    ld.init()
 
-    assert type(df) is pd.DataFrame
-    assert all(col in cols_to_be_kept for col in df.columns)
+    assert type(ld.df) is pd.DataFrame
+    assert all(col in cols_to_be_kept for col in ld.df.columns)
 
 
-def test_get_directional_city_pairs_list():
+def test_get_directional_city_pairs_list(mocked_df):
     """
-    Test that get_directional_city_pairs_list returns all unique (departure, arrival).
+    Test must returns all unique (departure, arrival).
+    The (arrival, departure) pair is different, so appear in the list
     """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
 
     result = get_directional_city_pairs_list()
     expected = [
-        ("MACON LOCHE", "PARIS LYON"),
-        ("MARSEILLE ST CHARLES", "LYON PART DIEU"),
-        ("DIJON VILLE", "PARIS LYON"),
-        ("PARIS LYON", "CHAMBERY CHALLES LES EAUX"),
-        ("PARIS LYON", "BELLEGARDE (AIN)"),
-        ("PARIS EST", "STRASBOURG"),
-        ("STRASBOURG", "PARIS EST"),
-        ("MULHOUSE VILLE", "PARIS LYON"),
-        ("PARIS LYON", "DIJON VILLE"),
-        ("PARIS LYON", "MULHOUSE VILLE"),
-        ("BELLEGARDE (AIN)", "PARIS LYON"),
-        ("CHAMBERY CHALLES LES EAUX", "PARIS LYON"),
-        ("LYON PART DIEU", "MARSEILLE ST CHARLES"),
-        ("PARIS LYON", "MACON LOCHE"),
-        ("BORDEAUX ST JEAN", "PARIS MONTPARNASSE"),
-        ("LE MANS", "PARIS MONTPARNASSE"),
-        ("PARIS MONTPARNASSE", "LA ROCHELLE VILLE"),
-        ("PARIS MONTPARNASSE", "NANTES"),
-        ("POITIERS", "PARIS MONTPARNASSE"),
-        ("ST MALO", "PARIS MONTPARNASSE"),
-        ("TOULOUSE MATABIAU", "PARIS MONTPARNASSE"),
-        ("VANNES", "PARIS MONTPARNASSE"),
-        ("REIMS", "PARIS EST"),
-        ("DOUAI", "PARIS NORD"),
-        ("LILLE", "PARIS NORD"),
-        ("LILLE", "MARSEILLE ST CHARLES"),
-        ("PARIS NORD", "DUNKERQUE"),
-        ("AIX EN PROVENCE TGV", "PARIS LYON"),
-        ("ANNECY", "PARIS LYON"),
-        ("GRENOBLE", "PARIS LYON"),
-        ("LYON PART DIEU", "MARNE LA VALLEE"),
-        ("MONTPELLIER", "PARIS LYON"),
-        ("PARIS LYON", "MARSEILLE ST CHARLES"),
-        ("BARCELONA", "PARIS LYON"),
-        ("FRANCFORT", "PARIS EST"),
-        ("PARIS LYON", "LAUSANNE"),
-        ("PARIS MONTPARNASSE", "LAVAL"),
-        ("PARIS MONTPARNASSE", "VANNES"),
-        ("ST PIERRE DES CORPS", "PARIS MONTPARNASSE"),
-        ("TOURS", "PARIS MONTPARNASSE"),
-        ("PARIS EST", "METZ"),
-        ("LYON PART DIEU", "LILLE"),
-        ("PARIS NORD", "DOUAI"),
-        ("BESANCON FRANCHE COMTE TGV", "PARIS LYON"),
-        ("MARSEILLE ST CHARLES", "PARIS LYON"),
-        ("PARIS LYON", "AVIGNON TGV"),
-        ("PARIS LYON", "BESANCON FRANCHE COMTE TGV"),
-        ("PARIS LYON", "PERPIGNAN"),
-        ("PERPIGNAN", "PARIS LYON"),
-        ("VALENCE ALIXAN TGV", "PARIS LYON"),
-        ("STUTTGART", "PARIS EST"),
-        ("LYON PART DIEU", "RENNES"),
-        ("PARIS MONTPARNASSE", "ANGERS SAINT LAUD"),
-        ("PARIS MONTPARNASSE", "ANGOULEME"),
-        ("PARIS MONTPARNASSE", "BREST"),
-        ("PARIS MONTPARNASSE", "QUIMPER"),
-        ("PARIS MONTPARNASSE", "ST PIERRE DES CORPS"),
-        ("PARIS MONTPARNASSE", "TOURS"),
-        ("RENNES", "PARIS MONTPARNASSE"),
-        ("METZ", "PARIS EST"),
-        ("NANCY", "PARIS EST"),
-        ("NANTES", "STRASBOURG"),
-        ("PARIS EST", "REIMS"),
-        ("LILLE", "LYON PART DIEU"),
-        ("PARIS NORD", "LILLE"),
-        ("LE CREUSOT MONTCEAU MONTCHANIN", "PARIS LYON"),
-        ("MARNE LA VALLEE", "LYON PART DIEU"),
-        ("NICE VILLE", "PARIS LYON"),
-        ("PARIS LYON", "GRENOBLE"),
-        ("PARIS LYON", "MONTPELLIER"),
-        ("PARIS LYON", "NICE VILLE"),
-        ("LAUSANNE", "PARIS LYON"),
-        ("PARIS LYON", "BARCELONA"),
-        ("ANGOULEME", "PARIS MONTPARNASSE"),
-        ("BREST", "PARIS MONTPARNASSE"),
-        ("LA ROCHELLE VILLE", "PARIS MONTPARNASSE"),
-        ("NANTES", "PARIS MONTPARNASSE"),
-        ("PARIS MONTPARNASSE", "BORDEAUX ST JEAN"),
         ("PARIS MONTPARNASSE", "RENNES"),
-        ("PARIS MONTPARNASSE", "ST MALO"),
-        ("PARIS MONTPARNASSE", "TOULOUSE MATABIAU"),
-        ("QUIMPER", "PARIS MONTPARNASSE"),
-        ("RENNES", "LYON PART DIEU"),
-        ("MARSEILLE ST CHARLES", "LILLE"),
-        ("AVIGNON TGV", "PARIS LYON"),
-        ("LYON PART DIEU", "PARIS LYON"),
-        ("LYON PART DIEU", "MONTPELLIER"),
-        ("MONTPELLIER", "LYON PART DIEU"),
-        ("PARIS LYON", "NIMES"),
-        ("PARIS LYON", "VALENCE ALIXAN TGV"),
-        ("SAINT ETIENNE CHATEAUCREUX", "PARIS LYON"),
-        ("GENEVE", "PARIS LYON"),
-        ("PARIS EST", "STUTTGART"),
-        ("ANGERS SAINT LAUD", "PARIS MONTPARNASSE"),
-        ("LAVAL", "PARIS MONTPARNASSE"),
-        ("PARIS MONTPARNASSE", "LE MANS"),
-        ("PARIS MONTPARNASSE", "POITIERS"),
-        ("PARIS EST", "NANCY"),
-        ("STRASBOURG", "NANTES"),
-        ("ARRAS", "PARIS NORD"),
-        ("DUNKERQUE", "PARIS NORD"),
-        ("PARIS NORD", "ARRAS"),
-        ("MARNE LA VALLEE", "MARSEILLE ST CHARLES"),
-        ("MARSEILLE ST CHARLES", "MARNE LA VALLEE"),
-        ("NIMES", "PARIS LYON"),
-        ("PARIS LYON", "AIX EN PROVENCE TGV"),
-        ("PARIS LYON", "ANNECY"),
-        ("PARIS LYON", "LE CREUSOT MONTCEAU MONTCHANIN"),
-        ("PARIS LYON", "LYON PART DIEU"),
-        ("PARIS LYON", "SAINT ETIENNE CHATEAUCREUX"),
-        ("PARIS LYON", "TOULON"),
-        ("TOULON", "PARIS LYON"),
-        ("PARIS EST", "FRANCFORT"),
-        ("PARIS LYON", "GENEVE"),
-        ("PARIS LYON", "ZURICH"),
-        ("MARSEILLE ST CHARLES", "TOURCOING"),
-        ("ZURICH", "PARIS LYON"),
-        ("BORDEAUX ST JEAN", "TOURCOING"),
-        ("TOURCOING", "BORDEAUX ST JEAN"),
-        ("PARIS LYON", "ITALIE"),
-        ("ITALIE", "PARIS LYON"),
-        ("MADRID", "MARSEILLE ST CHARLES"),
-        ("MARSEILLE ST CHARLES", "MADRID"),
-        ("TOURCOING", "MARSEILLE ST CHARLES"),
-        ("PARIS VAUGIRARD", "BORDEAUX ST JEAN"),
-        ("PARIS VAUGIRARD", "NANTES"),
-        ("RENNES", "PARIS VAUGIRARD"),
-        ("NANTES", "PARIS VAUGIRARD"),
-        ("BORDEAUX ST JEAN", "PARIS VAUGIRARD"),
-        ("PARIS VAUGIRARD", "RENNES"),
+        ("RENNES", "PARIS MONTPARNASSE"),
+        ("PARIS MONTPARNASSE", "BORDEAUX ST JEAN"),
+        ("BORDEAUX ST JEAN", "PARIS MONTPARNASSE"),
+        ("PARIS MONTPARNASSE", "NANTES"),
+        ("NANTES", "PARIS MONTPARNASSE"),
     ]
     assert result == expected
 
 
-def test_get_unique_city_pairs_list():
+def test_get_unique_city_pairs_list(mocked_df):
+    """
+    Test must returns unique couple of cities
+    This time, (departure, arrival) and (arrival, departure) are considered duplicates
+    One is dropped, and the list is sorted by alphabetical order
+    """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
 
     result = get_unique_city_pairs_list()
-    # Based on the specific logic in load_data.py:
-    # only pairs (x, y) where (y, x) exists AND x < y
+
     expected = [
-        ("AIX EN PROVENCE TGV", "PARIS LYON"),
-        ("ANGERS SAINT LAUD", "PARIS MONTPARNASSE"),
-        ("ANGOULEME", "PARIS MONTPARNASSE"),
-        ("ANNECY", "PARIS LYON"),
-        ("ARRAS", "PARIS NORD"),
-        ("AVIGNON TGV", "PARIS LYON"),
-        ("BARCELONA", "PARIS LYON"),
-        ("BELLEGARDE (AIN)", "PARIS LYON"),
-        ("BESANCON FRANCHE COMTE TGV", "PARIS LYON"),
         ("BORDEAUX ST JEAN", "PARIS MONTPARNASSE"),
-        ("BORDEAUX ST JEAN", "PARIS VAUGIRARD"),
-        ("BORDEAUX ST JEAN", "TOURCOING"),
-        ("BREST", "PARIS MONTPARNASSE"),
-        ("CHAMBERY CHALLES LES EAUX", "PARIS LYON"),
-        ("DIJON VILLE", "PARIS LYON"),
-        ("DOUAI", "PARIS NORD"),
-        ("DUNKERQUE", "PARIS NORD"),
-        ("FRANCFORT", "PARIS EST"),
-        ("GENEVE", "PARIS LYON"),
-        ("GRENOBLE", "PARIS LYON"),
-        ("ITALIE", "PARIS LYON"),
-        ("LA ROCHELLE VILLE", "PARIS MONTPARNASSE"),
-        ("LAUSANNE", "PARIS LYON"),
-        ("LAVAL", "PARIS MONTPARNASSE"),
-        ("LE CREUSOT MONTCEAU MONTCHANIN", "PARIS LYON"),
-        ("LE MANS", "PARIS MONTPARNASSE"),
-        ("LILLE", "LYON PART DIEU"),
-        ("LILLE", "MARSEILLE ST CHARLES"),
-        ("LILLE", "PARIS NORD"),
-        ("LYON PART DIEU", "MARNE LA VALLEE"),
-        ("LYON PART DIEU", "MARSEILLE ST CHARLES"),
-        ("LYON PART DIEU", "MONTPELLIER"),
-        ("LYON PART DIEU", "PARIS LYON"),
-        ("LYON PART DIEU", "RENNES"),
-        ("MACON LOCHE", "PARIS LYON"),
-        ("MADRID", "MARSEILLE ST CHARLES"),
-        ("MARNE LA VALLEE", "MARSEILLE ST CHARLES"),
-        ("MARSEILLE ST CHARLES", "PARIS LYON"),
-        ("MARSEILLE ST CHARLES", "TOURCOING"),
-        ("METZ", "PARIS EST"),
-        ("MONTPELLIER", "PARIS LYON"),
-        ("MULHOUSE VILLE", "PARIS LYON"),
-        ("NANCY", "PARIS EST"),
         ("NANTES", "PARIS MONTPARNASSE"),
-        ("NANTES", "PARIS VAUGIRARD"),
-        ("NANTES", "STRASBOURG"),
-        ("NICE VILLE", "PARIS LYON"),
-        ("NIMES", "PARIS LYON"),
-        ("PARIS EST", "REIMS"),
-        ("PARIS EST", "STRASBOURG"),
-        ("PARIS EST", "STUTTGART"),
-        ("PARIS LYON", "PERPIGNAN"),
-        ("PARIS LYON", "SAINT ETIENNE CHATEAUCREUX"),
-        ("PARIS LYON", "TOULON"),
-        ("PARIS LYON", "VALENCE ALIXAN TGV"),
-        ("PARIS LYON", "ZURICH"),
-        ("PARIS MONTPARNASSE", "POITIERS"),
-        ("PARIS MONTPARNASSE", "QUIMPER"),
         ("PARIS MONTPARNASSE", "RENNES"),
-        ("PARIS MONTPARNASSE", "ST MALO"),
-        ("PARIS MONTPARNASSE", "ST PIERRE DES CORPS"),
-        ("PARIS MONTPARNASSE", "TOULOUSE MATABIAU"),
-        ("PARIS MONTPARNASSE", "TOURS"),
-        ("PARIS MONTPARNASSE", "VANNES"),
-        ("PARIS VAUGIRARD", "RENNES"),
     ]
     assert result == expected
 
 
-def test_get_reachable_destinations_list_from_city():
+def test_get_reachable_destinations_list_from_city(mocked_df):
     """
     Test reachable destinations from a city.
     """
-    # From Paris
-    result_paris = get_reachable_destinations_list_from_city("PARIS LYON")
-    assert result_paris == [
-        "AIX EN PROVENCE TGV",
-        "ANNECY",
-        "AVIGNON TGV",
-        "BARCELONA",
-        "BELLEGARDE (AIN)",
-        "BESANCON FRANCHE COMTE TGV",
-        "CHAMBERY CHALLES LES EAUX",
-        "DIJON VILLE",
-        "GENEVE",
-        "GRENOBLE",
-        "ITALIE",
-        "LAUSANNE",
-        "LE CREUSOT MONTCEAU MONTCHANIN",
-        "LYON PART DIEU",
-        "MACON LOCHE",
-        "MARSEILLE ST CHARLES",
-        "MONTPELLIER",
-        "MULHOUSE VILLE",
-        "NICE VILLE",
-        "NIMES",
-        "PERPIGNAN",
-        "SAINT ETIENNE CHATEAUCREUX",
-        "TOULON",
-        "VALENCE ALIXAN TGV",
-        "ZURICH",
-    ]
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
 
-    # From Lyon
-    # Pairs containing Lyon: (Paris, Lyon), (Lyon, Paris), (Lyon, Marseille)
-    # Reachable: Paris, Marseille
-    result_lyon = get_reachable_destinations_list_from_city("PARIS NORD")
-    assert result_lyon == ["ARRAS", "DOUAI", "DUNKERQUE", "LILLE"]
+    # From Paris Montparnasse in the mock data
+    result_paris = get_reachable_destinations_list_from_city("PARIS MONTPARNASSE")
+    assert result_paris == ["BORDEAUX ST JEAN", "NANTES", "RENNES"]
 
 
-def test_get_unique_railstations_df():
+def test_get_unique_railstations_df(mocked_df):
     """
-    Test get_unique_railstations_df returns a sorted list of unique departure stations.
+    Test must returns a sorted list of unique rail stations.
     """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
+
     result = get_unique_railstations_df()
-    assert result == [
-        "AIX EN PROVENCE TGV",
-        "ANGERS SAINT LAUD",
-        "ANGOULEME",
-        "ANNECY",
-        "ARRAS",
-        "AVIGNON TGV",
-        "BARCELONA",
-        "BELLEGARDE (AIN)",
-        "BESANCON FRANCHE COMTE TGV",
-        "BORDEAUX ST JEAN",
-        "BREST",
-        "CHAMBERY CHALLES LES EAUX",
-        "DIJON VILLE",
-        "DOUAI",
-        "DUNKERQUE",
-        "FRANCFORT",
-        "GENEVE",
-        "GRENOBLE",
-        "ITALIE",
-        "LA ROCHELLE VILLE",
-        "LAUSANNE",
-        "LAVAL",
-        "LE CREUSOT MONTCEAU MONTCHANIN",
-        "LE MANS",
-        "LILLE",
-        "LYON PART DIEU",
-        "MACON LOCHE",
-        "MADRID",
-        "MARNE LA VALLEE",
-        "MARSEILLE ST CHARLES",
-        "METZ",
-        "MONTPELLIER",
-        "MULHOUSE VILLE",
-        "NANCY",
-        "NANTES",
-        "NICE VILLE",
-        "NIMES",
-        "PARIS EST",
-        "PARIS LYON",
-        "PARIS MONTPARNASSE",
-        "PARIS NORD",
-        "PARIS VAUGIRARD",
-        "PERPIGNAN",
-        "POITIERS",
-        "QUIMPER",
-        "REIMS",
-        "RENNES",
-        "SAINT ETIENNE CHATEAUCREUX",
-        "ST MALO",
-        "ST PIERRE DES CORPS",
-        "STRASBOURG",
-        "STUTTGART",
-        "TOULON",
-        "TOULOUSE MATABIAU",
-        "TOURCOING",
-        "TOURS",
-        "VALENCE ALIXAN TGV",
-        "VANNES",
-        "ZURICH",
-    ]
+    assert result == ["BORDEAUX ST JEAN", "NANTES", "PARIS MONTPARNASSE", "RENNES"]
 
 
 def test_get_filtered_metrics_df(mocked_df: pd.DataFrame) -> None:
@@ -458,6 +194,8 @@ def test_get_filtered_metrics_df(mocked_df: pd.DataFrame) -> None:
     Args:
         mocked_df (pd.DataFrame): The fake Pandas DataFrame if needed
     """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
 
     test_metrics = [MONTH_KEY, YEAR_KEY]
 
@@ -477,6 +215,9 @@ def test_get_filtered_departure_arrival_stations_df(
     Args:
         mocked_df (pd.DataFrame): The fake Pandas DataFrame if needed
     """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
+
     result = ld.get_filtered_departure_arrival_stations_df(
         "PARIS MONTPARNASSE", "RENNES", None
     )
@@ -492,6 +233,11 @@ def test_get_filtered_departure_arrival_stations_df(
     assert result[ARRIVAL_STATION_KEY].isin(["RENNES"]).all()
 
 
+def test_get_mean_departure_delay_df() -> None:
+    # TODO : write a real test
+    assert isinstance(ld.get_mean_departure_delay_df("toulon"), pd.Series)
+
+
 def test_get_filtered_period_df(
     mocked_df: pd.DataFrame,
 ) -> None:
@@ -500,6 +246,9 @@ def test_get_filtered_period_df(
     Args:
         mocked_df (pd.DataFrame): The fake Pandas DataFrame if needed
     """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
+
     result = ld.get_filtered_period_df(2, 12, [2018, 2020], None)
     assert result[YEAR_KEY].isin([2018, 2020]).all()
     assert result[MONTH_KEY].isin(np.arange(2, 13)).all()

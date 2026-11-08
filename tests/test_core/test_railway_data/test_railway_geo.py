@@ -146,10 +146,10 @@ def test_get_railway_geo_point_by_id(
     result = rg.get_railway_geo_point_by_id(101, "Paris-Montparnasse-Pasteur", "Rennes")
     assert result == [[(48.8, 2.3), (48.4, 1.6)]]
 
-    # railway exceed departure railstation
+    # railway exceed departure railstation, just keep points between railstations
     result = rg.get_railway_geo_point_by_id(102, "Paris-Montparnasse-Pasteur", "Rennes")
     # only keep arrival
-    assert result == [[(48.4, 1.6)]]
+    assert result == [[(48.8, 2.3), (48.4, 1.6)]]
 
     # railway exceed arrival railstation
     result = rg.get_railway_geo_point_by_id(103, "Paris-Montparnasse-Pasteur", "Rennes")

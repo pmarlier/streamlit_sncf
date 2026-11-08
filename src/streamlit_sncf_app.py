@@ -17,7 +17,7 @@ from core import load_data as ld
 from core.railway_data import railway_geo, railway_network
 from core.statistics import delay_cause
 from ui.carto import map_drawing, railway_drawing, st_folium
-from ui.widgets import pie_chart, sidebar
+from ui.widgets import graphs, pie_chart, sidebar
 
 
 def main():
@@ -31,6 +31,7 @@ def main():
     if "is_app_initialized" not in st.session_state:
         ld.init()
         railway_geo.init()
+        railway_network.init()
 
         st.session_state.is_app_initialized = True
         st.session_state.first_map_load = True
@@ -147,7 +148,10 @@ def main():
                 if st.session_state.first_map_load:
                     ratio = railway_index / total_railway_number
                     if ratio > 0.6:
-                        progress_text = "C'est presque fini. Nous vous promettons que l'attente en vaut la peine !"
+                        progress_text = (
+                            "C'est presque fini. Nous vous promettons que l'attente "
+                            "en vaut la peine !"
+                        )
 
                     my_bar.progress(ratio, text=progress_text)
 
@@ -193,8 +197,22 @@ def main():
         #       railway_network.get_railway_data_between_cities(departure, arrival)
         #     )
 
-    with map_container.container(height=300):
+    with map_container.container(height=600):
         st_folium(map, width=740)
+
+    # display monthly arrival delay graph below the map
+    # only if a specific railway trip is selected
+    if st.session_state.is_trip_set:
+        # inside the right column:
+        with map_container:
+            graphs.display_monthly_arrival_delay_graph(
+                departure_station=st.session_state.departure_city,
+                arrival_station=st.session_state.arrival_city,
+                start_month=st.session_state.start_month,
+                end_month=st.session_state.end_month,
+                selected_years=st.session_state.selected_years,
+                actual_year=2026,
+            )
 
     with info_container:
         if st.session_state.is_trip_set:
