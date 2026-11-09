@@ -75,9 +75,9 @@ def get_coords_for_city_pair(departure_city: str, arrival_city: str) -> list:
         arrival_city (str): _description_
 
     Returns:
-        list: The geo bounding box encompassing departure and arrival cities
-        The bounding box coordinates are stored under the format [min_latitude (N/S),
-        max_latitude (N/S), min_longitude (E/W), max_longitude (E/W)]
+        list: A list of geo point that encompasses departure and arrival cities
+        Each coordinates are stored for departure and arrival cities
+        [latitude (N/S), longitude (E/W)]
     """
     departure_railstation_geo = railstation_geo_df[
         railstation_geo_df["LIBELLE"]

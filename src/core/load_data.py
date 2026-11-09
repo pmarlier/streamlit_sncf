@@ -2,6 +2,7 @@
 
 import itertools
 import logging
+import logging.config
 
 import numpy as np
 import pandas as pd

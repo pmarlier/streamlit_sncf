@@ -12,6 +12,7 @@ downloaded from https://ressources.data.sncf.com/explore/dataset/regularite-mens
 """
 
 import logging
+import logging.config
 import os
 
 import streamlit as st
