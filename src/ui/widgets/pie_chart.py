@@ -11,7 +11,7 @@ def display_pie_chart(cause_list: list) -> None:
         "Défaillance matériel roulant",
         "Gestion trafic en gare",
         "Voyageurs en cause",
-        "Cause non-renseignée par SNCF",
+        "Cause inconnue",
     ]
 
     # colors
