@@ -9,8 +9,15 @@ import pandas as pd
 import pytest
 import streamlit as st
 
+import core.load_data as load_data
 from core import data_preprocessing as pr
 from core import load_data as ld
+from core.load_data import (
+    get_directional_city_pairs_list,
+    get_reachable_destinations_list_from_city,
+    get_unique_city_pairs_list,
+    get_unique_railstations_df,
+)
 
 CSV_PATH = "./data/raw/regularite-mensuelle-tgv-aqst.csv"
 
@@ -26,6 +33,15 @@ MONTHLY_CANCELLED_TRAINS_KEY = "Nombre de trains annulés"
 MONTHLY_PLANNED_TRAINS_KEY = "Nombre de circulations prévues"
 MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY = "Nombre de trains en retard au départ"
 MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY = "Nombre de trains en retard à l'arrivée"
+MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT = "Prct retard pour causes externes"
+MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT = "Prct retard pour cause infrastructure"
+MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT = "Prct retard pour cause gestion trafic"
+MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT = "Prct retard pour cause matériel roulant"
+MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT = (
+    "Prct retard pour cause gestion en gare et réutilisation de matériel"
+)
+MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT = "Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH, correspondances)"
+MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT = "Prct retard causes non renseignées"
 
 ARRIVAL_DELAY_COMMENT_KEY = "Commentaire retards à l'arrivée"
 DEPARTURE_DELAY_COMMENT_KEY = "Commentaire retards au départ"
@@ -81,6 +97,9 @@ def test_load_csv_df() -> pd.DataFrame:
 
 
 def test_init() -> None:
+    """
+    Test that all selected columns are imported.
+    """
     cols_to_be_kept = [
         MONTH_KEY,
         YEAR_KEY,
@@ -92,100 +111,97 @@ def test_init() -> None:
         MONTHLY_PLANNED_TRAINS_KEY,
         MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY,
         MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY,
+        MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT,
+        MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT,
+        MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT,
+        MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT,
+        MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT,
+        MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT,
+        MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT,
     ]
 
-    global df
-    df = ld.load_csv_df()
+    ld.init()
 
-    assert type(df) is pd.DataFrame
-    assert all(col in cols_to_be_kept for col in df.columns)
+    assert type(ld.df) is pd.DataFrame
+    assert all(col in cols_to_be_kept for col in ld.df.columns)
 
 
-# !! Tests to be written
-def get_unique_city_pairs_list() -> list:
-    """Retrieve unique pairs "departure-arrival" monitored by SNCF,
-    duplicates are dropped
-
-    Returns:
-        list: _description_
+def test_get_directional_city_pairs_list(mocked_df):
     """
-    railway_cities = df[[DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY]]
-    unique_railway_cities = railway_cities.value_counts().index.to_list()
-    return unique_railway_cities
-
-
-# !! Tests to be written
-def get_reachable_destinations_list_from_city(departure: str) -> list:
-    """Retrieve the list of destinations available from the departure railstation
-
-    Returns:
-        list: _description_
+    Test must returns all unique (departure, arrival).
+    The (arrival, departure) pair is different, so appear in the list
     """
-    reachable_destinations = []
-    city_pairs = get_unique_city_pairs_list()
-    reachable_destinations = list(
-        set(
-            itertools.chain(
-                *[city_pair for city_pair in city_pairs if departure in city_pair]
-            )
-        )
-    )
-    # one doesn't need to go directly to the place he came from, unless he needs an alibi... do you, PM ?
-    reachable_destinations.remove(departure)
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
 
-    return reachable_destinations
+    result = get_directional_city_pairs_list()
+    expected = [
+        ("PARIS MONTPARNASSE", "RENNES"),
+        ("RENNES", "PARIS MONTPARNASSE"),
+        ("PARIS MONTPARNASSE", "BORDEAUX ST JEAN"),
+        ("BORDEAUX ST JEAN", "PARIS MONTPARNASSE"),
+        ("PARIS MONTPARNASSE", "NANTES"),
+        ("NANTES", "PARIS MONTPARNASSE"),
+    ]
+    assert result == expected
 
 
-# !! Tests to be written
-def get_unique_railstations_df() -> pd.DataFrame:
-    """Gets a dataframe list of all the departure stations of the country
-
-    Returns:
-        pd.DataFrame: Departure stations dataframe
+def test_get_unique_city_pairs_list(mocked_df):
     """
-    unique_railstations = list(df[DEPARTURE_STATION_KEY].unique())
-    return unique_railstations
-
-    # def file_upload() -> pd.DataFrame:
-    """Affiche la barre latérale avec les modules choisis
-
-    Returns:
-        pd.Dataframe: le dataframe contenant les données importées
+    Test must returns unique couple of cities
+    This time, (departure, arrival) and (arrival, departure) are considered duplicates
+    One is dropped, and the list is sorted by alphabetical order
     """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
 
-    file_uploader = st.sidebar.file_uploader(
-        "Charger un CSV (colonnes: Gares, Retards ...)", type=["csv"]
-    )
+    result = get_unique_city_pairs_list()
 
-    # Si l'utilisateur ne charge rien, on utilise le CSV d'exemple fourni
-    if file_uploader is not None:
-        df = ld.load_csv_df(file_uploader)
-    else:
-        df = ld.load_csv_df("data/raw/regularite-mensuelle-tgv-aqst.csv")
-        st.sidebar.info(
-            "Aucun fichier chargé : utilisation de `regularite-mensuelle-tgv-aqst.csv`."
-        )
-
-    st.sidebar.write(f"**{len(df)}** données chargées")
-
-    return df
+    expected = [
+        ("BORDEAUX ST JEAN", "PARIS MONTPARNASSE"),
+        ("NANTES", "PARIS MONTPARNASSE"),
+        ("PARIS MONTPARNASSE", "RENNES"),
+    ]
+    assert result == expected
 
 
-# def get_mean_departure_delay_df(departure_city: str) -> pd.DataFrame:
-#     """Returns the list of the mean delays of a departure city
+def test_get_reachable_destinations_list_from_city(mocked_df):
+    """
+    Test reachable destinations from a city.
+    """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
 
-#     Args:
-#         departure_city (str): Departure city
+    # From Paris Montparnasse in the mock data
+    result_paris = get_reachable_destinations_list_from_city("PARIS MONTPARNASSE")
+    assert result_paris == ["BORDEAUX ST JEAN", "NANTES", "RENNES"]
 
-#     Returns:
-#         pd.DataFrame: Mean delays of a departure city
-#     """
 
-#     return df.loc[df[DEPARTURE_STATION_KEY] == departure_city][MEAN_DEPARTURE_DELAY_KEY]
+def test_get_unique_railstations_df(mocked_df):
+    """
+    Test must returns a sorted list of unique rail stations.
+    """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
+
+    result = get_unique_railstations_df()
+    assert result == ["BORDEAUX ST JEAN", "NANTES", "PARIS MONTPARNASSE", "RENNES"]
 
 
 def test_get_filtered_metrics_df(mocked_df: pd.DataFrame) -> None:
+    """Test the Pandas DataFrame column filter for a specific list of features
+
+    Args:
+        mocked_df (pd.DataFrame): The fake Pandas DataFrame if needed
+    """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
+
     test_metrics = [MONTH_KEY, YEAR_KEY]
+
+    result = ld.get_filtered_metrics_df(test_metrics, None)
+    assert all(metric in result.columns for metric in test_metrics)
+
     result = ld.get_filtered_metrics_df(test_metrics, mocked_df)
 
     assert all(metric in result.columns for metric in test_metrics)
@@ -194,6 +210,21 @@ def test_get_filtered_metrics_df(mocked_df: pd.DataFrame) -> None:
 def test_get_filtered_departure_arrival_stations_df(
     mocked_df: pd.DataFrame,
 ) -> None:
+    """Test the Pandas DataFrame row filter for a specific (departure arrival) couple
+
+    Args:
+        mocked_df (pd.DataFrame): The fake Pandas DataFrame if needed
+    """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
+
+    result = ld.get_filtered_departure_arrival_stations_df(
+        "PARIS MONTPARNASSE", "RENNES", None
+    )
+
+    assert result[DEPARTURE_STATION_KEY].isin(["PARIS MONTPARNASSE"]).all()
+    assert result[ARRIVAL_STATION_KEY].isin(["RENNES"]).all()
+
     result = ld.get_filtered_departure_arrival_stations_df(
         "PARIS MONTPARNASSE", "RENNES", mocked_df
     )
@@ -202,9 +233,26 @@ def test_get_filtered_departure_arrival_stations_df(
     assert result[ARRIVAL_STATION_KEY].isin(["RENNES"]).all()
 
 
+def test_get_mean_departure_delay_df() -> None:
+    # TODO : write a real test
+    assert isinstance(ld.get_mean_departure_delay_df("toulon"), pd.Series)
+
+
 def test_get_filtered_period_df(
     mocked_df: pd.DataFrame,
 ) -> None:
+    """Test the Pandas DataFrame row filter for a specific time frame
+
+    Args:
+        mocked_df (pd.DataFrame): The fake Pandas DataFrame if needed
+    """
+    # initialize load_data module with mocked dataframe
+    ld.set_monthly_punctuality_rate_df(mocked_df)
+
+    result = ld.get_filtered_period_df(2, 12, [2018, 2020], None)
+    assert result[YEAR_KEY].isin([2018, 2020]).all()
+    assert result[MONTH_KEY].isin(np.arange(2, 13)).all()
+
     result = ld.get_filtered_period_df(2, 12, [2018, 2020], mocked_df)
     assert result[YEAR_KEY].isin([2018, 2020]).all()
     assert result[MONTH_KEY].isin(np.arange(2, 13)).all()

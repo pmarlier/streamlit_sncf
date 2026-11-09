@@ -24,6 +24,9 @@ MAP_CITY = {
     "paris-montparnasse": "paris-montparnasse-pasteur",
     "bellegarde-(ain)": "bellegarde",
     "lyon-part-dieu": "lyon-perrache",
+    # as long as we don't have any railway geo coordinates for foreign countries
+    # we mapped foreign railstation with the closest city in France
+    # that is only for railpath drawing
     "madrid": "perpignan",
     "barcelona": "perpignan",
     "italie": "monaco",
@@ -261,19 +264,22 @@ RAILWAY_ID_NETWORK = {  # OK
 
 
 def get_processed_city_name(city_name: str) -> str:
-    """_summary_
+    """Process the railstation name in SNCF punctuality rate csv file
+    to match with railstation name in the other files
 
     Args:
-        city_name (str): _description_
+        city_name (str): the city name from SNCF punctuality rate csv file
 
     Returns:
-        str: _description_
+        str: the processed name to match with others SNCF files data
     """
     processed_city_name = city_name.lower().replace(" ", "-")
 
     try:
         processed_city_name = MAP_CITY[processed_city_name]
     except KeyError:
+        # if the lowered-case city name is not in the map
+        # meaning the name as outputed is correct
         pass
 
     return processed_city_name

@@ -80,10 +80,20 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
     return df
 
 
-def init() -> None:
+def set_monthly_punctuality_rate_df(dataframe: pd.DataFrame):
     """Initialization function to make global input csv dataframe"""
+    # "global" is set for a variable to be used widely within a module
     global df
+    df = dataframe
+
+
+def init() -> None:
+    """
+    Initialization function to load CSV and
+    set global variable to access dataframe
+    """
     df = load_csv_df()
+    set_monthly_punctuality_rate_df(df)
 
 
 def get_directional_city_pairs_list() -> list:
@@ -96,6 +106,7 @@ def get_directional_city_pairs_list() -> list:
     """
     railway_cities = df[[DEPARTURE_STATION_KEY, ARRIVAL_STATION_KEY]]
     directional_railway_cities = railway_cities.value_counts().index.to_list()
+
     return directional_railway_cities
 
 
@@ -104,10 +115,11 @@ def get_unique_city_pairs_list() -> list:
     duplicates and combinations "departure-arrival" and "arrival-departure" are dropped
 
     Returns:
-        list: _description_
+        list: sorted alphabetically list of unique railstation couple,
     """
     city_pairs = get_directional_city_pairs_list()
     ordered_unique_city_pairs = list(sorted([(x, y) for y, x in city_pairs if x < y]))
+
     return ordered_unique_city_pairs
 
 
@@ -126,10 +138,12 @@ def get_reachable_destinations_list_from_city(departure: str) -> list:
             )
         )
     )
-    # no one need to go directly to the place he came from, unless he needs an alibi
-    reachable_destinations.remove(departure)
+    if departure in reachable_destinations:
+        # no one need to go directly to the place he came from, unless he needs an alibi
+        reachable_destinations.remove(departure)
+    reachable_destinations = sorted(reachable_destinations)
 
-    return sorted(reachable_destinations)
+    return reachable_destinations
 
 
 def get_unique_railstations_df() -> pd.DataFrame:
@@ -139,6 +153,7 @@ def get_unique_railstations_df() -> pd.DataFrame:
         pd.DataFrame: Departure stations dataframe
     """
     unique_railstations = sorted(list(df[DEPARTURE_STATION_KEY].unique()))
+
     return unique_railstations
 
 

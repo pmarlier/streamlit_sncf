@@ -24,9 +24,7 @@ def draw_railway(railway_data_list: list, map_to_update: folium.Map) -> folium.M
                     color=matplotlib.colors.rgb2hex(cmap(mean_delay_on_arrival / 35)),
                     weight=4,
                     opacity=0.8,
-                    tooltip=str(
-                        f"{departure.capitalize()} - {arrival.capitalize()} : {mean_delay_on_arrival:.0f} min de retard moyen"
-                    ),
+                    tooltip=str(f"{mean_delay_on_arrival:.0f} min de retard moyen"),
                 ).add_to(map_to_update)
 
     return map_to_update

@@ -7,7 +7,52 @@ import numpy as np
 import pandas as pd
 
 from core import load_data as ld
-from core.statistics.mean_delay import ratio_number_of_trains
+
+
+def ratio_number_of_trains(
+    monthly_planned_trains: pd.Series, train_observations: pd.Series
+) -> float:
+    """Calculate the ratio of observed trains to planned trains.
+
+    This function can be used to calculate the proportion of delayed or
+    cancelled trains among planned trains over the selected periods.
+
+    Both input Series must cover the same periods and have matching indexes.
+    Observations with missing values or invalid counts are excluded.
+
+    Args:
+        monthly_planned_trains (pd.Series): Number of planned trains for each
+            selected month, usually from MONTHLY_PLANNED_TRAINS_KEY.
+            The Series must be filtered to the periods being studied.
+
+        train_observations (pd.Series): Number of delayed or cancelled trains
+            for each selected month. The Series must cover the same periods
+            as monthly_planned_trains.
+
+    Returns:
+        float: The ratio of valid train observations to planned trains,
+            or NaN if no valid observations are available.
+    """
+
+    # Creating a mask to select non-NaN values, positive planned counts
+    # and non-negative observations
+    valid_values = (
+        monthly_planned_trains.notna()
+        & (monthly_planned_trains > 0)
+        & train_observations.notna()
+        & (train_observations >= 0)
+    )
+
+    # Returning NaN if no valid observations could be used
+    if not valid_values.any():
+        return np.nan
+
+    train_ratio = float(
+        train_observations[valid_values].sum()
+        / monthly_planned_trains[valid_values].sum()
+    )
+
+    return train_ratio
 
 
 def get_ratio_cancelled_trains(
@@ -142,7 +187,6 @@ def get_ratio_delayed_departure_trains(
         df_period[ld.MONTHLY_PLANNED_TRAINS_KEY],
         df_period[ld.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY],
     )
-    # delayed_departure_trains_amount = df_period[ld.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY].sum(min_count=1)
 
     return delayed_departure_trains_ratio
 
@@ -191,6 +235,5 @@ def get_ratio_delayed_arrival_trains(
         df_period[ld.MONTHLY_PLANNED_TRAINS_KEY],
         df_period[ld.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY],
     )
-    # delayed_arrival_trains_amount = df_period[ld.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY].sum(min_count=1)
 
     return delayed_arrival_trains_ratio

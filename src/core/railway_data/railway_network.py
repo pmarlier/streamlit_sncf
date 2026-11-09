@@ -24,6 +24,16 @@ from core.statistics import mean_delay as md
 # PARIS LYON - MULHOUSE dans fichier retard, mais ligne entre PARIS EST - MULHOUSE VILLE
 
 
+def set_railway_id_network(railway_map: dict) -> None:
+    global railway_id_network_dict
+    railway_id_network_dict = railway_map
+
+
+def init() -> None:
+    """_summary_"""
+    set_railway_id_network(railway_data.RAILWAY_ID_NETWORK)
+
+
 def get_railway_id_from_network(departure: str, arrival: str) -> list:
     """_summary_
 
@@ -35,7 +45,7 @@ def get_railway_id_from_network(departure: str, arrival: str) -> list:
         list: _description_
     """
     try:
-        railway_id = railway_data.RAILWAY_ID_NETWORK[
+        railway_id = railway_id_network_dict[
             f"{railway_data.get_processed_city_name(departure)}-{railway_data.get_processed_city_name(arrival)}"
         ]
     except Exception:
@@ -43,45 +53,6 @@ def get_railway_id_from_network(departure: str, arrival: str) -> list:
         return []
 
     return railway_id
-
-
-def get_railway_data_from_city(departure: str) -> list:
-    """_summary_
-
-    Args:
-        departure (str): _description_
-
-    Returns:
-        list: _description_
-    """
-    railway_data_to_draw = []
-
-    reachable_destinations_list = ld.get_reachable_destinations_list_from_city(
-        departure
-    )
-
-    arrival = reachable_destinations_list[0]
-
-    print(f"{departure} - {arrival}")
-    mean_delay_on_arrival = md.get_arrival_mean_delay_for_city_pair(departure, arrival)
-
-    railway_id_list = get_railway_id_from_network(departure, arrival)
-
-    for railway_id_to_draw in railway_id_list:
-        railway_point_to_draw = railway_geo.get_railway_geo_point_by_id(
-            railway_id_to_draw, departure, arrival
-        )
-        railway_data_to_draw.append(
-            [
-                railway_id_to_draw,
-                railway_point_to_draw,
-                departure,
-                arrival,
-                mean_delay_on_arrival,
-            ]
-        )
-
-    return railway_data_to_draw
 
 
 @st.cache_data
