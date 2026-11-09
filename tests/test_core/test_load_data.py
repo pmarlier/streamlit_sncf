@@ -96,7 +96,7 @@ def test_load_csv_df() -> pd.DataFrame:
     assert DATE_KEY not in df.columns
 
 
-def test_init() -> None:
+def test_init(mocked_df) -> None:
     """
     Test that all selected columns are imported.
     """
@@ -120,7 +120,7 @@ def test_init() -> None:
         MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT,
     ]
 
-    ld.init()
+    ld.set_monthly_punctuality_rate_df(mocked_df)
 
     assert type(ld.df) is pd.DataFrame
     assert all(col in cols_to_be_kept for col in ld.df.columns)

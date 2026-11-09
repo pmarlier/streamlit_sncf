@@ -17,7 +17,8 @@ dependencies = [
     "streamlit-folium",
     "unidecode",
     "geopy",
-    "plotly>=7.1.0",
+    "plotly",
+    "colorlog"
 ]
 
 [dependency-groups]
