@@ -11,7 +11,7 @@ def display_pie_chart(cause_list: list) -> None:
         "Défaillance matériel roulant",
         "Gestion trafic en gare",
         "Voyageurs en cause",
-        "Cause inconnue",
+        "Cause non-renseignée par SNCF",
     ]
 
     # colors
@@ -38,5 +38,5 @@ def display_pie_chart(cause_list: list) -> None:
     fig.gca().add_artist(centre_circle)
 
     # Adding Title of chart
-    plt.title("Causes possibles des retards observés")
+    plt.title("Causes possibles des retards observés (moyenne nationale)")
     st.pyplot(fig)

@@ -56,7 +56,7 @@ def main():
     # 1. Header
     # --------------------------------------------------------------------------
 
-    # Create a row with 2 columns
+    # Create a row with 3 columns
     (logo_sncf_container, title_container, logo_telecom_paris_container) = st.columns(
         [1, 3, 1], gap="large"
     )
@@ -197,7 +197,7 @@ def main():
         #       railway_network.get_railway_data_between_cities(departure, arrival)
         #     )
 
-    with map_container.container(height=600):
+    with map_container.container(height=650):
         st_folium(map, width=740)
 
     # display monthly arrival delay graph below the map
@@ -225,13 +225,15 @@ def main():
             pie_chart.display_pie_chart(delay_cause.get_mean_cause_list())
 
         if st.session_state.is_trip_set is False:
+            (_, trip_button_container, _) = st.columns([1, 3, 1], gap="large")
             # Set the button to define trip configuration within the HomePage
-            if st.button(
-                "Je veux étudier les statistiques  d'un trajet précis",
-                type="primary",
-            ):
-                st.session_state.is_trip_set = True
-                st.rerun()
+            with trip_button_container:
+                if st.button(
+                    "Je veux étudier les statistiques  d'un trajet précis",
+                    type="primary",
+                ):
+                    st.session_state.is_trip_set = True
+                    st.rerun()
 
 
 if __name__ == "__main__":
