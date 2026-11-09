@@ -11,6 +11,9 @@ The raw data file "regularite-mensuelle-tgv-aqst.csv" shall be stored in ./data/
 downloaded from https://ressources.data.sncf.com/explore/dataset/regularite-mensuelle-tgv-aqst/export/
 """
 
+import logging
+import os
+
 import streamlit as st
 
 from core import load_data as ld
@@ -29,15 +32,24 @@ def main():
     # --------------------------------------------------------------------------
 
     if "is_app_initialized" not in st.session_state:
+        logging.config.fileConfig("config/logging.conf")
+
+        if not os.path.isdir("logs"):
+            os.mkdir("logs")
+
+        logger = logging.getLogger(__name__)
+
         ld.init()
+        logger.debug("Module load_data prêt")
         railway_geo.init()
+        logger.debug("Module railway_geo prêt")
         railway_network.init()
+        logger.debug("Module railway_network prêt")
 
         st.session_state.is_app_initialized = True
         st.session_state.first_map_load = True
 
-        print("Fin de l'import des données par le CSV")
-
+        logger.debug("Fin de l'initialisation des modules de calcul")
     # --------------------------------------------------------------------------
     # Main page general configuration
     # --------------------------------------------------------------------------
@@ -58,7 +70,10 @@ def main():
     )
 
     with logo_sncf_container:
-        st.image("./resources/logo_sncf.png")
+        if os.path.isfile("./resources/logo_sncf.png"):
+            st.image("./resources/logo_sncf.png")
+        else:
+            logger.warning("Logo SNCF non disponible")
 
     with title_container:
         st.header(
@@ -67,13 +82,17 @@ def main():
         )
 
     with logo_telecom_paris_container:
-        st.image("./resources/logo_tp.png", width="stretch")
+        if os.path.isfile("./resources/logo_tp.png"):
+            st.image("./resources/logo_tp.png", width="stretch")
+        else:
+            logger.warning("Logo Telecom Paris non disponible")
 
     # --------------------------------------------------------------------------
     # 2. Sidebar trip selection
     # --------------------------------------------------------------------------
     if "is_trip_set" not in st.session_state:
         st.session_state.is_trip_set = False
+        logger.debug("Premier lancement de l'application : mode page d'accueil")
 
     # Note : display sidebar only if the user wants to display
     # informations on a specific railway link
@@ -231,6 +250,9 @@ def main():
                 type="primary",
             ):
                 st.session_state.is_trip_set = True
+                logger.debug(
+                    "Mode exploration d'un trajet précis activé par l'utilisateur"
+                )
                 st.rerun()
 
 

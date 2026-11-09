@@ -1,6 +1,7 @@
 """Data loading module"""
 
 import itertools
+import logging
 
 import numpy as np
 import pandas as pd
@@ -48,34 +49,42 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
         df (pd.DataFrame): retourne le csv converti en DataFrame
     """
     df = pd.read_csv(source, sep=";")
-    df = preprocess_data(df)
 
-    df = df[
-        [
-            DATE_KEY,
-            DEPARTURE_STATION_KEY,
-            ARRIVAL_STATION_KEY,
-            MEAN_DEPARTURE_DELAY_KEY,
-            MEAN_ARRIVAL_DELAY_KEY,
-            MONTHLY_CANCELLED_TRAINS_KEY,
-            MONTHLY_PLANNED_TRAINS_KEY,
-            MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY,
-            MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY,
-            MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT,
-            MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT,
-            MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT,
-            MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT,
-            MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT,
-            MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT,
-            MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT,
+    if df is not None:
+        logger.debug(
+            'Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame'
+        )
+        df = preprocess_data(df)
+        logger.debug("Prétraitement des données terminé")
+
+        df = df[
+            [
+                DATE_KEY,
+                DEPARTURE_STATION_KEY,
+                ARRIVAL_STATION_KEY,
+                MEAN_DEPARTURE_DELAY_KEY,
+                MEAN_ARRIVAL_DELAY_KEY,
+                MONTHLY_CANCELLED_TRAINS_KEY,
+                MONTHLY_PLANNED_TRAINS_KEY,
+                MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY,
+                MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY,
+                MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT,
+                MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT,
+                MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT,
+                MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT,
+                MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT,
+                MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT,
+                MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT,
+            ]
         ]
-    ]
+        logger.debug("Filtrage des données terminé")
+        logger.warning("Attention! toutes les colonnes ne sont pas dans le DataFrame!")
 
-    # Datetime format into year and month columns for periods selection
-    df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
-    df.insert(0, MONTH_KEY, df[DATE_KEY].dt.month)
-    df.insert(0, YEAR_KEY, df[DATE_KEY].dt.year)
-    df = df.drop(DATE_KEY, axis=1)
+        # Datetime format into year and month columns for periods selection
+        df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
+        df.insert(0, MONTH_KEY, df[DATE_KEY].dt.month)
+        df.insert(0, YEAR_KEY, df[DATE_KEY].dt.year)
+        # df = df.drop(DATE_KEY, axis=1)
 
     return df
 
@@ -92,6 +101,9 @@ def init() -> None:
     Initialization function to load CSV and
     set global variable to access dataframe
     """
+    global logger
+    logging.config.fileConfig("config/logging.conf")
+    logger = logging.getLogger(__name__)
     df = load_csv_df()
     set_monthly_punctuality_rate_df(df)
 
