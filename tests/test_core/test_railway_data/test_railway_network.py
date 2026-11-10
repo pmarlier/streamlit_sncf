@@ -97,8 +97,8 @@ def test_get_railway_data_between_cities(mocked_df):
     """
     departure = "Paris Montparnasse"
     arrival = "Rennes"
-
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.init()
+    ld.set_monthly_stats_df(mocked_df)
     railway_network.set_railway_id_network(MOCKED_RAILWAY_ID_NETWORK)
     result = railway_network.get_railway_data_between_cities(departure, arrival)
 
@@ -115,7 +115,8 @@ def test_get_all_railways_to_draw(mocked_df):
     """
     Test gathering all railway data for all unique city pairs.
     """
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.init()
+    ld.set_monthly_stats_df(mocked_df)
     result = railway_network.get_all_railways_to_draw()
 
     assert isinstance(result, list)
