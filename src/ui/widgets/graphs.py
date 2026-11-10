@@ -252,7 +252,14 @@ def display_monthly_arrival_delay_graph(
             hoverinfo="skip",
         )
     )
-
+    graph.update_layout(
+        legend=dict(
+            x=0.5,
+            y=1.1,
+            traceorder="normal",
+            font=dict(size=12),
+        )
+    )
     # configure the graph
     graph.update_layout(
         title=dict(
@@ -294,10 +301,10 @@ def display_monthly_arrival_delay_graph(
     # display in Streamlit
     st.plotly_chart(graph, width="stretch")
 
-    st.caption(
-        # note : it requires 2 spaces before \n
-        "Light band for each month: minimum–maximum of selected previous years.  \n"
-        "Dark band for each month: interval between Q1 and Q3 "
-        "of selected previous years.  \n"
-        "Bands are displayed only when enough observations are available."
-    )
+    # st.caption(
+    #     # note : it requires 2 spaces before \n
+    #     "Light band for each month: minimum–maximum of selected previous years.  \n"
+    #     "Dark band for each month: interval between Q1 and Q3 "
+    #     "of selected previous years.  \n"
+    #     "Bands are displayed only when enough observations are available."
+    # )

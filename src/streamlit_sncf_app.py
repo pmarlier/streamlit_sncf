@@ -19,7 +19,7 @@ from core import load_data as ld
 from core.railway_data import railway_geo, railway_network
 from core.statistics import delay_cause
 from ui.carto import map_drawing, railway_drawing, st_folium
-from ui.widgets import graphs, pie_chart, sidebar
+from ui.widgets import graphs, pie_chart, sidebar, train_stats_widget
 
 
 def main():
@@ -113,16 +113,27 @@ def main():
         # a. Delayed/cancelled stats for selected trip #
         # -------------------------------------------
         # Create a row with 2 columns
-        info_container, map_container = st.columns([2.5, 1.5], gap="large")
+        info_container, map_container = st.columns([1, 1], gap="large")
 
-        sidebar.display_delayed_cancelled_stats_table(
-            info_container,
-            st.session_state.departure_city,
-            st.session_state.arrival_city,
-            st.session_state.start_month,
-            st.session_state.end_month,
-            st.session_state.selected_years,
-        )
+        with info_container:
+            # display monthly arrival delay graph below the map
+            # only if a specific railway trip is selected
+            graphs.display_monthly_arrival_delay_graph(
+                departure_station=st.session_state.departure_city,
+                arrival_station=st.session_state.arrival_city,
+                start_month=st.session_state.start_month,
+                end_month=st.session_state.end_month,
+                selected_years=st.session_state.selected_years,
+                actual_year=2026,
+            )
+
+            train_stats_widget.display_delayed_cancelled_stats_table(
+                st.session_state.departure_city,
+                st.session_state.arrival_city,
+                st.session_state.start_month,
+                st.session_state.end_month,
+                st.session_state.selected_years,
+            )
 
         # -------------------------------------------
         # b. France map of trip #
@@ -199,20 +210,6 @@ def main():
 
     with map_container.container(height=650):
         st_folium(map, width=740)
-
-    # display monthly arrival delay graph below the map
-    # only if a specific railway trip is selected
-    if st.session_state.is_trip_set:
-        # inside the right column:
-        with map_container:
-            graphs.display_monthly_arrival_delay_graph(
-                departure_station=st.session_state.departure_city,
-                arrival_station=st.session_state.arrival_city,
-                start_month=st.session_state.start_month,
-                end_month=st.session_state.end_month,
-                selected_years=st.session_state.selected_years,
-                actual_year=2026,
-            )
 
     with info_container:
         if st.session_state.is_trip_set:
