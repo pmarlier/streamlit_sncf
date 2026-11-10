@@ -22,7 +22,8 @@ def test_get_ratio_cancelled_trains(mocked_df) -> None:
     assert isinstance(result, float)
 
     # initialize load_data module with mocked dataframe to check computation
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.init()
+    ld.set_monthly_stats_df(mocked_df)
 
     result = am.get_ratio_cancelled_trains(
         "PARIS MONTPARNASSE", "RENNES", 1, 12, [2018], ld.df
@@ -46,7 +47,8 @@ def test_get_total_planned_trains(mocked_df) -> None:
     assert isinstance(result, float)
 
     # initialize load_data module with mocked dataframe to check computation
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.init()
+    ld.set_monthly_stats_df(mocked_df)
 
     result = am.get_total_planned_trains(
         "PARIS MONTPARNASSE", "RENNES", 1, 12, [2018, 2020], ld.df
@@ -70,7 +72,8 @@ def test_get_ratio_delayed_departure_trains(mocked_df) -> None:
     assert isinstance(result, float)
 
     # initialize load_data module with mocked dataframe to check computation
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.init()
+    ld.set_monthly_stats_df(mocked_df)
 
     result = am.get_ratio_delayed_departure_trains(
         "PARIS MONTPARNASSE", "RENNES", 1, 12, [2018, 2020], ld.df
@@ -94,7 +97,8 @@ def test_get_ratio_delayed_arrival_trains(mocked_df) -> None:
     assert isinstance(result, float)
 
     # initialize load_data module with mocked dataframe to check computation
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.init()
+    ld.set_monthly_stats_df(mocked_df)
 
     result = am.get_ratio_delayed_arrival_trains(
         "PARIS MONTPARNASSE", "RENNES", 1, 12, [2018, 2020], ld.df

@@ -11,8 +11,6 @@ The raw data file "regularite-mensuelle-tgv-aqst.csv" shall be stored in ./data/
 downloaded from https://ressources.data.sncf.com/explore/dataset/regularite-mensuelle-tgv-aqst/export/
 """
 
-import logging
-import logging.config
 import os
 
 import streamlit as st
@@ -21,7 +19,7 @@ from core import load_data as ld
 from core.railway_data import railway_geo, railway_network
 from core.statistics import delay_cause
 from ui.carto import map_drawing, railway_drawing, st_folium
-from ui.widgets import graphs, pie_chart, sidebar
+from ui.widgets import graphs, pie_chart, sidebar, train_stats_widget
 
 
 def main():
@@ -33,24 +31,17 @@ def main():
     # --------------------------------------------------------------------------
 
     if "is_app_initialized" not in st.session_state:
-        logging.config.fileConfig("config/logging.conf")
-
+        # create log directory
         if not os.path.isdir("logs"):
             os.mkdir("logs")
 
-        logger = logging.getLogger(__name__)
-
         ld.init()
-        logger.debug("Module load_data prêt")
         railway_geo.init()
-        logger.debug("Module railway_geo prêt")
         railway_network.init()
-        logger.debug("Module railway_network prêt")
 
         st.session_state.is_app_initialized = True
         st.session_state.first_map_load = True
 
-        logger.debug("Fin de l'initialisation des modules de calcul")
     # --------------------------------------------------------------------------
     # Main page general configuration
     # --------------------------------------------------------------------------
@@ -65,7 +56,7 @@ def main():
     # 1. Header
     # --------------------------------------------------------------------------
 
-    # Create a row with 2 columns
+    # Create a row with 3 columns
     (logo_sncf_container, title_container, logo_telecom_paris_container) = st.columns(
         [1, 3, 1], gap="large"
     )
@@ -73,8 +64,6 @@ def main():
     with logo_sncf_container:
         if os.path.isfile("./resources/logo_sncf.png"):
             st.image("./resources/logo_sncf.png")
-        else:
-            logger.warning("Logo SNCF non disponible")
 
     with title_container:
         st.header(
@@ -85,15 +74,12 @@ def main():
     with logo_telecom_paris_container:
         if os.path.isfile("./resources/logo_tp.png"):
             st.image("./resources/logo_tp.png", width="stretch")
-        else:
-            logger.warning("Logo Telecom Paris non disponible")
 
     # --------------------------------------------------------------------------
     # 2. Sidebar trip selection
     # --------------------------------------------------------------------------
     if "is_trip_set" not in st.session_state:
         st.session_state.is_trip_set = False
-        logger.debug("Premier lancement de l'application : mode page d'accueil")
 
     # Note : display sidebar only if the user wants to display
     # informations on a specific railway link
@@ -127,16 +113,27 @@ def main():
         # a. Delayed/cancelled stats for selected trip #
         # -------------------------------------------
         # Create a row with 2 columns
-        info_container, map_container = st.columns([2.5, 1.5], gap="large")
+        info_container, map_container = st.columns([1, 1], gap="large")
 
-        sidebar.display_delayed_cancelled_stats_table(
-            info_container,
-            st.session_state.departure_city,
-            st.session_state.arrival_city,
-            st.session_state.start_month,
-            st.session_state.end_month,
-            st.session_state.selected_years,
-        )
+        with info_container:
+            # display monthly arrival delay graph below the map
+            # only if a specific railway trip is selected
+            graphs.display_monthly_arrival_delay_graph(
+                departure_station=st.session_state.departure_city,
+                arrival_station=st.session_state.arrival_city,
+                start_month=st.session_state.start_month,
+                end_month=st.session_state.end_month,
+                selected_years=st.session_state.selected_years,
+                actual_year=2026,
+            )
+
+            train_stats_widget.display_delayed_cancelled_stats_table(
+                st.session_state.departure_city,
+                st.session_state.arrival_city,
+                st.session_state.start_month,
+                st.session_state.end_month,
+                st.session_state.selected_years,
+            )
 
         # -------------------------------------------
         # b. France map of trip #
@@ -181,13 +178,7 @@ def main():
                     railway_network.get_railway_data_between_cities(departure, arrival)
                 )
 
-            print("Fin du chargement des données")
             my_bar.empty()
-
-            print(
-                "Préparation de l'affichage de la carte - ",
-                "stockage des données dans le st.session_state",
-            )
 
             # never show loading bar again
             st.session_state.first_map_load = False
@@ -217,22 +208,8 @@ def main():
         #       railway_network.get_railway_data_between_cities(departure, arrival)
         #     )
 
-    with map_container.container(height=600):
+    with map_container.container(height=650):
         st_folium(map, width=740)
-
-    # display monthly arrival delay graph below the map
-    # only if a specific railway trip is selected
-    if st.session_state.is_trip_set:
-        # inside the right column:
-        with map_container:
-            graphs.display_monthly_arrival_delay_graph(
-                departure_station=st.session_state.departure_city,
-                arrival_station=st.session_state.arrival_city,
-                start_month=st.session_state.start_month,
-                end_month=st.session_state.end_month,
-                selected_years=st.session_state.selected_years,
-                actual_year=2026,
-            )
 
     with info_container:
         if st.session_state.is_trip_set:
@@ -245,16 +222,15 @@ def main():
             pie_chart.display_pie_chart(delay_cause.get_mean_cause_list())
 
         if st.session_state.is_trip_set is False:
+            (_, trip_button_container, _) = st.columns([1, 3, 1], gap="large")
             # Set the button to define trip configuration within the HomePage
-            if st.button(
-                "Je veux étudier les statistiques  d'un trajet précis",
-                type="primary",
-            ):
-                st.session_state.is_trip_set = True
-                logger.debug(
-                    "Mode exploration d'un trajet précis activé par l'utilisateur"
-                )
-                st.rerun()
+            with trip_button_container:
+                if st.button(
+                    "Je veux étudier les statistiques  d'un trajet précis",
+                    type="primary",
+                ):
+                    st.session_state.is_trip_set = True
+                    st.rerun()
 
 
 if __name__ == "__main__":

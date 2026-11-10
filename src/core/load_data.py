@@ -79,7 +79,9 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
             ]
         ]
         logger.debug("Filtrage des données terminé")
-        logger.warning("Attention! toutes les colonnes ne sont pas dans le DataFrame!")
+        logger.debug(
+            "Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)"
+        )
 
         # Datetime format into year and month columns for periods selection
         df[DATE_KEY] = pd.to_datetime(df[DATE_KEY])
@@ -90,11 +92,18 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
     return df
 
 
-def set_monthly_punctuality_rate_df(dataframe: pd.DataFrame):
+def get_monthly_stats_df() -> pd.DataFrame:
+    """Initialization function to make global input csv dataframe"""
+    # "global" is set for a variable to be used widely within a module
+    return df
+
+
+def set_monthly_stats_df(dataframe: pd.DataFrame):
     """Initialization function to make global input csv dataframe"""
     # "global" is set for a variable to be used widely within a module
     global df
     df = dataframe
+    logger.debug("Dataframe chargé")
 
 
 def init() -> None:
@@ -105,8 +114,7 @@ def init() -> None:
     global logger
     logging.config.fileConfig("config/logging.conf")
     logger = logging.getLogger(__name__)
-    df = load_csv_df()
-    set_monthly_punctuality_rate_df(df)
+    set_monthly_stats_df(load_csv_df())
 
 
 def get_directional_city_pairs_list() -> list:

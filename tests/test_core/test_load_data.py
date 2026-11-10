@@ -120,7 +120,8 @@ def test_init(mocked_df) -> None:
         MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT,
     ]
 
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.init()
+    ld.set_monthly_stats_df(mocked_df)
 
     assert type(ld.df) is pd.DataFrame
     assert all(col in cols_to_be_kept for col in ld.df.columns)
@@ -132,7 +133,8 @@ def test_get_directional_city_pairs_list(mocked_df):
     The (arrival, departure) pair is different, so appear in the list
     """
     # initialize load_data module with mocked dataframe
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.init()
+    ld.set_monthly_stats_df(mocked_df)
 
     result = get_directional_city_pairs_list()
     expected = [
@@ -152,8 +154,9 @@ def test_get_unique_city_pairs_list(mocked_df):
     This time, (departure, arrival) and (arrival, departure) are considered duplicates
     One is dropped, and the list is sorted by alphabetical order
     """
+    ld.init()
     # initialize load_data module with mocked dataframe
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.set_monthly_stats_df(mocked_df)
 
     result = get_unique_city_pairs_list()
 
@@ -169,8 +172,9 @@ def test_get_reachable_destinations_list_from_city(mocked_df):
     """
     Test reachable destinations from a city.
     """
+    ld.init()
     # initialize load_data module with mocked dataframe
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.set_monthly_stats_df(mocked_df)
 
     # From Paris Montparnasse in the mock data
     result_paris = get_reachable_destinations_list_from_city("PARIS MONTPARNASSE")
@@ -181,8 +185,9 @@ def test_get_unique_railstations_df(mocked_df):
     """
     Test must returns a sorted list of unique rail stations.
     """
+    ld.init()
     # initialize load_data module with mocked dataframe
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.set_monthly_stats_df(mocked_df)
 
     result = get_unique_railstations_df()
     assert result == ["BORDEAUX ST JEAN", "NANTES", "PARIS MONTPARNASSE", "RENNES"]
@@ -194,8 +199,9 @@ def test_get_filtered_metrics_df(mocked_df: pd.DataFrame) -> None:
     Args:
         mocked_df (pd.DataFrame): The fake Pandas DataFrame if needed
     """
+    ld.init()
     # initialize load_data module with mocked dataframe
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.set_monthly_stats_df(mocked_df)
 
     test_metrics = [MONTH_KEY, YEAR_KEY]
 
@@ -215,8 +221,9 @@ def test_get_filtered_departure_arrival_stations_df(
     Args:
         mocked_df (pd.DataFrame): The fake Pandas DataFrame if needed
     """
+    ld.init()
     # initialize load_data module with mocked dataframe
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.set_monthly_stats_df(mocked_df)
 
     result = ld.get_filtered_departure_arrival_stations_df(
         "PARIS MONTPARNASSE", "RENNES", None
@@ -246,8 +253,9 @@ def test_get_filtered_period_df(
     Args:
         mocked_df (pd.DataFrame): The fake Pandas DataFrame if needed
     """
+    ld.init()
     # initialize load_data module with mocked dataframe
-    ld.set_monthly_punctuality_rate_df(mocked_df)
+    ld.set_monthly_stats_df(mocked_df)
 
     result = ld.get_filtered_period_df(2, 12, [2018, 2020], None)
     assert result[YEAR_KEY].isin([2018, 2020]).all()
