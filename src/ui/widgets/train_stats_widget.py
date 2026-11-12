@@ -2,6 +2,7 @@ from fractions import Fraction
 
 import numpy as np
 import streamlit as st
+from streamlit.delta_generator import DeltaGenerator
 
 from core.statistics import amount_trains as am
 from ui.widgets import sidebar
@@ -38,14 +39,14 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
         # for index, (label, count, total, status) in enumerate(fields):
         if ratio > 0 and ratio <= 1:
             if ratio == 1:
-                train_info_str = f"All planned trains were {status}"
+                train_info_str = f"Tous les trains prévus ont été {status}"
             elif ratio > 0.95:
                 # avoid incorrectly approximating a ratio to "1 out of 1"
-                train_info_str = f"More than 19 out of 20 trains were {status}"
+                train_info_str = f"Plus de 19 trains sur 20 ont été {status}"
             elif ratio < 0.05:
                 # avoid incorrectly approximating a ratio to "0 out of 1"
                 train_info_str = (
-                    f"About 1 out of {round(1 / ratio)} trains were {status}"
+                    f"1 train sur {round(1 / ratio)} a été {status}"
                 )
             else:
                 # generate a set of the most easy-to-understand approximate fractions
@@ -64,15 +65,15 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
                 )
 
                 train_info_str = (
-                    f"About {fraction.numerator} out of "
-                    f"{fraction.denominator} trains were {status}"
+                    f"{fraction.numerator} train sur "
+                    f"{fraction.denominator} a été {status}"
                 )
         elif np.isnan(ratio):
-            train_info_str = "No data is available"
+            train_info_str = "Aucune donnée n'est disponible"
         elif ratio == 0:
-            train_info_str = f"No {status} train was declared"
+            train_info_str = f"Aucun train {status} n'a été déclaré"
         else:
-            train_info_str = "No consistent data is available"
+            train_info_str = "Aucun donnée fiable n'est disponible"
 
         if index == 0:
             # cols[1].markdown(label)
@@ -87,6 +88,7 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
 
 
 def display_delayed_cancelled_stats_table(
+    col: DeltaGenerator,
     departure_city: str,
     arrival_city: str,
     start_month: str,
@@ -99,7 +101,7 @@ def display_delayed_cancelled_stats_table(
     for a given departure and arrival cities.
 
     Args:
-        col (str): body column number to place the table
+        col (DeltaGenerator): body column (container) to place the table in
         departure_city (str): departure city to compute the statistics
         arrival_city (str): arrival city
         start_month (str): first month of the time period for a given year
@@ -128,54 +130,78 @@ def display_delayed_cancelled_stats_table(
     # with departure_city_container:
     #     st.markdown(f"{arrival_city}")
 
-    st.markdown(
-        f"Sur la période de  "
-        f"{sidebar.get_month_from_int_str(start_month)} à "
-        f"{sidebar.get_month_from_int_str(end_month)}:"
-    )
+    with col:
+        st.markdown(
+            "**Informations sur l'état du trafic**"
+        )
 
-    # Departure: Delay + Cancelled
-    section_row(
-        "Departure",
-        [
-            (
-                am.get_ratio_delayed_departure_trains(
-                    departure_city,
-                    arrival_city,
-                    start_month,
-                    end_month,
-                    selected_years,
-                ),
-                "delayed",
-            ),
-            (
-                am.get_ratio_cancelled_trains(
-                    departure_city,
-                    arrival_city,
-                    start_month,
-                    end_month,
-                    selected_years,
-                ),
-                "cancelled",
-            ),
-        ],
-    )
+        st.markdown(
+            f"Sur la période de "
+            f"{sidebar.get_month_from_int_str(start_month)} à "
+            f" {sidebar.get_month_from_int_str(end_month)}:"
+        )
 
-    st.divider()
+        # Departure: Delay + Cancelled
+        with st.container(border=True):
+            section_row(
+                "Départ",
+                [
+                    (
+                        am.get_ratio_delayed_departure_trains(
+                            departure_city,
+                            arrival_city,
+                            start_month,
+                            end_month,
+                            selected_years,
+                        ),
+                        "retardé",
+                    ),
+                    (
+                        am.get_ratio_cancelled_trains(
+                            departure_city,
+                            arrival_city,
+                            start_month,
+                            end_month,
+                            selected_years,
+                        ),
+                        "annulé",
+                    ),
+                ],
+            )
 
-    # Arrival: Delay only
-    section_row(
-        "Arrival",
-        [
-            (
-                am.get_ratio_delayed_arrival_trains(
-                    departure_city,
-                    arrival_city,
-                    start_month,
-                    end_month,
-                    selected_years,
-                ),
-                "delayed",
-            ),
-        ],
-    )
+            st.divider()
+
+            # Arrival: Delay only
+            section_row(
+                "Arrivée",
+                [
+                    (
+                        am.get_ratio_delayed_arrival_trains(
+                            departure_city,
+                            arrival_city,
+                            start_month,
+                            end_month,
+                            selected_years,
+                        ),
+                        "retardé",
+                    ),
+                ],
+            )
+
+
+def display_departure_arrival_stations_title(
+    col: DeltaGenerator,
+    departure_city: str,
+    arrival_city: str,
+) -> None:
+    """Displays as a title the departure and arrival cities,
+    based on the ones selected in the sidebar dropdown lists.
+
+    Args:
+        col (DeltaGenerator): body column (container) to place the table in
+        departure_city (str): departure city to compute the statistics
+        arrival_city (str): arrival city
+    """
+
+    with col:
+        st.markdown(f"## {departure_city.title()} → {arrival_city.title()}")

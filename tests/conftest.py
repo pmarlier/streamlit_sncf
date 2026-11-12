@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -6,8 +7,13 @@ from core import load_data as ld
 
 @pytest.fixture
 def mocked_df() -> pd.DataFrame:
-    """Small sample matching the dataframe returned by load_csv_df."""
-    return pd.DataFrame(
+    """Small sample matching the dataframe returned by load_csv_df.
+
+    On top of the regular 2018-2020 samples, the dataframe contains:
+    - 2019 rows with partially missing (np.nan) metrics,
+    - an "empty" year 2021 where every metric is np.nan.
+    """
+    base_df = pd.DataFrame(
         {
             ld.YEAR_KEY: [
                 2018,
@@ -236,6 +242,74 @@ def mocked_df() -> pd.DataFrame:
             ],
         }
     )
+
+    # Extra samples with missing (np.nan) values, on already existing trips
+    # and outside the 2018/2020 periods asserted by the statistics tests:
+    # - 2019: two partially missing samples (some metrics are np.nan)
+    # - 2021: an "empty" year, where every metric is np.nan
+    nan_samples_df = pd.DataFrame(
+        {
+            ld.YEAR_KEY: [2019, 2019, 2021, 2021],
+            ld.MONTH_KEY: [5, 6, 3, 9],
+            ld.DEPARTURE_STATION_KEY: [
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "RENNES",
+            ],
+            ld.ARRIVAL_STATION_KEY: [
+                "RENNES",
+                "RENNES",
+                "RENNES",
+                "PARIS MONTPARNASSE",
+            ],
+            ld.MEAN_DEPARTURE_DELAY_KEY: [np.nan, 10.3, np.nan, np.nan],
+            ld.MEAN_ARRIVAL_DELAY_KEY: [22.4, np.nan, np.nan, np.nan],
+            ld.MONTHLY_CANCELLED_TRAINS_KEY: [np.nan, 7, np.nan, np.nan],
+            ld.MONTHLY_PLANNED_TRAINS_KEY: [598, np.nan, np.nan, np.nan],
+            ld.MONTHLY_DELAYED_DEPARTURE_TRAINS_KEY: [np.nan, 95, np.nan, np.nan],
+            ld.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY: [90, np.nan, np.nan, np.nan],
+            ld.MONTHLY_EXTERNAL_CAUSE_DELAY_PERCENT: [10.0, np.nan, np.nan, np.nan],
+            ld.MONTHLY_INFRASTRUCTURAL_CAUSE_DELAY_PERCENT: [
+                np.nan,
+                15.0,
+                np.nan,
+                np.nan,
+            ],
+            ld.MONTHLY_TRAFFIC_MANAGEMENT_CAUSE_DELAY_PERCENT: [
+                2.0,
+                np.nan,
+                np.nan,
+                np.nan,
+            ],
+            ld.MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT: [
+                np.nan,
+                11.0,
+                np.nan,
+                np.nan,
+            ],
+            ld.MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT: [
+                0.0,
+                np.nan,
+                np.nan,
+                np.nan,
+            ],
+            ld.MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT: [
+                np.nan,
+                200.0,
+                np.nan,
+                np.nan,
+            ],
+            ld.MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT: [
+                50.0,
+                np.nan,
+                np.nan,
+                np.nan,
+            ],
+        }
+    )
+
+    return pd.concat([base_df, nan_samples_df], ignore_index=True)
 
 
 @pytest.fixture
