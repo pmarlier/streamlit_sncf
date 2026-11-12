@@ -44,7 +44,7 @@ def test_section_row():
 
         wg.section_row(
             event,
-            [(total_delayed_departure_trains / total_planned_trains, "delayed")],
+            [(total_delayed_departure_trains / total_planned_trains, "retardé")],
         )
 
     at_departure_delayed = AppTest.from_function(
@@ -62,7 +62,7 @@ def test_section_row():
 
         wg.section_row(
             event,
-            [(total_delayed_arrival_trains / total_planned_trains, "delayed")],
+            [(total_delayed_arrival_trains / total_planned_trains, "retardé")],
         )
 
     at_arrival_delayed = AppTest.from_function(
@@ -80,7 +80,7 @@ def test_section_row():
 
         wg.section_row(
             event,
-            [(total_cancelled_departure_trains / total_planned_trains, "cancelled")],
+            [(total_cancelled_departure_trains / total_planned_trains, "annulé")],
         )
 
     at_departure_cancelled = AppTest.from_function(
@@ -89,9 +89,9 @@ def test_section_row():
     val_col_cancelled_departure = at_departure_cancelled.columns[1].markdown[0].value
 
     # assertions
-    assert val_col_delayed_departure == "About 1 out of 6 trains were delayed"
-    assert val_col_delayed_arrival == "About 1 out of 5 trains were delayed"
-    assert val_col_cancelled_departure == "About 1 out of 23 trains were cancelled"
+    assert val_col_delayed_departure == "1 train sur 6 a été retardé"
+    assert val_col_delayed_arrival == "1 train sur 5 a été retardé"
+    assert val_col_cancelled_departure == "1 train sur 23 a été annulé"
 
     ######################
     # CASE NO TRAINS WERE EXPLICITELY DECLARED
@@ -107,7 +107,7 @@ def test_section_row():
 
         wg.section_row(
             event,
-            [(total_delayed_departure_trains / total_planned_trains, "delayed")],
+            [(total_delayed_departure_trains / total_planned_trains, "retardé")],
         )
 
     at_departure_delayed_none = AppTest.from_function(
@@ -127,7 +127,7 @@ def test_section_row():
 
         wg.section_row(
             event,
-            [(total_delayed_arrival_trains / total_planned_trains, "delayed")],
+            [(total_delayed_arrival_trains / total_planned_trains, "retardé")],
         )
 
     at_arrival_delayed_none = AppTest.from_function(
@@ -145,7 +145,7 @@ def test_section_row():
 
         wg.section_row(
             event,
-            [(total_cancelled_departure_trains / total_planned_trains, "cancelled")],
+            [(total_cancelled_departure_trains / total_planned_trains, "annulé")],
         )
 
     at_departure_cancelled_none = AppTest.from_function(
@@ -156,9 +156,9 @@ def test_section_row():
     )
 
     # assertions
-    assert val_col_delayed_departure_none == "No delayed train was declared"
-    assert val_col_delayed_arrival_none == "No delayed train was declared"
-    assert val_col_cancelled_departure_none == "No cancelled train was declared"
+    assert val_col_delayed_departure_none == "Aucun train retardé n'a été déclaré"
+    assert val_col_delayed_arrival_none == "Aucun train retardé n'a été déclaré"
+    assert val_col_cancelled_departure_none == "Aucun train annulé n'a été déclaré"
 
     ######################
     # CASE NO DATA EXIST
@@ -226,9 +226,9 @@ def test_section_row():
     )
 
     # assertions
-    assert val_col_delayed_departure_none == "No data is available"
-    assert val_col_delayed_arrival_none == "No data is available"
-    assert val_col_cancelled_departure_none == "No data is available"
+    assert val_col_delayed_departure_none == "Aucune donnée n'est disponible"
+    assert val_col_delayed_arrival_none == "Aucune donnée n'est disponible"
+    assert val_col_cancelled_departure_none == "Aucune donnée n'est disponible"
 
 
 def test_select_month(months_list=sidebar.MONTHS_LIST):
@@ -312,8 +312,8 @@ def test_display_sidebar():
 
     departure_city = "METZ"
     arrival_city = "PARIS EST"
-    start_month = "February"
-    end_month = "October"
+    start_month = "Février"
+    end_month = "Octobre"
     year_out = 2018
 
     def run_sidebar():

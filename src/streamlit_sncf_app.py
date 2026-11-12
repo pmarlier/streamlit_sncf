@@ -116,24 +116,35 @@ def main():
         info_container, map_container = st.columns([1, 1], gap="large")
 
         with info_container:
-            # display monthly arrival delay graph below the map
-            # only if a specific railway trip is selected
-            graphs.display_monthly_arrival_delay_graph(
-                departure_station=st.session_state.departure_city,
-                arrival_station=st.session_state.arrival_city,
-                start_month=st.session_state.start_month,
-                end_month=st.session_state.end_month,
-                selected_years=st.session_state.selected_years,
-                actual_year=2026,
-            )
-
-            train_stats_widget.display_delayed_cancelled_stats_table(
+            
+            train_stats_widget.display_departure_arrival_stations_title(
+                info_container,
                 st.session_state.departure_city,
-                st.session_state.arrival_city,
-                st.session_state.start_month,
-                st.session_state.end_month,
-                st.session_state.selected_years,
+                st.session_state.arrival_city
             )
+            
+            with st.container(border=True):
+                # display monthly arrival delay graph below the map
+                # only if a specific railway trip is selected
+                graphs.display_monthly_arrival_delay_graph(
+                    departure_station=st.session_state.departure_city,
+                    arrival_station=st.session_state.arrival_city,
+                    start_month=st.session_state.start_month,
+                    end_month=st.session_state.end_month,
+                    selected_years=st.session_state.selected_years,
+                    actual_year=2026,
+                )
+
+            with info_container:
+                frame = st.container(border=True)
+                train_stats_widget.display_delayed_cancelled_stats_table(
+                    frame,
+                    st.session_state.departure_city,
+                    st.session_state.arrival_city,
+                    st.session_state.start_month,
+                    st.session_state.end_month,
+                    st.session_state.selected_years,
+                )
 
         # -------------------------------------------
         # b. France map of trip #
@@ -212,25 +223,26 @@ def main():
         st_folium(map, width=740)
 
     with info_container:
-        if st.session_state.is_trip_set:
-            pie_chart.display_pie_chart(
-                delay_cause.get_mean_cause_list(
-                    st.session_state.departure_city, st.session_state.arrival_city
+        with st.container(border=True):
+            if st.session_state.is_trip_set:
+                pie_chart.display_pie_chart(
+                    delay_cause.get_mean_cause_list(
+                        st.session_state.departure_city, st.session_state.arrival_city
+                    )
                 )
-            )
-        else:
-            pie_chart.display_pie_chart(delay_cause.get_mean_cause_list())
+            else:
+                pie_chart.display_pie_chart(delay_cause.get_mean_cause_list())
 
-        if st.session_state.is_trip_set is False:
-            (_, trip_button_container, _) = st.columns([1, 3, 1], gap="large")
-            # Set the button to define trip configuration within the HomePage
-            with trip_button_container:
-                if st.button(
-                    "Je veux étudier les statistiques  d'un trajet précis",
-                    type="primary",
-                ):
-                    st.session_state.is_trip_set = True
-                    st.rerun()
+            if st.session_state.is_trip_set is False:
+                (_, trip_button_container, _) = st.columns([1, 3, 1], gap="large")
+                # Set the button to define trip configuration within the HomePage
+                with trip_button_container:
+                    if st.button(
+                        "Je veux étudier les statistiques  d'un trajet précis",
+                        type="primary",
+                    ):
+                        st.session_state.is_trip_set = True
+                        st.rerun()
 
 
 if __name__ == "__main__":
