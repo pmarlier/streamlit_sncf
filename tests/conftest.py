@@ -358,8 +358,14 @@ def mocked_railway_geo_df() -> pd.DataFrame:
                 # special lines for edge case testing : empty line, (105)
                 # railway coordinates exceed railstation coordinates (102 and 103)
                 # railway coordinates that doesn't fit the trip at all (105)
-                '{"coordinates": [[3.0, 49.5], [2.3, 48.8], [1.6, 48.4]], "type": "LineString"}',
-                '{"coordinates": [[2.3, 48.8], [1.6, 48.4], [1.0, 47.0]], "type": "LineString"}',
+                (
+                    '{"coordinates": [[3.0, 49.5], [2.3, 48.8], [1.6, 48.4]], '
+                    '"type": "LineString"}'
+                ),
+                (
+                    '{"coordinates": [[2.3, 48.8], [1.6, 48.4], [1.0, 47.0]], '
+                    '"type": "LineString"}'
+                ),
                 '{"coordinates": [[10.0, 50.0], [11.0, 51.0]], "type": "LineString"}',
                 '{"coordinates": [], "type": "LineString"}',
             ],
@@ -387,3 +393,33 @@ def mocked_railstation_geo_df() -> pd.DataFrame:
             "Geo Point": ["48.8, 2.3", "48.4, 1.6", "44.8, 0.5"],
         }
     )
+
+
+@pytest.fixture
+def mocked_delay_df(mocked_df) -> pd.DataFrame:
+    """Extend the existing mocked data for monthly delay statistics
+    with extra years' statistics.
+    """
+
+    extra_mocked_data = pd.DataFrame(
+        {
+            ld.YEAR_KEY: [2022, 2023, 2024, 2026],
+            ld.MONTH_KEY: [1, 1, 1, 1],
+            ld.DEPARTURE_STATION_KEY: [
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+            ],
+            ld.ARRIVAL_STATION_KEY: [
+                "RENNES",
+                "RENNES",
+                "RENNES",
+                "RENNES",
+            ],
+            ld.MEAN_ARRIVAL_DELAY_KEY: [30.0, 40.0, 50.0, 35.0],
+            ld.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY: [100, 120, np.nan, 110],
+        }
+    )
+
+    return pd.concat([mocked_df, extra_mocked_data], ignore_index=True)
