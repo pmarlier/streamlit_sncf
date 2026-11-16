@@ -2448,7 +2448,7 @@ requires-dist = [
     { name = "ipykernel" },
     { name = "matplotlib-inline" },
     { name = "pandas" },
-    { name = "plotly", specifier = ">=7.1.0" },
+    { name = "plotly" },
     { name = "pydeck" },
     { name = "seaborn" },
     { name = "sphinx" },

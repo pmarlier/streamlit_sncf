@@ -23,6 +23,13 @@ MONTHS_LIST = [
     "Décembre",
 ]
 
+@st.dialog("Erreur de période !")
+def wrong_month_dialog():
+    """Popup window function used for months selection functions, to explain to the user
+    that the selected departure month must be equal or prior to arrival month.    
+    """
+    st.write("Le mois de départ doit être égal ou antérieur au mois d'arrivée.")
+
 
 def get_month_from_int_str(month_int: int) -> str:
     """Converts a month as integer into string.
@@ -62,18 +69,19 @@ def get_month_from_str_int(month_str: str) -> int:
     return month_int
 
 
-def select_month(msg: str) -> int:
+def select_month(msg: str, index: int) -> int:
     """Get month from a dropdown list as integer, requiring get_month_from_str_int
     function to convert a month string to integer for further functions.
 
     Args:
         msg (str): Message to be displayed aside the dropdown list
+        index (str): The index of the preselected option on first render.
 
     Returns:
         selected_month (int): Selected month as integer (bewteen 1 and 12)
     """
 
-    selected_month = get_month_from_str_int(st.selectbox(msg, MONTHS_LIST))
+    selected_month = get_month_from_str_int(st.selectbox(msg, MONTHS_LIST, index))
 
     return selected_month
 
@@ -114,9 +122,16 @@ def display_sidebar() -> None:
         ld.get_reachable_destinations_list_from_city(st.session_state.departure_city),
     )
     st.session_state.start_month = select_month(
-        "Traitement des données entre le mois de :"
+        "Traitement des données entre le mois de :",
+        0
     )
-    st.session_state.end_month = select_month(" et de :")
+    
+    st.session_state.end_month = select_month(" et de :",
+                                              11)
+    if st.session_state.end_month < st.session_state.start_month:
+        wrong_month_dialog()
+        st.stop() # stops the script until the condition is met
+        
     st.session_state.selected_years = select_years("pour les années :")
 
     # Bouton personnalisé pour basculer l'état
