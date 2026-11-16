@@ -6,8 +6,12 @@ from streamlit.testing.v1 import AppTest
 
 from ui.widgets import sidebar, train_stats_widget
 
+@pytest.fixture
+def init_sidebar_logger():
+    sidebar.init()
+    train_stats_widget.init()
 
-def test_section_row():
+def test_section_row(init_sidebar_logger):
     """Verify the train status messages output by widgets.section_row module.
 
     Streamlit's AppTest is used to generate a website-like UI and check displayed
@@ -246,7 +250,7 @@ def test_select_month(months_list=sidebar.MONTHS_LIST):
         assert sidebar.get_month_from_str_int(m) == i + 1
 
 
-def test_select_years():
+def test_select_years(init_sidebar_logger):
     """Test the multiselect box for period's years selection.
     The default years list taken from base dataframe should be initialized at
     website's entry.
@@ -303,7 +307,7 @@ def test_get_month_from_str_int(months_list=sidebar.MONTHS_LIST):
         assert i + 1 == sidebar.get_month_from_str_int(m)
 
 
-def test_display_sidebar():
+def test_display_sidebar(init_sidebar_logger):
     """Verify trip selection through ui.widgets.display_sidebar.
 
     With AppTest, a given trip is selected, and the widgets outputs are tested:
@@ -347,7 +351,7 @@ def test_display_sidebar():
     assert en_mth == end_month
     assert year_out not in yrs
 
-def test_no_popup_when_valid_months():
+def test_no_popup_when_valid_months(init_sidebar_logger):
     """ Test that an error dialog does not display if arrival month is equal or later
     than departure month.
     """
@@ -380,7 +384,7 @@ def test_no_popup_when_valid_months():
     assert at.session_state.start_month <= at.session_state.end_month
     
     
-def test_popup_when_invalid_months():
+def test_popup_when_invalid_months(init_sidebar_logger):
     """ Test that an error dialog displays if arrival month is equal or prior to 
     departure month.
     """
