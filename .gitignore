@@ -11,7 +11,9 @@ docs/_other/notes.txt
 data/processed/visu.ipynb
 data/processed/delayed_cancelled_trains.png
 data/processed/regularite-mensuelle-tgv-aqst.csv
+logs/app.log
 
 # Virtual environments
 .venv
 .coverage
+.vscode/

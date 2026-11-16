@@ -30,7 +30,6 @@ def wrong_month_dialog():
     """
     st.write("Le mois de départ doit être égal ou antérieur au mois d'arrivée.")
 
-
 def get_month_from_int_str(month_int: int) -> str:
     """Converts a month as integer into string.
     This is based on a dictionnary month_dict{month_int: month_str}
@@ -130,7 +129,6 @@ def display_sidebar() -> None:
                                               11)
     if st.session_state.end_month < st.session_state.start_month:
         wrong_month_dialog()
-        st.stop() # stops the script until the condition is met
         
     st.session_state.selected_years = select_years("pour les années :")
 
