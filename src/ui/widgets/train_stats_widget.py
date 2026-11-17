@@ -17,6 +17,23 @@ def init() -> None:
     logger = logging.getLogger(__name__)
     logger.debug("train stats widget logger initialized")
     
+def display_departure_arrival_stations_title(
+    col: DeltaGenerator,
+    departure_city: str,
+    arrival_city: str,
+) -> None:
+    """Displays as a title the departure and arrival cities,
+    based on the ones selected in the sidebar dropdown lists.
+
+    Args:
+        col (DeltaGenerator): body column (container) to place the table in
+        departure_city (str): departure city to compute the statistics
+        arrival_city (str): arrival city
+    """
+
+    with col:
+        st.markdown(f"## {departure_city.title()} → {arrival_city.title()}")    
+
 def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
     """Displays information contained in fields input, named after section_label input,
     under the format of a 2 columns table : | section_label | field1
@@ -200,21 +217,3 @@ def display_delayed_cancelled_stats_table(
                     ),
                 ],
             )
-
-
-def display_departure_arrival_stations_title(
-    col: DeltaGenerator,
-    departure_city: str,
-    arrival_city: str,
-) -> None:
-    """Displays as a title the departure and arrival cities,
-    based on the ones selected in the sidebar dropdown lists.
-
-    Args:
-        col (DeltaGenerator): body column (container) to place the table in
-        departure_city (str): departure city to compute the statistics
-        arrival_city (str): arrival city
-    """
-
-    with col:
-        st.markdown(f"## {departure_city.title()} → {arrival_city.title()}")
