@@ -1,5 +1,14 @@
-"""User interactions widgets definition module"""
+"""Module defining the sidebar components. The sidebar is initialized open, and lets the
+user specifiy a trip to analyse with its:
+    - departure station
+    - arrival station
+    - departure month
+    - arrival month (equal or posterior to departure month)
+    - years
 
+ Those data are used to compute statistics on a given connexion, based on all the
+ previous selected periods."""
+ 
 from fractions import Fraction
 
 import numpy as np
