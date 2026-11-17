@@ -1,0 +1,111 @@
+src.ui.widgets.sidebar
+======================
+
+.. py:module:: src.ui.widgets.sidebar
+
+.. autoapi-nested-parse::
+
+   User interactions widgets definition module
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   src.ui.widgets.sidebar.MONTHS_LIST
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.ui.widgets.sidebar.init
+   src.ui.widgets.sidebar.wrong_month_dialog
+   src.ui.widgets.sidebar.get_month_from_int_str
+   src.ui.widgets.sidebar.get_month_from_str_int
+   src.ui.widgets.sidebar.select_month
+   src.ui.widgets.sidebar.select_years
+   src.ui.widgets.sidebar.display_sidebar
+
+
+Module Contents
+---------------
+
+.. py:data:: MONTHS_LIST
+   :value: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre',...
+
+
+.. py:function:: init() -> None
+
+   Initialization function to set logger
+
+
+.. py:function:: wrong_month_dialog()
+
+   Popup window function used for months selection functions, to explain to the user
+   that the selected departure month must be equal or prior to arrival month.
+
+
+.. py:function:: get_month_from_int_str(month_int: int) -> str
+
+   Converts a month as integer into string.
+   This is based on a dictionnary month_dict{month_int: month_str}
+
+   :param month_int: month as integer
+   :type month_int: int
+
+   :returns: month as string
+   :rtype: month_str (str)
+
+
+.. py:function:: get_month_from_str_int(month_str: str) -> int
+
+   Converts a month as string into integer.
+   This is based on a dictionnary month_dict{month_str: month_int}
+
+   :param month_str: month as string
+   :type month_str: str
+
+   :returns: month as integer
+   :rtype: month_int (int)
+
+
+.. py:function:: select_month(msg: str, index: int) -> int
+
+   Get month from a dropdown list as integer, requiring get_month_from_str_int
+   function to convert a month string to integer for further functions.
+
+   :param msg: Message to be displayed aside the dropdown list
+   :type msg: str
+   :param index: The index of the preselected option on first render.
+   :type index: str
+
+   :returns: Selected month as integer (bewteen 1 and 12)
+   :rtype: selected_month (int)
+
+
+.. py:function:: select_years(msg: str) -> list[int]
+
+   Get year(s) from a multiselect dropdown.
+   Initially, all years from the dataset are selected.
+
+   :param msg: Message to be displayed aside the dropdown list
+   :type msg: str
+
+   :returns: Selected years from the initialized dataset.
+   :rtype: selected_years (list[int])
+
+
+.. py:function:: display_sidebar() -> None
+
+   Displays sidebar containing input widgets for customer to specify
+   a trip to vizualize
+
+   :returns: array of trip infos departure_city, arrival_city,
+             start_month, end_month, selected_years
+   :rtype: trip_infos (np.array)
+
+

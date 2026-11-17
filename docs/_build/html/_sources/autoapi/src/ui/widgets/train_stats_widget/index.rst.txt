@@ -1,0 +1,86 @@
+src.ui.widgets.train_stats_widget
+=================================
+
+.. py:module:: src.ui.widgets.train_stats_widget
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.ui.widgets.train_stats_widget.init
+   src.ui.widgets.train_stats_widget.section_row
+   src.ui.widgets.train_stats_widget.display_delayed_cancelled_stats_table
+   src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title
+
+
+Module Contents
+---------------
+
+.. py:function:: init() -> None
+
+   Initialization function to set logger
+
+
+.. py:function:: section_row(section_label: str, fields: list[tuple[float, str]]) -> None
+
+   Displays information contained in fields input, named after section_label input,
+   under the format of a 2 columns table : | section_label | field1
+                                           |               | field2
+                                           |               | ....
+                                           |               | fieldN
+
+   Ratios between 0 (excluded) and 1 (excluded) of trains delayed/cancelled
+   are displayed as approximate proportions ("X out of Y trains").
+   Very low and very high ratios are handled separately to avoid
+   misleading approximations.
+   Missing values, zero ratios and invalid ratios are handled separately.
+
+   :param section_label: Label of the section, contained in the first column.
+   :type section_label: str
+   :param fields: list of fields, tuples containing a ratio and a status.
+   :type fields: list
+   :param The ratio represents the number of delayed/cancelled trains:
+   :param divided by the number of planned trains over the selected period.:
+   :param First field is displayed in the second column:
+   :param :
+   :param same line as the section_label. Other fields are stacked on the following rows:
+   :param on the second column.:
+
+
+.. py:function:: display_delayed_cancelled_stats_table(col: streamlit.delta_generator.DeltaGenerator, departure_city: str, arrival_city: str, start_month: str, end_month: str, selected_years: numpy.ndarray) -> None
+
+   Displays delayed and cancelled train ratios in the given column.
+   The ratios are displayed as approximate fractions ("X out of Y trains").
+   The statistics are the ratios computed over a given months/years period,
+   for a given departure and arrival cities.
+
+   :param col: body column (container) to place the table in
+   :type col: DeltaGenerator
+   :param departure_city: departure city to compute the statistics
+   :type departure_city: str
+   :param arrival_city: arrival city
+   :type arrival_city: str
+   :param start_month: first month of the time period for a given year
+   :type start_month: str
+   :param end_month: last month of the time period
+   :type end_month: str
+   :param selected_years: np.ndarray of selected years to
+                          compute the statistics
+   :type selected_years: np.ndarray
+
+
+.. py:function:: display_departure_arrival_stations_title(col: streamlit.delta_generator.DeltaGenerator, departure_city: str, arrival_city: str) -> None
+
+   Displays as a title the departure and arrival cities,
+   based on the ones selected in the sidebar dropdown lists.
+
+   :param col: body column (container) to place the table in
+   :type col: DeltaGenerator
+   :param departure_city: departure city to compute the statistics
+   :type departure_city: str
+   :param arrival_city: arrival city
+   :type arrival_city: str
+
+

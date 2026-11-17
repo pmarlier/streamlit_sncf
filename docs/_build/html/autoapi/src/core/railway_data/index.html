@@ -77,7 +77,7 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#src.core.railway_data.get_processed_city_name" title="src.core.railway_data.get_processed_city_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_processed_city_name</span></code></a>(→ str)</p></td>
-<td><p>_summary_</p></td>
+<td><p>Process the railstation name in SNCF punctuality rate csv file</p></td>
 </tr>
 </tbody>
 </table>
@@ -102,13 +102,14 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.railway_data.get_processed_city_name">
 <span class="sig-prename descclassname"><span class="pre">src.core.railway_data.</span></span><span class="sig-name descname"><span class="pre">get_processed_city_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">city_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#src.core.railway_data.get_processed_city_name" title="Link to this definition">¶</a></dt>
-<dd><p>_summary_</p>
+<dd><p>Process the railstation name in SNCF punctuality rate csv file
+to match with railstation name in the other files</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>city_name</strong> (<em>str</em>) – _description_</p>
+<dd class="field-odd"><p><strong>city_name</strong> (<em>str</em>) – the city name from SNCF punctuality rate csv file</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>_description_</p>
+<dd class="field-even"><p>the processed name to match with others SNCF files data</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>str</p>

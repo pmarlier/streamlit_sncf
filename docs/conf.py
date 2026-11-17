@@ -26,7 +26,7 @@ extensions = ["autoapi.extension", "sphinx.ext.napoleon"]  # Napoleon handles
 # extensions = ["sphinx.ext.autodoc"]
 
 # templates_path = ["_templates"]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "_templates"]
 
 
 # -- Options for HTML output -------------------------------------------------

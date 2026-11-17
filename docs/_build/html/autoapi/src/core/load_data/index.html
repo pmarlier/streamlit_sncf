@@ -119,8 +119,14 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.load_csv_df" title="src.core.load_data.load_csv_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_csv_df</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Charge un fichier csv, de séparateurs &quot;;&quot;, utilisé pour l'analyse de données.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.init" title="src.core.load_data.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a>(→ None)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.get_monthly_stats_df" title="src.core.load_data.get_monthly_stats_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_monthly_stats_df</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Initialization function to make global input csv dataframe</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.set_monthly_stats_df" title="src.core.load_data.set_monthly_stats_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_monthly_stats_df</span></code></a>(dataframe)</p></td>
+<td><p>Initialization function to make global input csv dataframe</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.init" title="src.core.load_data.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a>(→ None)</p></td>
+<td><p>Initialization function to load CSV and</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.get_directional_city_pairs_list" title="src.core.load_data.get_directional_city_pairs_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_directional_city_pairs_list</span></code></a>(→ list)</p></td>
 <td><p>Retrieve pairs &quot;departure-arrival&quot; monitored by SNCF,</p></td>
@@ -266,9 +272,22 @@ colonne “Date”</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.get_monthly_stats_df">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_monthly_stats_df</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.load_data.get_monthly_stats_df" title="Link to this definition">¶</a></dt>
+<dd><p>Initialization function to make global input csv dataframe</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.load_data.set_monthly_stats_df">
+<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">set_monthly_stats_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#src.core.load_data.set_monthly_stats_df" title="Link to this definition">¶</a></dt>
+<dd><p>Initialization function to make global input csv dataframe</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="src.core.load_data.init">
 <span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.core.load_data.init" title="Link to this definition">¶</a></dt>
-<dd><p>Initialization function to make global input csv dataframe</p>
+<dd><p>Initialization function to load CSV and
+set global variable to access dataframe</p>
 </dd></dl>
 
 <dl class="py function">
@@ -294,7 +313,7 @@ duplicates are dropped but same pairs in different direction are kept
 duplicates and combinations “departure-arrival” and “arrival-departure” are dropped</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>_description_</p>
+<dd class="field-odd"><p>sorted alphabetically list of unique railstation couple,</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list</p>
@@ -448,6 +467,8 @@ duplicates and combinations “departure-arrival” and “arrival-departure” 
 <li><a class="reference internal" href="#src.core.load_data.MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT"><code class="docutils literal notranslate"><span class="pre">MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT</span></code></a></li>
 <li><a class="reference internal" href="#src.core.load_data.MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT"><code class="docutils literal notranslate"><span class="pre">MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT</span></code></a></li>
 <li><a class="reference internal" href="#src.core.load_data.load_csv_df"><code class="docutils literal notranslate"><span class="pre">load_csv_df()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.get_monthly_stats_df"><code class="docutils literal notranslate"><span class="pre">get_monthly_stats_df()</span></code></a></li>
+<li><a class="reference internal" href="#src.core.load_data.set_monthly_stats_df"><code class="docutils literal notranslate"><span class="pre">set_monthly_stats_df()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.load_data.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.load_data.get_directional_city_pairs_list"><code class="docutils literal notranslate"><span class="pre">get_directional_city_pairs_list()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.load_data.get_unique_city_pairs_list"><code class="docutils literal notranslate"><span class="pre">get_unique_city_pairs_list()</span></code></a></li>

@@ -41,6 +41,8 @@ Functions
 .. autoapisummary::
 
    src.core.load_data.load_csv_df
+   src.core.load_data.get_monthly_stats_df
+   src.core.load_data.set_monthly_stats_df
    src.core.load_data.init
    src.core.load_data.get_directional_city_pairs_list
    src.core.load_data.get_unique_city_pairs_list
@@ -144,9 +146,20 @@ Module Contents
    :rtype: df (pd.DataFrame)
 
 
-.. py:function:: init() -> None
+.. py:function:: get_monthly_stats_df() -> pandas.DataFrame
 
    Initialization function to make global input csv dataframe
+
+
+.. py:function:: set_monthly_stats_df(dataframe: pandas.DataFrame)
+
+   Initialization function to make global input csv dataframe
+
+
+.. py:function:: init() -> None
+
+   Initialization function to load CSV and
+   set global variable to access dataframe
 
 
 .. py:function:: get_directional_city_pairs_list() -> list
@@ -164,7 +177,7 @@ Module Contents
    Retrieve unique pairs "departure-arrival" monitored by SNCF,
    duplicates and combinations "departure-arrival" and "arrival-departure" are dropped
 
-   :returns: _description_
+   :returns: sorted alphabetically list of unique railstation couple,
    :rtype: list
 
 

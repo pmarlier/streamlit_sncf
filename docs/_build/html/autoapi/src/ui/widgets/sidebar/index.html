@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>src.ui.widgets.sidebar &#8212; Streamlit_SNCF 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="src.ui.widgets.train_stats_widget" href="../train_stats_widget/index.html" />
+    <link rel="prev" title="src.ui.widgets.pie_chart" href="../pie_chart/index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../train_stats_widget/index.html" title="src.ui.widgets.train_stats_widget"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../pie_chart/index.html" title="src.ui.widgets.pie_chart"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../../index.html" >src.ui</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="../index.html" accesskey="U">src.ui.widgets</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.ui.widgets.sidebar</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-src.ui.widgets.sidebar">
+<span id="src-ui-widgets-sidebar"></span><h1>src.ui.widgets.sidebar<a class="headerlink" href="#module-src.ui.widgets.sidebar" title="Link to this heading">¶</a></h1>
+<p>User interactions widgets definition module</p>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.MONTHS_LIST" title="src.ui.widgets.sidebar.MONTHS_LIST"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MONTHS_LIST</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.init" title="src.ui.widgets.sidebar.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a>(→ None)</p></td>
+<td><p>Initialization function to set logger</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.wrong_month_dialog" title="src.ui.widgets.sidebar.wrong_month_dialog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrong_month_dialog</span></code></a>()</p></td>
+<td><p>Popup window function used for months selection functions, to explain to the user</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.get_month_from_int_str" title="src.ui.widgets.sidebar.get_month_from_int_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_month_from_int_str</span></code></a>(→ str)</p></td>
+<td><p>Converts a month as integer into string.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.get_month_from_str_int" title="src.ui.widgets.sidebar.get_month_from_str_int"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_month_from_str_int</span></code></a>(→ int)</p></td>
+<td><p>Converts a month as string into integer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.select_month" title="src.ui.widgets.sidebar.select_month"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_month</span></code></a>(→ int)</p></td>
+<td><p>Get month from a dropdown list as integer, requiring get_month_from_str_int</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.select_years" title="src.ui.widgets.sidebar.select_years"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_years</span></code></a>(→ list[int])</p></td>
+<td><p>Get year(s) from a multiselect dropdown.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.display_sidebar" title="src.ui.widgets.sidebar.display_sidebar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_sidebar</span></code></a>(→ None)</p></td>
+<td><p>Displays sidebar containing input widgets for customer to specify</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="src.ui.widgets.sidebar.MONTHS_LIST">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.sidebar.</span></span><span class="sig-name descname"><span class="pre">MONTHS_LIST</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Janvier',</span> <span class="pre">'Février',</span> <span class="pre">'Mars',</span> <span class="pre">'Avril',</span> <span class="pre">'Mai',</span> <span class="pre">'Juin',</span> <span class="pre">'Juillet',</span> <span class="pre">'Août',</span> <span class="pre">'Septembre',...</span></span><a class="headerlink" href="#src.ui.widgets.sidebar.MONTHS_LIST" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.sidebar.init">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.sidebar.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.ui.widgets.sidebar.init" title="Link to this definition">¶</a></dt>
+<dd><p>Initialization function to set logger</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.sidebar.wrong_month_dialog">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.sidebar.</span></span><span class="sig-name descname"><span class="pre">wrong_month_dialog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.ui.widgets.sidebar.wrong_month_dialog" title="Link to this definition">¶</a></dt>
+<dd><p>Popup window function used for months selection functions, to explain to the user
+that the selected departure month must be equal or prior to arrival month.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.sidebar.get_month_from_int_str">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.sidebar.</span></span><span class="sig-name descname"><span class="pre">get_month_from_int_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">month_int</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#src.ui.widgets.sidebar.get_month_from_int_str" title="Link to this definition">¶</a></dt>
+<dd><p>Converts a month as integer into string.
+This is based on a dictionnary month_dict{month_int: month_str}</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>month_int</strong> (<em>int</em>) – month as integer</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>month as string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>month_str (str)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.sidebar.get_month_from_str_int">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.sidebar.</span></span><span class="sig-name descname"><span class="pre">get_month_from_str_int</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">month_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#src.ui.widgets.sidebar.get_month_from_str_int" title="Link to this definition">¶</a></dt>
+<dd><p>Converts a month as string into integer.
+This is based on a dictionnary month_dict{month_str: month_int}</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>month_str</strong> (<em>str</em>) – month as string</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>month as integer</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>month_int (int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.sidebar.select_month">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.sidebar.</span></span><span class="sig-name descname"><span class="pre">select_month</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#src.ui.widgets.sidebar.select_month" title="Link to this definition">¶</a></dt>
+<dd><p>Get month from a dropdown list as integer, requiring get_month_from_str_int
+function to convert a month string to integer for further functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>msg</strong> (<em>str</em>) – Message to be displayed aside the dropdown list</p></li>
+<li><p><strong>index</strong> (<em>str</em>) – The index of the preselected option on first render.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Selected month as integer (bewteen 1 and 12)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>selected_month (int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.sidebar.select_years">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.sidebar.</span></span><span class="sig-name descname"><span class="pre">select_years</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#src.ui.widgets.sidebar.select_years" title="Link to this definition">¶</a></dt>
+<dd><p>Get year(s) from a multiselect dropdown.
+Initially, all years from the dataset are selected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – Message to be displayed aside the dropdown list</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Selected years from the initialized dataset.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>selected_years (list[int])</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.sidebar.display_sidebar">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.sidebar.</span></span><span class="sig-name descname"><span class="pre">display_sidebar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.ui.widgets.sidebar.display_sidebar" title="Link to this definition">¶</a></dt>
+<dd><p>Displays sidebar containing input widgets for customer to specify
+a trip to vizualize</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array of trip infos departure_city, arrival_city,
+start_month, end_month, selected_years</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>trip_infos (np.array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">src.ui.widgets.sidebar</a><ul>
+<li><a class="reference internal" href="#attributes">Attributes</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#src.ui.widgets.sidebar.MONTHS_LIST"><code class="docutils literal notranslate"><span class="pre">MONTHS_LIST</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.widgets.sidebar.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.widgets.sidebar.wrong_month_dialog"><code class="docutils literal notranslate"><span class="pre">wrong_month_dialog()</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.widgets.sidebar.get_month_from_int_str"><code class="docutils literal notranslate"><span class="pre">get_month_from_int_str()</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.widgets.sidebar.get_month_from_str_int"><code class="docutils literal notranslate"><span class="pre">get_month_from_str_int()</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.widgets.sidebar.select_month"><code class="docutils literal notranslate"><span class="pre">select_month()</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.widgets.sidebar.select_years"><code class="docutils literal notranslate"><span class="pre">select_years()</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.widgets.sidebar.display_sidebar"><code class="docutils literal notranslate"><span class="pre">display_sidebar()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../pie_chart/index.html"
+                          title="previous chapter">src.ui.widgets.pie_chart</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../train_stats_widget/index.html"
+                          title="next chapter">src.ui.widgets.train_stats_widget</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../../_sources/autoapi/src/ui/widgets/sidebar/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../train_stats_widget/index.html" title="src.ui.widgets.train_stats_widget"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../pie_chart/index.html" title="src.ui.widgets.pie_chart"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../../index.html" >src.ui</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="../index.html" >src.ui.widgets</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.ui.widgets.sidebar</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Pierre MARLIER, Ulysse PERRUCHON-MONGE, Christophe VANDENBORRE.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>

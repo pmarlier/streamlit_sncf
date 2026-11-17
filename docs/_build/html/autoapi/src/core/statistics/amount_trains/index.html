@@ -56,16 +56,19 @@ period.</p>
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.statistics.amount_trains.get_ratio_cancelled_trains" title="src.core.statistics.amount_trains.get_ratio_cancelled_trains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ratio_cancelled_trains</span></code></a>(→ float)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.statistics.amount_trains.ratio_number_of_trains" title="src.core.statistics.amount_trains.ratio_number_of_trains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ratio_number_of_trains</span></code></a>(→ float)</p></td>
+<td><p>Calculate the ratio of observed trains to planned trains.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.statistics.amount_trains.get_ratio_cancelled_trains" title="src.core.statistics.amount_trains.get_ratio_cancelled_trains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ratio_cancelled_trains</span></code></a>(→ float)</p></td>
 <td><p>Calculate the ratio of cancelled trains</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#src.core.statistics.amount_trains.get_total_planned_trains" title="src.core.statistics.amount_trains.get_total_planned_trains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_total_planned_trains</span></code></a>(→ int)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.statistics.amount_trains.get_total_planned_trains" title="src.core.statistics.amount_trains.get_total_planned_trains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_total_planned_trains</span></code></a>(→ int)</p></td>
 <td><p>Returns the amount of planned trains over a period,</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.statistics.amount_trains.get_ratio_delayed_departure_trains" title="src.core.statistics.amount_trains.get_ratio_delayed_departure_trains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ratio_delayed_departure_trains</span></code></a>(→ float)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.statistics.amount_trains.get_ratio_delayed_departure_trains" title="src.core.statistics.amount_trains.get_ratio_delayed_departure_trains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ratio_delayed_departure_trains</span></code></a>(→ float)</p></td>
 <td><p>Calculate the ratio of delayed trains at departure</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#src.core.statistics.amount_trains.get_ratio_delayed_arrival_trains" title="src.core.statistics.amount_trains.get_ratio_delayed_arrival_trains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ratio_delayed_arrival_trains</span></code></a>(→ float)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.statistics.amount_trains.get_ratio_delayed_arrival_trains" title="src.core.statistics.amount_trains.get_ratio_delayed_arrival_trains"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_ratio_delayed_arrival_trains</span></code></a>(→ float)</p></td>
 <td><p>Calculate the ratio of delayed trains at arrival</p></td>
 </tr>
 </tbody>
@@ -73,6 +76,38 @@ period.</p>
 </section>
 <section id="module-contents">
 <h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.core.statistics.amount_trains.ratio_number_of_trains">
+<span class="sig-prename descclassname"><span class="pre">src.core.statistics.amount_trains.</span></span><span class="sig-name descname"><span class="pre">ratio_number_of_trains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monthly_planned_trains</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_observations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#src.core.statistics.amount_trains.ratio_number_of_trains" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the ratio of observed trains to planned trains.</p>
+<p>This function can be used to calculate the proportion of delayed or
+cancelled trains among planned trains over the selected periods.</p>
+<p>Both input Series must cover the same periods and have matching indexes.
+Observations with missing values or invalid counts are excluded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>monthly_planned_trains</strong> (<em>pd.Series</em>) – Number of planned trains for each
+selected month, usually from MONTHLY_PLANNED_TRAINS_KEY.
+The Series must be filtered to the periods being studied.</p></li>
+<li><p><strong>train_observations</strong> (<em>pd.Series</em>) – Number of delayed or cancelled trains
+for each selected month. The Series must cover the same periods
+as monthly_planned_trains.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The ratio of valid train observations to planned trains,</dt><dd><p>or NaN if no valid observations are available.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.statistics.amount_trains.get_ratio_cancelled_trains">
 <span class="sig-prename descclassname"><span class="pre">src.core.statistics.amount_trains.</span></span><span class="sig-name descname"><span class="pre">get_ratio_cancelled_trains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">departure_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrival_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">years_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#src.core.statistics.amount_trains.get_ratio_cancelled_trains" title="Link to this definition">¶</a></dt>
@@ -214,6 +249,7 @@ or NaN if no valid observations are available.</p>
 <li><a class="reference internal" href="#">src.core.statistics.amount_trains</a><ul>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#src.core.statistics.amount_trains.ratio_number_of_trains"><code class="docutils literal notranslate"><span class="pre">ratio_number_of_trains()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.statistics.amount_trains.get_ratio_cancelled_trains"><code class="docutils literal notranslate"><span class="pre">get_ratio_cancelled_trains()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.statistics.amount_trains.get_total_planned_trains"><code class="docutils literal notranslate"><span class="pre">get_total_planned_trains()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.statistics.amount_trains.get_ratio_delayed_departure_trains"><code class="docutils literal notranslate"><span class="pre">get_ratio_delayed_departure_trains()</span></code></a></li>

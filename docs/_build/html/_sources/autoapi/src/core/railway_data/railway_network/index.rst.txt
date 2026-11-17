@@ -9,14 +9,22 @@ Functions
 
 .. autoapisummary::
 
+   src.core.railway_data.railway_network.set_railway_id_network
+   src.core.railway_data.railway_network.init
    src.core.railway_data.railway_network.get_railway_id_from_network
-   src.core.railway_data.railway_network.get_railway_data_from_city
    src.core.railway_data.railway_network.get_railway_data_between_cities
    src.core.railway_data.railway_network.get_all_railways_to_draw
 
 
 Module Contents
 ---------------
+
+.. py:function:: set_railway_id_network(railway_map: dict) -> None
+
+.. py:function:: init() -> None
+
+   _summary_
+
 
 .. py:function:: get_railway_id_from_network(departure: str, arrival: str) -> list
 
@@ -26,17 +34,6 @@ Module Contents
    :type departure: str
    :param arrival: _description_
    :type arrival: str
-
-   :returns: _description_
-   :rtype: list
-
-
-.. py:function:: get_railway_data_from_city(departure: str) -> list
-
-   _summary_
-
-   :param departure: _description_
-   :type departure: str
 
    :returns: _description_
    :rtype: list

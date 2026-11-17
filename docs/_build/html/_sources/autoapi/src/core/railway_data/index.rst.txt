@@ -45,12 +45,13 @@ Package Contents
 
 .. py:function:: get_processed_city_name(city_name: str) -> str
 
-   _summary_
+   Process the railstation name in SNCF punctuality rate csv file
+   to match with railstation name in the other files
 
-   :param city_name: _description_
+   :param city_name: the city name from SNCF punctuality rate csv file
    :type city_name: str
 
-   :returns: _description_
+   :returns: the processed name to match with others SNCF files data
    :rtype: str
 
 
