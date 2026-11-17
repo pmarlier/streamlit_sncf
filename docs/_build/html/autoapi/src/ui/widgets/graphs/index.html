@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>src.ui.widgets.graphs &#8212; Streamlit_SNCF 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/nature.css?v=279e0f84" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css?v=4ae1632d" />
+    <script src="../../../../../_static/documentation_options.js?v=01f34227"></script>
+    <script src="../../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="src.ui.widgets.pie_chart" href="../pie_chart/index.html" />
+    <link rel="prev" title="src.ui.widgets" href="../index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../pie_chart/index.html" title="src.ui.widgets.pie_chart"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="src.ui.widgets"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../../index.html" >src.ui</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="../index.html" accesskey="U">src.ui.widgets</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.ui.widgets.graphs</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-src.ui.widgets.graphs">
+<span id="src-ui-widgets-graphs"></span><h1>src.ui.widgets.graphs<a class="headerlink" href="#module-src.ui.widgets.graphs" title="Link to this heading">¶</a></h1>
+<p>Graphs display module</p>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.graphs.display_departure_city_delay_hist" title="src.ui.widgets.graphs.display_departure_city_delay_hist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_departure_city_delay_hist</span></code></a>(→ None)</p></td>
+<td><p>Display the histogram of the mean delays of a selected city from a drop down</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.graphs.display_monthly_arrival_delay_graph" title="src.ui.widgets.graphs.display_monthly_arrival_delay_graph"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_monthly_arrival_delay_graph</span></code></a>(→ None)</p></td>
+<td><p>Display a graph of monthly mean arrival delays</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.graphs.display_departure_city_delay_hist">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.graphs.</span></span><span class="sig-name descname"><span class="pre">display_departure_city_delay_hist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ville_depart</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.ui.widgets.graphs.display_departure_city_delay_hist" title="Link to this definition">¶</a></dt>
+<dd><p>Display the histogram of the mean delays of a selected city from a drop down
+list, with the mean delays of both the select city, and the whole country.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.graphs.display_monthly_arrival_delay_graph">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.graphs.</span></span><span class="sig-name descname"><span class="pre">display_monthly_arrival_delay_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">departure_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrival_station</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selected_years</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actual_year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2026</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.ui.widgets.graphs.display_monthly_arrival_delay_graph" title="Link to this definition">¶</a></dt>
+<dd><p>Display a graph of monthly mean arrival delays
+for a selected railway line.</p>
+<p>Compare the monthly mean delays of the actual year with
+the median of the monthly mean delays from selected previous years.</p>
+<p>The graph also displays historical minimum, maximum and quartiles,
+when enough observations are available.
+The months selected by the user are highlighted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>departure_station</strong> (<em>str</em>) – departure railway station</p></li>
+<li><p><strong>arrival_station</strong> (<em>str</em>) – arrival railway station</p></li>
+<li><p><strong>start_month</strong> (<em>int</em>) – first month of the selected period (included)</p></li>
+<li><p><strong>end_month</strong> (<em>int</em>) – last month of the selected period (included)</p></li>
+<li><p><strong>selected_years</strong> (<em>list</em><em>[</em><em>int</em><em>]</em>) – years selected by the user.
+The actual year wil be excluded from historical calculations if needed.</p></li>
+<li><p><strong>actual_year</strong> (<em>int</em><em>, </em><em>optional</em>) – year whose observations are compared
+with the historical distribution. Defaults to 2026.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../../../../../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">src.ui.widgets.graphs</a><ul>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
+<li><a class="reference internal" href="#src.ui.widgets.graphs.display_departure_city_delay_hist"><code class="docutils literal notranslate"><span class="pre">display_departure_city_delay_hist()</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.widgets.graphs.display_monthly_arrival_delay_graph"><code class="docutils literal notranslate"><span class="pre">display_monthly_arrival_delay_graph()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="../index.html"
+                          title="previous chapter">src.ui.widgets</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../pie_chart/index.html"
+                          title="next chapter">src.ui.widgets.pie_chart</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../../../../_sources/autoapi/src/ui/widgets/graphs/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../pie_chart/index.html" title="src.ui.widgets.pie_chart"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="src.ui.widgets"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Streamlit_SNCF 0.1.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >API Reference</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="../../../index.html" >src</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="../../index.html" >src.ui</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="../index.html" >src.ui.widgets</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">src.ui.widgets.graphs</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2026, Pierre MARLIER, Ulysse PERRUCHON-MONGE, Christophe VANDENBORRE.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    </div>
+  </body>
+</html>
