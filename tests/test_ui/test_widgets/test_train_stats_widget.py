@@ -35,6 +35,30 @@ from core import load_data as ld
 from core.statistics import amount_trains as am
 from ui import widgets as wg
 
+wg.train_stats_widget.init()
+
+def test_display_departure_arrival_stations_title():
+    
+    def run_trip_cities_display():
+        """Render the departure and arrival cities of the trip."""
+        import streamlit as st
+        
+        from ui import widgets as wg
+
+        departure_city = "METZ"
+        arrival_city = "PARIS EST"
+        info_container, map_container = st.columns([1, 1], gap="large")
+        
+        with info_container:
+            wg.train_stats_widget.display_departure_arrival_stations_title(
+                info_container,
+                departure_city,
+                arrival_city
+            )
+
+    at = AppTest.from_function(run_trip_cities_display).run()
+
+    assert at.markdown[0].value == "## Metz → Paris Est"
 
 def test_display_delayed_cancelled_stats_table(mocked_df: pd.DataFrame,):
     """Tests the whole table displaying the departure and arrival statistics:
@@ -153,6 +177,7 @@ def test_section_row_edge_case_ratios():
     at = AppTest.from_function(run_section_row_edge_cases).run()
 
     markdown_values = [markdown.value for markdown in at.markdown]
+    print(at.markdown)
     assert markdown_values == [
         "**Départ**",
         "Tous les trains prévus ont été retardés",
