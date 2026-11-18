@@ -1,0 +1,19 @@
+src.ui.widgets.pie_chart
+========================
+
+.. py:module:: src.ui.widgets.pie_chart
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   src.ui.widgets.pie_chart.display_pie_chart
+
+
+Module Contents
+---------------
+
+.. py:function:: display_pie_chart(cause_list: list) -> None
+

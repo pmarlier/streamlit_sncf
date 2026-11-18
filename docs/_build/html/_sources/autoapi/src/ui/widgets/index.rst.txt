@@ -1,0 +1,24 @@
+src.ui.widgets
+==============
+
+.. py:module:: src.ui.widgets
+
+.. autoapi-nested-parse::
+
+   UI widgets package, in order to spread the imports over, instead of importing them
+   one by one in the modules
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/src/ui/widgets/graphs/index
+   /autoapi/src/ui/widgets/pie_chart/index
+   /autoapi/src/ui/widgets/sidebar/index
+   /autoapi/src/ui/widgets/train_stats_widget/index
+
+

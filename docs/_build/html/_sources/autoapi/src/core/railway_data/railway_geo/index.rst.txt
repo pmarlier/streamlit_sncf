@@ -20,6 +20,8 @@ Functions
 
    src.core.railway_data.railway_geo.load_railway_geo_data
    src.core.railway_data.railway_geo.load_railstation_geo_data
+   src.core.railway_data.railway_geo.set_railway_geo_df
+   src.core.railway_data.railway_geo.set_railstation_geo_df
    src.core.railway_data.railway_geo.init
    src.core.railway_data.railway_geo.get_coords_for_city_pair
    src.core.railway_data.railway_geo.get_railway_geo_point_by_id
@@ -59,6 +61,10 @@ Module Contents
    :rtype: pd.DataFrame
 
 
+.. py:function:: set_railway_geo_df(dataframe: pandas.DataFrame) -> None
+
+.. py:function:: set_railstation_geo_df(dataframe: pandas.DataFrame) -> None
+
 .. py:function:: init() -> None
 
    _summary_
@@ -73,9 +79,9 @@ Module Contents
    :param arrival_city: _description_
    :type arrival_city: str
 
-   :returns: The geo bounding box encompassing departure and arrival cities
-             The bounding box coordinates are stored under the format [min_latitude (N/S),
-             max_latitude (N/S), min_longitude (E/W), max_longitude (E/W)]
+   :returns: A list of geo point that encompasses departure and arrival cities
+             Each coordinates are stored for departure and arrival cities
+             [latitude (N/S), longitude (E/W)]
    :rtype: list
 
 

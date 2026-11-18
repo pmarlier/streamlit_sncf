@@ -17,5 +17,6 @@ Submodules
    :maxdepth: 1
 
    /autoapi/src/ui/carto/index
+   /autoapi/src/ui/widgets/index
 
 

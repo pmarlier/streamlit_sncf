@@ -38,6 +38,8 @@ def main():
         ld.init()
         railway_geo.init()
         railway_network.init()
+        sidebar.init()
+        train_stats_widget.init()
 
         st.session_state.is_app_initialized = True
         st.session_state.first_map_load = True

@@ -3,10 +3,36 @@ from fractions import Fraction
 import numpy as np
 import streamlit as st
 from streamlit.delta_generator import DeltaGenerator
+import logging
+import logging.config
 
 from core.statistics import amount_trains as am
 from ui.widgets import sidebar
 
+def init() -> None:
+    """
+    Initialization function to set logger
+    """
+    global logger
+    logger = logging.getLogger(__name__)
+    logger.debug("train stats widget logger initialized")
+    
+def display_departure_arrival_stations_title(
+    col: DeltaGenerator,
+    departure_city: str,
+    arrival_city: str,
+) -> None:
+    """Displays as a title the departure and arrival cities,
+    based on the ones selected in the sidebar dropdown lists.
+
+    Args:
+        col (DeltaGenerator): body column (container) to place the table in
+        departure_city (str): departure city to compute the statistics
+        arrival_city (str): arrival city
+    """
+
+    with col:
+        st.markdown(f"## {departure_city.title()} → {arrival_city.title()}")    
 
 def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
     """Displays information contained in fields input, named after section_label input,
@@ -70,10 +96,14 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
                 )
         elif np.isnan(ratio):
             train_info_str = "Aucune donnée n'est disponible"
+            logger.debug("No data is available for this trip")
+
         elif ratio == 0:
             train_info_str = f"Aucun train {status} n'a été déclaré"
+            logger.debug("No stat has been declared for this trip")
         else:
             train_info_str = "Aucun donnée fiable n'est disponible"
+            logger.warning("No reliable data has been provided for this trip")
 
         if index == 0:
             # cols[1].markdown(label)
@@ -187,21 +217,3 @@ def display_delayed_cancelled_stats_table(
                     ),
                 ],
             )
-
-
-def display_departure_arrival_stations_title(
-    col: DeltaGenerator,
-    departure_city: str,
-    arrival_city: str,
-) -> None:
-    """Displays as a title the departure and arrival cities,
-    based on the ones selected in the sidebar dropdown lists.
-
-    Args:
-        col (DeltaGenerator): body column (container) to place the table in
-        departure_city (str): departure city to compute the statistics
-        arrival_city (str): arrival city
-    """
-
-    with col:
-        st.markdown(f"## {departure_city.title()} → {arrival_city.title()}")
