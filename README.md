@@ -1,35 +1,35 @@
 # Streamlit SNCF
 
-Projet Python géré avec `uv`, avec une application Streamlit et un socle CI/CD.
-Pour d'autres bonnes pratiques MLOps, suivre https://github.com/fmind/mlops-python-package
+Python project managed with `uv`, featuring a Streamlit application and a CI/CD pipeline.
 
-## Installation
+For additional MLOps best practices, please refer to the [fmind/mlops-python-package](https://github.com/fmind/mlops-python-package) project.
+
+## Environment syncronization
 
 ```powershell
 uv sync --dev
 ```
 
-## Lancer l'application
+## Run the Application
 
 ```powershell
 uv run streamlit run streamlit/streamlit_app.py
 ```
 
-## Qualité et tests
+## Code Testing
 
-```powershell
-uv run ruff check .
-uv run ruff format .
-uv run mypy .
-uv run pytest
-```
+- The tests rely on mocked_df synthetic datasets designed to cover:
 
-## Hooks Git locaux
+    - COVID-period invalidation
+    - delay statistics correction
+    - missing value imputation
+    - consistency checks on delay counts
+    - feature engineering
 
-```powershell
-uv run pre-commit install
-uv run pre-commit run --all-files
-```
+- Be aware that code executed through `AppTest.from_function()` may not be
+counted by coverage.py, resulting in lower reported coverage despite
+successful test execution.
+
 # Glossary
 
 | string    | definition |
