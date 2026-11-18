@@ -114,6 +114,20 @@ def test_display_delayed_cancelled_stats_table(
     assert table_markdown[4].value == "1 train sur 117 a été annulé"
     assert table_markdown[5].value == "**Arrivée**"
     assert table_markdown[6].value == "1 train sur 6 a été retardé"
+    
+    # Check if no year is selected
+    selected_years = []
+    at_table = AppTest.from_function(
+        run_display_delayed_cancelled_stats_table,
+        args=(departure_city, arrival_city, start_month, end_month, selected_years),
+    ).run()
+    
+    assert at_table.markdown[1].value == (
+        f"De "
+        f"{wg.get_month_from_int_str(start_month)} à "
+        f" {wg.get_month_from_int_str(end_month)}, "
+        f"entre XXXX et XXXX, en moyenne:"
+    )
 
 
 def test_section_row_edge_case_ratios():

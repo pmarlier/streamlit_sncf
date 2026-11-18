@@ -49,6 +49,13 @@ def wrong_month_dialog():
     """
     st.write("Le mois de départ doit être égal ou antérieur au mois d'arrivée.")
 
+@st.dialog("Aucune année sélectionnée !")
+def no_year_dialog():
+    """Popup window function used for years selection functions, to explain to the user
+    that at least one year shall be selected to generate stats.    
+    """
+    st.write("Sélectionnez au moins une année.")
+
 def get_month_from_int_str(month_int: int) -> str:
     """Converts a month as integer into string.
     This is based on a dictionnary month_dict{month_int: month_str}
@@ -156,11 +163,17 @@ def display_sidebar() -> None:
         logger.warning(f"Warning: {get_month_from_int_str(st.session_state.end_month)} arrival month is "
                        "anterior to departure month, try again...")
     logger.debug(f"{get_month_from_int_str(st.session_state.end_month)} arrival month selected")
-        
+
+     
     st.session_state.selected_years = select_years("pour les années :")
+    
+    if not st.session_state.selected_years:
+        no_year_dialog()
+        logger.warning("Warning: at least one year shall be selected")
+        
     logger.debug(
     f"Years selected: {', '.join(map(str, st.session_state.selected_years))}")
-
+    
     # Bouton personnalisé pour basculer l'état
     if st.button("Retour à la page d'accueil", type="primary"):
         st.session_state.is_trip_set = False
