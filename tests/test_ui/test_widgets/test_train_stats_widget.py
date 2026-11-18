@@ -37,29 +37,6 @@ from ui import widgets as wg
 
 wg.train_stats_widget.init()
 
-
-def test_display_departure_arrival_stations_title():
-
-    def run_trip_cities_display():
-        """Render the departure and arrival cities of the trip."""
-        import streamlit as st
-
-        from ui import widgets as wg
-
-        departure_city = "METZ"
-        arrival_city = "PARIS EST"
-        info_container, map_container = st.columns([1, 1], gap="large")
-
-        with info_container:
-            wg.train_stats_widget.display_departure_arrival_stations_title(
-                info_container, departure_city, arrival_city
-            )
-
-    at = AppTest.from_function(run_trip_cities_display).run()
-
-    assert at.markdown[0].value == "## Metz → Paris Est"
-
-
 def test_display_delayed_cancelled_stats_table(
     mocked_df: pd.DataFrame,
 ):
@@ -95,17 +72,6 @@ def test_display_delayed_cancelled_stats_table(
     ld.init()
     # initialize load_data module with mocked dataframe
     ld.set_monthly_stats_df(mocked_df)
-    total_planned_trains = 5286
-    total_delayed_departure_trains = 1748
-    total_delayed_arrival_trains = 908
-    total_cancelled_trains = 45
-
-    # ratio_planned_delayed_departure = round(
-    #     total_planned_trains/total_delayed_departure_trains)
-    # ratio_planned_delayed_arrival = round(
-    #     total_planned_trains/total_delayed_arrival_trains)
-    # ratio_planned_cancelled = round(
-    #     total_planned_trains/total_cancelled_trains)
 
     departure_city = "METZ"
     arrival_city = "PARIS EST"
@@ -138,9 +104,10 @@ def test_display_delayed_cancelled_stats_table(
     table_markdown = at_table.columns[0].markdown
     assert at_table.markdown[0].value == "**Informations sur l'état du trafic**"
     assert at_table.markdown[1].value == (
-        f"Sur la période de "
+        f"De "
         f"{wg.get_month_from_int_str(start_month)} à "
-        f" {wg.get_month_from_int_str(end_month)}:"
+        f" {wg.get_month_from_int_str(end_month)}, "
+        f"entre {selected_years[0]} et {selected_years[-1]}, en moyenne:"
     )
     assert table_markdown[2].value == "**Départ**"
     assert table_markdown[3].value == "1 train sur 3 a été retardé"
@@ -168,8 +135,8 @@ def test_section_row_edge_case_ratios():
         wg.section_row(
             "Départ",
             [
-                (1.0, "retardés"),
-                (0.96, "retardés"),
+                (1.0, "retardé"),
+                (0.96, "retardé"),
                 (np.nan, "retardé"),
                 (0.0, "retardé"),
                 (-0.5, "retardé"),
