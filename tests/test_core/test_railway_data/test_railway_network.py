@@ -1,8 +1,9 @@
-import pytest
 import pandas as pd
-from core.railway_data import railway_network
-import core.railway_data as railway_data
+import pytest
+
 import core.load_data as ld
+import core.railway_data as railway_data
+from core.railway_data import railway_network
 
 MOCKED_RAILWAY_ID_NETWORK = {  # OK
     "paris-montparnasse-pasteur-rennes": [101],

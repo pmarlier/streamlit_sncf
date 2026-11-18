@@ -19,7 +19,7 @@ def test_draw_railway():
         [789, [], "Marseille", "Nice", 20.0],  # empty coords should be skipped
     ]
 
-    result = railway_drawing.draw_railway(test_data, mock_map)
+    result = railway_drawing.draw_railway(test_data, mock_map, None)
 
     assert result == mock_map
     # PolyLine.add_to should have been called for the first two entries

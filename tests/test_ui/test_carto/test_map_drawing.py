@@ -9,7 +9,7 @@ from ui.carto import map_drawing
 def test_create_map_defaults():
     m = map_drawing.create_map()
     assert isinstance(m, folium.Map)
-    assert m.location == [46.3, 2.34]
+    assert m.location == [46.5, 2.34]
     assert m.options["zoom"] == 6
 
 

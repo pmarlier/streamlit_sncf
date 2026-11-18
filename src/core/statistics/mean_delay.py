@@ -59,6 +59,12 @@ def weighted_mean_delay(
 
 
 def get_arrival_mean_delay_for_city_pair(departure: str, arrival: str) -> float:
-    departure_df = ld.df[ld.df[ld.DEPARTURE_STATION_KEY] == departure]
+    # retrieve the preprocessed dataframe
+    df = ld.get_monthly_stats_df()
+    # filter by city pair : first departure
+    departure_df = df[df[ld.DEPARTURE_STATION_KEY] == departure]
+    # then arrival
     departure_arrival_df = departure_df[departure_df[ld.ARRIVAL_STATION_KEY] == arrival]
-    return departure_arrival_df[ld.MEAN_DEPARTURE_DELAY_KEY].mean()
+
+    # and compute the mean
+    return departure_arrival_df[ld.MEAN_ARRIVAL_DELAY_KEY].mean()

@@ -295,7 +295,7 @@ def display_monthly_arrival_delay_graph(
         ),
         yaxis_title="Mean arrival delay (minutes)",
         hovermode="x unified",
-        height=450,
+        height=400,
     )
 
     # display in Streamlit
