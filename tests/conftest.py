@@ -358,8 +358,14 @@ def mocked_railway_geo_df() -> pd.DataFrame:
                 # special lines for edge case testing : empty line, (105)
                 # railway coordinates exceed railstation coordinates (102 and 103)
                 # railway coordinates that doesn't fit the trip at all (105)
-                '{"coordinates": [[3.0, 49.5], [2.3, 48.8], [1.6, 48.4]], "type": "LineString"}',
-                '{"coordinates": [[2.3, 48.8], [1.6, 48.4], [1.0, 47.0]], "type": "LineString"}',
+                (
+                    '{"coordinates": [[3.0, 49.5], [2.3, 48.8], [1.6, 48.4]], '
+                    '"type": "LineString"}'
+                ),
+                (
+                    '{"coordinates": [[2.3, 48.8], [1.6, 48.4], [1.0, 47.0]], '
+                    '"type": "LineString"}'
+                ),
                 '{"coordinates": [[10.0, 50.0], [11.0, 51.0]], "type": "LineString"}',
                 '{"coordinates": [], "type": "LineString"}',
             ],
@@ -385,5 +391,176 @@ def mocked_railstation_geo_df() -> pd.DataFrame:
         {
             "LIBELLE": ["paris-montparnasse-pasteur", "rennes", "bordeaux-st-jean"],
             "Geo Point": ["48.8, 2.3", "48.4, 1.6", "44.8, 0.5"],
+        }
+    )
+
+
+@pytest.fixture
+def mocked_delay_df(mocked_df) -> pd.DataFrame:
+    """Extend the existing mocked data for monthly delay statistics
+    with extra years' statistics.
+    """
+
+    extra_mocked_data = pd.DataFrame(
+        {
+            ld.YEAR_KEY: [2022, 2023, 2024, 2026],
+            ld.MONTH_KEY: [1, 1, 1, 1],
+            ld.DEPARTURE_STATION_KEY: [
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+            ],
+            ld.ARRIVAL_STATION_KEY: [
+                "RENNES",
+                "RENNES",
+                "RENNES",
+                "RENNES",
+            ],
+            ld.MEAN_ARRIVAL_DELAY_KEY: [30.0, 40.0, 50.0, 35.0],
+            ld.MONTHLY_DELAYED_ARRIVAL_TRAINS_KEY: [100, 120, np.nan, 110],
+        }
+    )
+
+    return pd.concat([mocked_df, extra_mocked_data], ignore_index=True)
+
+
+@pytest.fixture
+def mocked_raw_sncf_df() -> pd.DataFrame:
+    """Mocked raw SNCF data to test data_preprocessing.py"""
+
+    return pd.DataFrame(
+        {
+            "Date": [
+                "2019-01-01",
+                "2020-03-01",
+                "2025-01-01",
+                "2026-01-01",
+                "2026-02-01",
+                "2024-01-01",
+                "2026-03-01",
+            ],
+            "Service": [
+                "National",
+                "National",
+                "National",
+                "National",
+                "National",
+                "National",
+                "National",
+            ],
+            "Gare de départ": [
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+                "PARIS MONTPARNASSE",
+            ],
+            "Gare d'arrivée": [
+                "RENNES",
+                "RENNES",
+                "RENNES",
+                "RENNES",
+                "RENNES",
+                "RENNES",
+                "RENNES",
+            ],
+            "Nombre de trains en retard à l'arrivée": [10, 10, 10, 0, 10, 10, 10],
+            "Nombre de trains en retard au départ": [5, 5, 5, 5, 0, 5, 5],
+            "Nombre trains en retard > 15min": [4, 4, 4, 0, 4, 4, 12],
+            "Nombre trains en retard > 30min": [3, 3, 3, 0, 3, 3, 3],
+            "Nombre trains en retard > 60min": [1, 1, 1, 0, 1, 1, 1],
+            "Retard moyen des trains en retard à l'arrivée": [
+                20.0,
+                20.0,
+                30.0,
+                0.0,
+                -5.0,
+                -5.0,
+                20.0,
+            ],
+            "Retard moyen des trains en retard au départ": [
+                15.0,
+                15.0,
+                15.0,
+                15.0,
+                15.0,
+                15.0,
+                15.0,
+            ],
+            "Retard moyen de tous les trains à l'arrivée": [
+                3.0,
+                3.0,
+                3.0,
+                0.0,
+                -0.5,
+                -1.0,
+                -2.0,
+            ],
+            "Retard moyen de tous les trains au départ": [
+                2.0,
+                2.0,
+                2.0,
+                0.0,
+                -2.0,
+                -0.5,
+                -1.0,
+            ],
+            "Prct retard pour causes externes": [
+                10.0,
+                10.0,
+                10.0,
+                0.0,
+                10.0,
+                10.0,
+                10.0,
+            ],
+            "Prct retard pour cause infrastructure": [
+                15.0,
+                15.0,
+                15.0,
+                0.0,
+                15.0,
+                15.0,
+                15.0,
+            ],
+            "Prct retard pour cause gestion trafic": [
+                20.0,
+                20.0,
+                20.0,
+                0.0,
+                20.0,
+                20.0,
+                20.0,
+            ],
+            "Prct retard pour cause matériel roulant": [
+                15.0,
+                15.0,
+                15.0,
+                0.0,
+                15.0,
+                15.0,
+                15.0,
+            ],
+            "Prct retard pour cause gestion en gare et réutilisation de matériel": [
+                10.0,
+                10.0,
+                10.0,
+                0.0,
+                10.0,
+                10.0,
+                10.0,
+            ],
+            ld.MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT: [
+                20.0,
+                20.0,
+                20.0,
+                0.0,
+                20.0,
+                20.0,
+                20.0,
+            ],
         }
     )
