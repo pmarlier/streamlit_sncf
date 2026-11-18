@@ -45,20 +45,13 @@
 
 ## 4. Preprocessing, Cleaning, and Labeling
 
-- **What transformations were applied?** Describe cleaning, filtering, conversions, imputation, and labeling. <span style="color:orange">[To be completed]</span>
-
-<span style="color:green">
-Christophe
-</span>
-
-<span style="color:yellow">
-Pierre
-</span>
-
-<span style="color:red">
-Ulysse
-- For delayed/cancelled trains for a given connection, months time period and years, the years 2019 anbd 2020 will'nt be considered because not reprensentative of a standard flow (covid years).
-</span>
+- **What transformations were applied?** Describe cleaning, filtering, conversions, imputation, and labeling. 
+  - Data from the COVID-19 disruption period (March 2020 to June 2021) are invalidated (`NaN`) as they are not representative of normal railway operations.
+  - Delay indicators greater than 30 and 60 minutes are invalidated for Q1 2025 due to data quality issues.
+  - Inconsistent delay values are corrected or invalidated (`NaN`).
+  - Missing or invalid average arrival delays are imputed using historical medians for the same service, route, and month when sufficient historical data exist.
+  - A new feature, **"Prct retard causes non renseignées"**, is computed so that all delay-cause percentages sum to 100%.
+  - No records are removed; unreliable values are either corrected, imputed, or marked as missing.
 
 - **Is the raw data retained?** Where can it be accessed? <span style="color:orange">[To be completed]</span>
 - **What tools, scripts, and versions were used?** <span style="color:orange">[To be completed]</span>
