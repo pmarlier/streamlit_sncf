@@ -1,9 +1,17 @@
+import logging.config
+
 import branca.colormap as cm
 
 from ui.carto import folium
 
 MIN_DELAY_VALUE = 15
 MAX_DELAY_VALUE = 51
+
+
+def init() -> None:
+    global logger
+    logging.config.fileConfig("config/logging.conf")
+    logger = logging.getLogger(__name__)
 
 
 def get_custom_colormap() -> cm.LinearColormap:
@@ -50,16 +58,21 @@ def create_map(
         svg#legend {
             background-color: white !important;
             height: 45px;
+            position: relative:
+            top: 10px;
+            left: 120px;
         }
     </style>
     """
-
+    logger.debug("Color map created")
     # centered on Paris with a zoom level to see the whole country
     map = folium.Map(
         location=(latitude, longitude), zoom_start=zoom, zoom_control="bottomleft"
     )
+    logger.debug(f"Map instanciated at point {(latitude, longitude)}, with zoom {zoom}")
 
     colormap.add_to(map)
     map.get_root().header.add_child(folium.Element(legend_bg))
 
+    logger.debug("Map and color map linked")
     return map

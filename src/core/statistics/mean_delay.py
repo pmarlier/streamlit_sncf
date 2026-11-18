@@ -1,9 +1,17 @@
 """Mean delay computing module feeding UI functions"""
 
+import logging.config
+
 import numpy as np
 import pandas as pd
 
 from core import load_data as ld
+
+
+def init() -> None:
+    global logger
+    logging.config.fileConfig("config/logging.conf")
+    logger = logging.getLogger(__name__)
 
 
 def weighted_mean_delay(
@@ -59,12 +67,23 @@ def weighted_mean_delay(
 
 
 def get_arrival_mean_delay_for_city_pair(departure: str, arrival: str) -> float:
+    """Retrieve mean delay at arrival for a specific railway,
+    mean computed on all the valid given data (exclude NaN, and filtered outliers)
+
+    Args:
+        departure (str): the name of the departure railstation in the dataframe
+        arrival (str): the name of the arrival railstation in the dataframe
+
+    Returns:
+        float: the mean delay at arrival for the given city pair
+    """
     # retrieve the preprocessed dataframe
     df = ld.get_monthly_stats_df()
     # filter by city pair : first departure
     departure_df = df[df[ld.DEPARTURE_STATION_KEY] == departure]
     # then arrival
     departure_arrival_df = departure_df[departure_df[ld.ARRIVAL_STATION_KEY] == arrival]
-
     # and compute the mean
-    return departure_arrival_df[ld.MEAN_ARRIVAL_DELAY_KEY].mean()
+    mean = departure_arrival_df[ld.MEAN_ARRIVAL_DELAY_KEY].mean()
+    logger.debug(f"Mean arrival delay between {departure} and {arrival} retrieved")
+    return mean

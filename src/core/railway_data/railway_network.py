@@ -1,3 +1,5 @@
+import logging.config
+
 import streamlit as st
 
 from core import load_data as ld
@@ -31,6 +33,9 @@ def set_railway_id_network(railway_map: dict) -> None:
 
 def init() -> None:
     """_summary_"""
+    global logger
+    logging.config.fileConfig("config/logging.conf")
+    logger = logging.getLogger(__name__)
     set_railway_id_network(railway_data.RAILWAY_ID_NETWORK)
 
 
@@ -49,9 +54,12 @@ def get_railway_id_from_network(departure: str, arrival: str) -> list:
             f"{railway_data.get_processed_city_name(departure)}-{railway_data.get_processed_city_name(arrival)}"
         ]
     except Exception:
-        print(f"{__name__} : FAIL to retrieve a railway for - {departure}-{arrival}")
+        logger.debug(
+            f"Unable to find {departure}-{arrival} (no geo data in foreign country)"
+        )
         return []
 
+    logger.debug(f"Railways retrieved for {departure}-{arrival}")
     return railway_id
 
 
@@ -66,6 +74,7 @@ def get_railway_data_between_cities(departure: str, arrival: str) -> list:
     Returns:
         list: _description_
     """
+    md.init()
     mean_delay_on_arrival = md.get_arrival_mean_delay_for_city_pair(departure, arrival)
     railway_data_to_draw = []
 

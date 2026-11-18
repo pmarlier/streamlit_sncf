@@ -14,18 +14,15 @@ def test_load_railway_geo_data(capfd) -> pd.DataFrame:
     Returns:
         pd.DataFrame: the dataframe output loaded
     """
+    rg.init()
     # testing default configuration with no filepath given as argument
     railway_geo_df = rg.load_railway_geo_data()
 
     assert isinstance(railway_geo_df, pd.DataFrame)
 
-    rg.load_railway_geo_data("fake_path_for_exception_test")
+    railway_geo_df = rg.load_railway_geo_data("fake_path_for_exception_test")
 
-    out, err = capfd.readouterr()
-    assert (
-        out
-        == "core.railway_data.railway_geo : FAIL Loading railway geo file at fake_path_for_exception_test\n"
-    )
+    assert railway_geo_df is None
 
 
 def test_load_railstation_geo_data(capfd) -> pd.DataFrame:
@@ -38,17 +35,14 @@ def test_load_railstation_geo_data(capfd) -> pd.DataFrame:
         pd.DataFrame: the dataframe output loaded
     """
     # testing default configuration with no filepath given as argument
+    rg.init()
     railstation_geo_df = rg.load_railstation_geo_data()
 
     assert isinstance(railstation_geo_df, pd.DataFrame)
 
-    rg.load_railstation_geo_data("fake_path_for_exception_test")
+    railstation_geo_df = rg.load_railstation_geo_data("fake_path_for_exception_test")
 
-    out, err = capfd.readouterr()
-    assert (
-        out
-        == "core.railway_data.railway_geo : FAIL Loading railstation geo file at fake_path_for_exception_test\n"
-    )
+    assert railstation_geo_df is None
 
 
 def test_init() -> None:

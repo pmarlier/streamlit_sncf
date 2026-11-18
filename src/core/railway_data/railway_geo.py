@@ -1,4 +1,5 @@
 import json
+import logging.config
 
 import pandas as pd
 from geopy import distance
@@ -23,7 +24,7 @@ def load_railway_geo_data(filepath: str = CSV_GEO_PATH) -> pd.DataFrame:
     try:
         railway_geo_df = pd.read_table(filepath, delimiter=";")
     except Exception:
-        print(f"{__name__} : FAIL Loading railway geo file at {filepath}")
+        logger.error(f"Fail Loading railway geo file at {filepath}")
         return None
 
     return railway_geo_df
@@ -45,7 +46,7 @@ def load_railstation_geo_data(filepath: str = CSV_RAILSTATIONS_PATH) -> pd.DataF
             for railway_station in railstation_geo_df["LIBELLE"]
         ]
     except Exception:
-        print(f"{__name__} : FAIL Loading railstation geo file at {filepath}")
+        logger.error(f"Fail Loading railstation geo file at {filepath}")
         return None
 
     return railstation_geo_df
@@ -54,17 +55,23 @@ def load_railstation_geo_data(filepath: str = CSV_RAILSTATIONS_PATH) -> pd.DataF
 def set_railway_geo_df(dataframe: pd.DataFrame) -> None:
     global railway_geo_df
     railway_geo_df = dataframe
+    logger.debug("Railway Geo Dataframe set")
 
 
 def set_railstation_geo_df(dataframe: pd.DataFrame) -> None:
     global railstation_geo_df
     railstation_geo_df = dataframe
+    logger.debug("Railstation Geo Dataframe set")
 
 
 def init() -> None:
     """_summary_"""
+    global logger
+    logging.config.fileConfig("config/logging.conf")
+    logger = logging.getLogger(__name__)
     set_railway_geo_df(load_railway_geo_data())
     set_railstation_geo_df(load_railstation_geo_data())
+    logger.debug("Railway geo data initialization done")
 
 
 def get_coords_for_city_pair(departure_city: str, arrival_city: str) -> list:
@@ -95,6 +102,7 @@ def get_coords_for_city_pair(departure_city: str, arrival_city: str) -> list:
         arrival_railstation_geo["Geo Point"].values[0].split(", ")
     )
 
+    logger.debug("Trip coordinates set ! ready to ride !")
     return departure_railstation_geo_point, arrival_railstation_geo_point
 
 
@@ -168,6 +176,7 @@ def get_railway_geo_point_by_id(
             distance_from_start_to_arrival > trip_distance
             and distance_from_end_to_arrival > trip_distance
         ):
+            logger.debug("Some given railways are out of bounds")
             continue
 
         # check if the current rail section exceeds the path
@@ -189,6 +198,7 @@ def get_railway_geo_point_by_id(
                     )
                     < 0.3
                 ):
+                    logger.debug("Arrival railstation found ! Good job !")
                     stop_index = lat_long_railway_section.index(geo_coord)
                     stop_found = True
                     break

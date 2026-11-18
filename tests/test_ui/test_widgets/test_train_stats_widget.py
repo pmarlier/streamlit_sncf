@@ -37,6 +37,7 @@ from ui import widgets as wg
 
 wg.train_stats_widget.init()
 
+
 def test_display_delayed_cancelled_stats_table(
     mocked_df: pd.DataFrame,
 ):
@@ -114,14 +115,14 @@ def test_display_delayed_cancelled_stats_table(
     assert table_markdown[4].value == "1 train sur 117 a été annulé"
     assert table_markdown[5].value == "**Arrivée**"
     assert table_markdown[6].value == "1 train sur 6 a été retardé"
-    
+
     # Check if no year is selected
     selected_years = []
     at_table = AppTest.from_function(
         run_display_delayed_cancelled_stats_table,
         args=(departure_city, arrival_city, start_month, end_month, selected_years),
     ).run()
-    
+
     assert at_table.markdown[1].value == (
         f"De "
         f"{wg.get_month_from_int_str(start_month)} à "
@@ -154,6 +155,7 @@ def test_section_row_edge_case_ratios():
                 (np.nan, "retardé"),
                 (0.0, "retardé"),
                 (-0.5, "retardé"),
+                (0.8, "retardé"),
             ],
         )
 
@@ -168,4 +170,5 @@ def test_section_row_edge_case_ratios():
         "Aucune donnée n'est disponible",
         "Aucun train retardé n'a été déclaré",
         "Aucun donnée fiable n'est disponible",
+        "4 trains sur 5 ont été retardés",
     ]

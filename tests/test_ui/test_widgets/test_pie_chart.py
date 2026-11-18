@@ -17,7 +17,10 @@ def test_display_pie_chart():
 
         cause_list = [10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0]
 
-        # This should not raise any exceptions
+        # test if no exception is raised with no second argument
         pie_chart.display_pie_chart(cause_list)
-
         mock_st_pyplot.assert_called_once_with(mock_fig)
+
+        # test if no exception is raised with a 'true' second argument
+        pie_chart.display_pie_chart(cause_list, True)
+        mock_st_pyplot.assert_called_with(mock_fig)

@@ -43,6 +43,13 @@ addopts = "--cov=. --cov-report=term-missing"
 testpaths = ["tests"]
 pythonpath = ["src"]
 
+[tool.coverage.run]
+omit = [
+    # omit anything in a .local directory anywhere
+    "src/streamlit_sncf_app.py",
+    "tests/*",
+    ]
+
 [tool.mypy]
 python_version = "3.14"
 ignore_missing_imports = true
