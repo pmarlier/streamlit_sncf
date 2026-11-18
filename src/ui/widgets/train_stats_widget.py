@@ -68,10 +68,10 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
         # for index, (label, count, total, status) in enumerate(fields):
         if ratio > 0 and ratio <= 1:
             if ratio == 1:
-                train_info_str = f"Tous les trains prévus ont été {status}"
+                train_info_str = f"Tous les trains prévus ont été {status}s"
             elif ratio > 0.95:
                 # avoid incorrectly approximating a ratio to "1 out of 1"
-                train_info_str = f"Plus de 19 trains sur 20 ont été {status}"
+                train_info_str = f"Plus de 19 trains sur 20 ont été {status}s"
             elif ratio < 0.05:
                 # avoid incorrectly approximating a ratio to "0 out of 1"
                 train_info_str = f"1 train sur {round(1 / ratio)} a été {status}"
@@ -91,10 +91,17 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
                     fractions, key=lambda f: (abs(float(f) - ratio), f.denominator)
                 )
 
-                train_info_str = (
-                    f"{fraction.numerator} train sur "
-                    f"{fraction.denominator} a été {status}"
-                )
+                if fraction.numerator > 1:
+                    train_info_str = (
+                        f"{fraction.numerator} trains sur "
+                        f"{fraction.denominator} ont été {status}s"
+                    )
+                else:
+                    train_info_str = (
+                        f"{fraction.numerator} train sur "
+                        f"{fraction.denominator} a été {status}"
+                    )
+                    
         elif np.isnan(ratio):
             train_info_str = "Aucune donnée n'est disponible"
             logger.debug("No data is available for this trip")
@@ -141,9 +148,10 @@ def display_delayed_cancelled_stats_table(
         st.markdown("**Informations sur l'état du trafic**")
 
         st.markdown(
-            f"Sur la période de "
+            f"De "
             f"{sidebar.get_month_from_int_str(start_month)} à "
-            f" {sidebar.get_month_from_int_str(end_month)}:"
+            f" {sidebar.get_month_from_int_str(end_month)}, "
+            f"entre {selected_years[0]} et {selected_years[-1]}, en moyenne:"
         )
 
         # Departure: Delay + Cancelled
