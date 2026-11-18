@@ -21,18 +21,6 @@ def test_section_row(init_sidebar_logger):
     Cases are tested for both existing delayed/cancelled trains (return associated stat)
     or none (return "None was declared").
     """
-    # ref stats
-    # total_planned_trains = 1146
-    # total_delayed_departure_trains = 202
-    # total_delayed_arrival_trains = 230
-    # total_cancelled_trains = 49
-
-    # ratio_planned_delayed_departure = round(
-    #     total_planned_trains/total_delayed_departure_trains)
-    # ratio_planned_delayed_arrival = round(
-    #     total_planned_trains/total_delayed_arrival_trains)
-    # ratio_planned_cancelled = round(
-    #     total_planned_trains/total_cancelled_trains)
 
     ######################
     # CASE TRAINS EXIST
@@ -408,3 +396,26 @@ def test_popup_when_invalid_months(init_sidebar_logger):
 
     assert not at.exception
     assert at.session_state.start_month > at.session_state.end_month
+    
+def test_popup_when_no_year(init_sidebar_logger):
+    """ Test that an error dialog displays if no year is selected.
+    """
+    def run_sidebar():
+        """Initialize the full dataset and render the trip sidebar to simulate
+        website's behavior
+        """
+        from core import load_data as ld
+        from ui import widgets as wg
+
+        ld.init()
+        _ = wg.display_sidebar()
+
+    at = AppTest.from_function(run_sidebar).run()
+    
+    assert not at.exception
+        
+    # no year
+    at = at.multiselect[0].set_value([]).run()
+
+    assert not at.exception
+    assert not at.session_state.selected_years

@@ -147,11 +147,14 @@ def display_delayed_cancelled_stats_table(
     with col:
         st.markdown("**Informations sur l'état du trafic**")
 
+        start_year = selected_years[0] if selected_years else "XXXX"
+        end_year = selected_years[-1] if selected_years else "XXXX"
+            
         st.markdown(
             f"De "
             f"{sidebar.get_month_from_int_str(start_month)} à "
             f" {sidebar.get_month_from_int_str(end_month)}, "
-            f"entre {selected_years[0]} et {selected_years[-1]}, en moyenne:"
+            f"entre {start_year} et {end_year}, en moyenne:"
         )
 
         # Departure: Delay + Cancelled
