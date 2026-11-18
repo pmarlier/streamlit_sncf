@@ -184,8 +184,8 @@ RAILWAY_ID_NETWORK = {  # OK
     "nantes-paris-vaugirard": [420000, 450000, 515000],
     "paris-vaugirard-nantes": [420000, 450000, 515000],
     # 45
-    "nantes-strasbourg-ville": [7000, 420000, 450000, 515000],
-    "strasbourg-ville-nantes": [7000, 420000, 450000, 515000],
+    "nantes-strasbourg-ville": [70000, 420000, 450000, 515000],
+    "strasbourg-ville-nantes": [70000, 420000, 450000, 515000],
     # 46
     # OK
     "nice-ville-paris-gare-de-lyon": [930000, 830000],

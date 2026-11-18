@@ -9,6 +9,7 @@ import logging.config
 from core.statistics import amount_trains as am
 from ui.widgets import sidebar
 
+
 def init() -> None:
     """
     Initialization function to set logger
@@ -16,7 +17,8 @@ def init() -> None:
     global logger
     logger = logging.getLogger(__name__)
     logger.debug("train stats widget logger initialized")
-    
+
+
 def display_departure_arrival_stations_title(
     col: DeltaGenerator,
     departure_city: str,
@@ -32,7 +34,8 @@ def display_departure_arrival_stations_title(
     """
 
     with col:
-        st.markdown(f"## {departure_city.title()} → {arrival_city.title()}")    
+        st.markdown(f"## {departure_city.title()} → {arrival_city.title()}")
+
 
 def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
     """Displays information contained in fields input, named after section_label input,
@@ -57,8 +60,8 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
         same line as the section_label. Other fields are stacked on the following rows
         on the second column.
     """
-
-    cols = st.columns([1, 2])
+    frame_proportion = 4
+    cols = st.columns([1, frame_proportion])
     cols[0].markdown(f"**{section_label}**")
 
     for index, (ratio, status) in enumerate(fields):
@@ -71,9 +74,7 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
                 train_info_str = f"Plus de 19 trains sur 20 ont été {status}"
             elif ratio < 0.05:
                 # avoid incorrectly approximating a ratio to "0 out of 1"
-                train_info_str = (
-                    f"1 train sur {round(1 / ratio)} a été {status}"
-                )
+                train_info_str = f"1 train sur {round(1 / ratio)} a été {status}"
             else:
                 # generate a set of the most easy-to-understand approximate fractions
                 # with a denominator of 2 to 6, 10 or 20
@@ -106,13 +107,10 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
             logger.warning("No reliable data has been provided for this trip")
 
         if index == 0:
-            # cols[1].markdown(label)
             with cols[1]:
                 st.write(train_info_str)
         else:
-            _, sub_input_col = st.columns([1, 2])
-            # _, sub_label_col, sub_input_col = st.columns([1, 2, 3])
-            # sub_label_col.markdown(label)
+            _, sub_input_col = st.columns([1, frame_proportion])
             with sub_input_col:
                 st.write(train_info_str)
 
@@ -139,31 +137,8 @@ def display_delayed_cancelled_stats_table(
         selected_years (np.ndarray): np.ndarray of selected years to
             compute the statistics
     """
-    # departure_icon_container, railway_icon_container, arrival_icon_container = (
-    #     st.columns([1.5, 2, 1.5], gap="large")
-    # )
-
-    # with departure_icon_container.container(height=10):
-    #     st.image("./resources/departure_arrival_icon.png")
-
-    # with railway_icon_container.container(height=10):
-    #     st.image("./resources/railway_tracks_icon.png")
-
-    # with arrival_icon_container.container(height=10):
-    #     st.image("./resources/departure_arrival_icon.png")
-
-    # departure_city_container, _, arrival_city_container = st.columns([2, 1, 2])
-
-    # with arrival_city_container:
-    #     st.markdown(f"{departure_city}")
-
-    # with departure_city_container:
-    #     st.markdown(f"{arrival_city}")
-
     with col:
-        st.markdown(
-            "**Informations sur l'état du trafic**"
-        )
+        st.markdown("**Informations sur l'état du trafic**")
 
         st.markdown(
             f"Sur la période de "
