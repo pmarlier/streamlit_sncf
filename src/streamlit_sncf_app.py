@@ -4,7 +4,7 @@ Streamlit App — Informational SNCF trains delays prediction web application
 
 To launch the app:
     uv sync
-    cd ./ #project's root
+    cd .
     uv run streamlit run ./src/streamlit_sncf_app.py
 
 The raw data file "regularite-mensuelle-tgv-aqst.csv" shall be stored in ./data/raw,
@@ -52,7 +52,7 @@ def main():
     # --------------------------------------------------------------------------
 
     st.set_page_config(
-        page_title="IADATA700 STreamlit SNFC app",
+        page_title="IADATA700 Streamlit SNFC app",
         page_icon="🚄",
         layout="wide",
     )
@@ -157,10 +157,13 @@ def main():
 
     # sidebar active: user configuration for trip defintion in progress
     if st.session_state.is_trip_set:
-        # -------------------------------------------
-        # a. Delayed/cancelled stats for selected trip #
-        # -------------------------------------------
+
         with info_container:
+            
+    # -------------------------------------------
+    # a. Monthly arrival delay graph for selected trip #
+    # -------------------------------------------
+        
             with st.container(border=True, height=400):
                 # display monthly arrival delay graph below the map
                 # only if a specific railway trip is selected
@@ -172,7 +175,6 @@ def main():
                     selected_years=st.session_state.selected_years,
                     actual_year=2026,
                 )
-
             with st.container(border=True, height=400):
                 # display pie chart of delay cause
                 pie_chart.display_pie_chart(
@@ -188,9 +190,9 @@ def main():
                 # update lat/long/zoom parameter to match with the new widget size
                 map = map_drawing.create_map(latitude=41.7, longitude=2.34, zoom=5)
                 # with st.container(border=True):
-                # -------------------------------------------
-                # b. France map of trip #
-                # -------------------------------------------
+    # -------------------------------------------
+    # b. France map of trip #
+    # -------------------------------------------
                 railway_drawing.draw_railway(
                     railway_network.get_railway_data_between_cities(
                         st.session_state.departure_city, st.session_state.arrival_city
@@ -207,6 +209,9 @@ def main():
             with st.container(height=350):
                 frame = st.container()
                 # display delayed / cancelled train widget
+    # -------------------------------------------
+    # c. Delayed/cancelled stats for selected trip #
+    # -------------------------------------------
                 train_stats_widget.display_delayed_cancelled_stats_table(
                     frame,
                     st.session_state.departure_city,
@@ -254,7 +259,9 @@ def main():
                 # never show loading bar again
                 st.session_state.first_map_load = False
                 st.session_state.all_railways_to_draw = all_railways_to_draw
-
+    # -------------------------------------------
+    # d. Pie chart #
+    # -------------------------------------------
             with info_container.container(height=750):
                 # Adding Title of chart
                 st.markdown(
