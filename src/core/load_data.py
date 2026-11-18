@@ -39,15 +39,15 @@ MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT = "Prct retard causes non renseignées"
 # chaque interaction Streamlit.
 
 def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
-    """Charge un fichier csv, de séparateurs ";", utilisé pour l'analyse de données.
-    Filtre les colonnes utiles, et convertit en deux colonnes "year" et "month" la
-    colonne "Date"
+    """Load a CSV file using ';' as the separator for data analysis purposes.
+    Filters the relevant columns and splits the 'Date' column into two
+    separate columns: 'year' and 'month'.
 
     Args:
-        source (str): input de type input = st.sidebar.file_uploader()
+        source (str): Input returned by st.sidebar.file_uploader().
 
     Returns:
-        df (pd.DataFrame): retourne le csv converti en DataFrame
+        pd.DataFrame: The CSV data converted into a DataFrame.
     """
     df = pd.read_csv(source, sep=";")
 
