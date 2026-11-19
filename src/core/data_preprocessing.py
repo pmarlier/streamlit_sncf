@@ -3,7 +3,8 @@ import pandas as pd
 
 
 def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
-    """Preprocess a dataframe to clean the data. It has been designed to preprocess the SNCF dataset.
+    """Preprocess a dataframe to clean the data.
+    It has been designed to preprocess the SNCF dataset.
 
     Transformations :
 
@@ -21,14 +22,16 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     The median is calculated for the same service, route and month, with at least 2
     valid observations.
 
-    6. Adding a column "Prct retard causes non renseignées" and calculating the
-    percentage to have a sum of 100% for all the reasons of delay
-
-    7. Invalidating values from "Nombre trains en retard > 15min" when they exceed the
+    6. Invalidating values from "Nombre trains en retard > 15min" when they exceed the
     overall number of trains delayed at arrival.
 
-    8. Replacing negative average delays for all trains by 0 when they are between -1
+    7. Replacing negative average delays for all trains by 0 when they are between -1
     (included) and 0 (excluded), and by NaN when they are below -1.
+
+    8. Merge the duplicated rows
+
+    9. Adding a column "Prct retard causes non renseignées" and calculating the
+    percentage to have a sum of 100% for all the reasons of delay
 
     Args:
         df (pd.DataFrame): dataframe from the original SNCF dataset with these expected
@@ -152,32 +155,8 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
         if groups_counts.get(line_chatacteristics, 0) >= 2:
             df_clean.loc[i, average_delay_arr] = medians[line_chatacteristics]
 
-    # Sixth evolution : adding a column "Prct retard causes non renseignées"
-
-    columns_reasons = [
-        "Prct retard pour causes externes",
-        "Prct retard pour cause infrastructure",
-        "Prct retard pour cause gestion trafic",
-        "Prct retard pour cause matériel roulant",
-        "Prct retard pour cause gestion en gare et réutilisation de matériel",
-        (
-            "Prct retard pour cause prise en compte voyageurs "
-            "(affluence, gestions PSH, correspondances)"
-        ),
-    ]
-
-    # Calculating the sum of the 6 reasons
-
-    sum_reasons = df_clean[columns_reasons].sum(axis=1, min_count=len(columns_reasons))
-
-    # Adding the new column
-
-    df_clean["Prct retard causes non renseignées"] = (
-        (100 - sum_reasons).round(2).where(df_clean[delayed_trains_arr] > 0)
-    )
-
-    # Seventh evolution: invalidating delays over 15 minutes when this value is greater
-    # than the overall number of delayed trains
+    # Sixth evolution: invalidating number of trains delayed by more than 15 minutes
+    # when they are greater than the total number of trains delayed at arrival
 
     delayed_trains_15 = "Nombre trains en retard > 15min"
 
@@ -185,7 +164,7 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
 
     df_clean.loc[mask_invalid_15, delayed_trains_15] = np.nan
 
-    # Eighth evolution: transforming negative values in columns
+    # Seventh evolution: transforming negative values in columns
     # "Retard moyen de tous les trains à l'arrivée" and "Retard moyen de tous les trains
     # au départ"
 
@@ -205,6 +184,127 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
 
         df_clean.loc[mask_zero, col] = 0.0
         df_clean.loc[mask_nan, col] = np.nan
+
+    # columns used in eighth and ninth evolutions
+
+    columns_reasons = [
+        "Prct retard pour causes externes",
+        "Prct retard pour cause infrastructure",
+        "Prct retard pour cause gestion trafic",
+        "Prct retard pour cause matériel roulant",
+        "Prct retard pour cause gestion en gare et réutilisation de matériel",
+        (
+            "Prct retard pour cause prise en compte voyageurs "
+            "(affluence, gestions PSH, correspondances)"
+        ),
+    ]
+
+    # Eighth evolution: merging duplicated observations
+
+    # import which needs to be done later in the process
+    from core.statistics import mean_delay as md
+
+    columns_duplicates = [
+        "Date",
+        "Gare de départ",
+        "Gare d'arrivée",
+    ]
+
+    mask_duplicates = df_clean.duplicated(
+        subset=columns_duplicates,
+        keep=False,
+    )
+
+    # columns containing counts
+    columns_to_sum = [
+        "Nombre de circulations prévues",
+        "Nombre de trains annulés",
+        "Nombre de trains en retard au départ",
+        "Nombre de trains en retard à l'arrivée",
+        "Nombre trains en retard > 15min",
+        "Nombre trains en retard > 30min",
+        "Nombre trains en retard > 60min",
+    ]
+
+    merged_rows = []
+
+    for _, group in df_clean.loc[mask_duplicates].groupby(columns_duplicates):
+        # checking that there are 2 different services for the same train line
+        if len(group) != 2 or set(group["Service"]) != {"National", "International"}:
+            raise ValueError("Unexpected duplicate route")
+
+        # creating the merged row from the first observation
+        merged_row = group.iloc[0].copy()
+        merged_row["Service"] = np.nan
+
+        # replacing NaN with 0 before calculations
+        data = group.select_dtypes(include="number").fillna(0)
+
+        # sum of train counts
+        for col in columns_to_sum:
+            merged_row[col] = data[col].sum()
+
+        # calculating the weights for the weighted means
+        completed_trains = (
+            data["Nombre de circulations prévues"] - data["Nombre de trains annulés"]
+        ).clip(lower=0)
+
+        delayed_departure = data["Nombre de trains en retard au départ"]
+        delayed_arrival = data["Nombre de trains en retard à l'arrivée"]
+        delayed_15 = data["Nombre trains en retard > 15min"]
+
+        # calculating the weighted mean for all completed trains
+        columns_completed_trains = [
+            "Durée moyenne du trajet",
+            "Retard moyen de tous les trains au départ",
+            "Retard moyen de tous les trains à l'arrivée",
+        ]
+
+        for col in columns_completed_trains:
+            merged_row[col] = md.weighted_mean_delay(completed_trains, data[col])
+
+        # calculating the weighted mean for trains delayed at departure
+        col = "Retard moyen des trains en retard au départ"
+        merged_row[col] = md.weighted_mean_delay(delayed_departure, data[col])
+
+        # calculating the weighted mean for trains delayed at arrival
+        col = "Retard moyen des trains en retard à l'arrivée"
+        merged_row[col] = md.weighted_mean_delay(delayed_arrival, data[col])
+
+        # calculating the weighted mean for trains delayed by more than 15 minutes
+        col = "Retard moyen trains en retard > 15 (si liaison concurrencée par vol)"
+        merged_row[col] = md.weighted_mean_delay(delayed_15, data[col])
+
+        # calculating the weighted percentages for delay causes
+        for col in columns_reasons:
+            merged_row[col] = md.weighted_mean_delay(delayed_arrival, data[col])
+
+        merged_rows.append(merged_row)
+
+    # replacing duplicated rows with the merged rows
+    if len(merged_rows) > 0:
+        df_clean = (
+            pd.concat(
+                [
+                    df_clean.loc[~mask_duplicates],
+                    pd.DataFrame(merged_rows),
+                ]
+            )
+            .sort_index()
+            .reset_index(drop=True)
+        )
+
+    # Ninth evolution : adding a column "Prct retard causes non renseignées"
+
+    # Calculating the sum of the 6 reasons
+
+    sum_reasons = df_clean[columns_reasons].sum(axis=1, min_count=len(columns_reasons))
+
+    # Adding the new column
+
+    df_clean["Prct retard causes non renseignées"] = (
+        (100 - sum_reasons).round(2).where(df_clean[delayed_trains_arr] > 0)
+    )
 
     # Returning df_clean
 
