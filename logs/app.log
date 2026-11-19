@@ -1,0 +1,36 @@
+[37m2026-11-18 16:15:32 - core.load_data - DEBUG - load_csv_df:55 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-18 16:15:32 - core.load_data - DEBUG - load_csv_df:59 - Prétraitement des données terminé[0m
+[37m2026-11-18 16:15:32 - core.load_data - DEBUG - load_csv_df:81 - Filtrage des données terminé[0m
+[37m2026-11-18 16:15:32 - core.load_data - DEBUG - load_csv_df:82 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-18 16:15:32 - core.load_data - DEBUG - set_monthly_stats_df:106 - Dataframe chargé[0m
+[37m2026-11-18 16:15:33 - ui.widgets.sidebar - DEBUG - init:43 - sidebar logger initialized[0m
+[37m2026-11-18 16:15:33 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-18 16:15:40 - ui.widgets.sidebar - DEBUG - display_sidebar:145 - AIX EN PROVENCE TGV departure city selected[0m
+[37m2026-11-18 16:15:40 - ui.widgets.sidebar - DEBUG - display_sidebar:151 - PARIS LYON arrival city selected[0m
+[37m2026-11-18 16:15:40 - ui.widgets.sidebar - DEBUG - display_sidebar:157 - Janvier departure month selected[0m
+[37m2026-11-18 16:15:40 - ui.widgets.sidebar - DEBUG - display_sidebar:165 - Décembre arrival month selected[0m
+[37m2026-11-18 16:15:40 - ui.widgets.sidebar - DEBUG - display_sidebar:174 - Years selected: 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026[0m
+[37m2026-11-18 16:15:48 - ui.widgets.sidebar - DEBUG - display_sidebar:145 - AIX EN PROVENCE TGV departure city selected[0m
+[37m2026-11-18 16:15:48 - ui.widgets.sidebar - DEBUG - display_sidebar:151 - PARIS LYON arrival city selected[0m
+[37m2026-11-18 16:15:48 - ui.widgets.sidebar - DEBUG - display_sidebar:157 - Janvier departure month selected[0m
+[37m2026-11-18 16:15:48 - ui.widgets.sidebar - DEBUG - display_sidebar:165 - Décembre arrival month selected[0m
+[37m2026-11-18 16:15:48 - ui.widgets.sidebar - DEBUG - display_sidebar:174 - Years selected: 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026[0m
+[37m2026-11-18 16:15:52 - ui.widgets.sidebar - DEBUG - display_sidebar:145 - AIX EN PROVENCE TGV departure city selected[0m
+[37m2026-11-18 16:15:52 - ui.widgets.sidebar - DEBUG - display_sidebar:151 - PARIS LYON arrival city selected[0m
+[37m2026-11-18 16:15:52 - ui.widgets.sidebar - DEBUG - display_sidebar:157 - Janvier departure month selected[0m
+[37m2026-11-18 16:15:52 - ui.widgets.sidebar - DEBUG - display_sidebar:165 - Décembre arrival month selected[0m
+[33m2026-11-18 16:15:52 - ui.widgets.sidebar - WARNING - display_sidebar:172 - Warning: at least one year shall be selected[0m
+[37m2026-11-18 16:15:52 - ui.widgets.sidebar - DEBUG - display_sidebar:174 - Years selected: [0m
+[37m2026-11-18 16:15:53 - ui.widgets.train_stats_widget - DEBUG - section_row:107 - No data is available for this trip[0m
+[37m2026-11-18 16:15:53 - ui.widgets.train_stats_widget - DEBUG - section_row:107 - No data is available for this trip[0m
+[37m2026-11-18 16:15:53 - ui.widgets.train_stats_widget - DEBUG - section_row:107 - No data is available for this trip[0m
+[37m2026-11-18 16:15:57 - ui.widgets.sidebar - DEBUG - display_sidebar:145 - AIX EN PROVENCE TGV departure city selected[0m
+[37m2026-11-18 16:15:57 - ui.widgets.sidebar - DEBUG - display_sidebar:151 - PARIS LYON arrival city selected[0m
+[37m2026-11-18 16:15:57 - ui.widgets.sidebar - DEBUG - display_sidebar:157 - Janvier departure month selected[0m
+[37m2026-11-18 16:15:57 - ui.widgets.sidebar - DEBUG - display_sidebar:165 - Décembre arrival month selected[0m
+[37m2026-11-18 16:15:57 - ui.widgets.sidebar - DEBUG - display_sidebar:174 - Years selected: 2020[0m
+[37m2026-11-18 16:16:00 - ui.widgets.sidebar - DEBUG - display_sidebar:145 - AIX EN PROVENCE TGV departure city selected[0m
+[37m2026-11-18 16:16:00 - ui.widgets.sidebar - DEBUG - display_sidebar:151 - PARIS LYON arrival city selected[0m
+[37m2026-11-18 16:16:00 - ui.widgets.sidebar - DEBUG - display_sidebar:157 - Janvier departure month selected[0m
+[37m2026-11-18 16:16:00 - ui.widgets.sidebar - DEBUG - display_sidebar:165 - Décembre arrival month selected[0m
+[37m2026-11-18 16:16:00 - ui.widgets.sidebar - DEBUG - display_sidebar:174 - Years selected: 2020[0m

@@ -3,6 +3,7 @@
 import itertools
 import logging
 import logging.config
+from datetime import datetime
 
 import numpy as np
 import pandas as pd
@@ -112,7 +113,11 @@ def init() -> None:
     set global variable to access dataframe
     """
     global logger
-    logging.config.fileConfig("config/logging.conf")
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    logging.config.fileConfig(
+        "config/logging.conf",
+        defaults={"timestamp": timestamp},
+    )
     logger = logging.getLogger(__name__)
     set_monthly_stats_df(load_csv_df())
 
