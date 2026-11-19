@@ -113,13 +113,10 @@ def init() -> None:
     set global variable to access dataframe
     """
     global logger
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    logging.config.fileConfig(
-        "config/logging.conf",
-        defaults={"timestamp": timestamp},
-    )
+    logging.config.fileConfig("config/logging.conf")
     logger = logging.getLogger(__name__)
     set_monthly_stats_df(load_csv_df())
+    logger.debug("********************* New session starting ************************")
 
 
 def get_directional_city_pairs_list() -> list:
