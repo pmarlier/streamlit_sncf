@@ -5,7 +5,16 @@ src.ui.widgets.sidebar
 
 .. autoapi-nested-parse::
 
-   User interactions widgets definition module
+   Module defining the sidebar components. The sidebar is initialized open, and lets the
+   user specifiy a trip to analyse with its:
+       - departure station
+       - arrival station
+       - departure month
+       - arrival month (equal or posterior to departure month)
+       - years
+
+    Those data are used to compute statistics on a given connexion, based on all the
+    previous selected periods.
 
 
 
@@ -24,6 +33,7 @@ Functions
 
    src.ui.widgets.sidebar.init
    src.ui.widgets.sidebar.wrong_month_dialog
+   src.ui.widgets.sidebar.no_year_dialog
    src.ui.widgets.sidebar.get_month_from_int_str
    src.ui.widgets.sidebar.get_month_from_str_int
    src.ui.widgets.sidebar.select_month
@@ -47,6 +57,12 @@ Module Contents
 
    Popup window function used for months selection functions, to explain to the user
    that the selected departure month must be equal or prior to arrival month.
+
+
+.. py:function:: no_year_dialog()
+
+   Popup window function used for years selection functions, to explain to the user
+   that at least one year shall be selected to generate stats.
 
 
 .. py:function:: get_month_from_int_str(month_int: int) -> str

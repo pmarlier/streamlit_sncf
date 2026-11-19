@@ -48,7 +48,21 @@
             
   <section id="module-src.ui.widgets.sidebar">
 <span id="src-ui-widgets-sidebar"></span><h1>src.ui.widgets.sidebar<a class="headerlink" href="#module-src.ui.widgets.sidebar" title="Link to this heading">¶</a></h1>
-<p>User interactions widgets definition module</p>
+<p>Module defining the sidebar components. The sidebar is initialized open, and lets the
+user specifiy a trip to analyse with its:</p>
+<blockquote>
+<div><blockquote>
+<div><ul class="simple">
+<li><p>departure station</p></li>
+<li><p>arrival station</p></li>
+<li><p>departure month</p></li>
+<li><p>arrival month (equal or posterior to departure month)</p></li>
+<li><p>years</p></li>
+</ul>
+</div></blockquote>
+<p>Those data are used to compute statistics on a given connexion, based on all the
+previous selected periods.</p>
+</div></blockquote>
 <section id="attributes">
 <h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
@@ -69,19 +83,22 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.wrong_month_dialog" title="src.ui.widgets.sidebar.wrong_month_dialog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">wrong_month_dialog</span></code></a>()</p></td>
 <td><p>Popup window function used for months selection functions, to explain to the user</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.get_month_from_int_str" title="src.ui.widgets.sidebar.get_month_from_int_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_month_from_int_str</span></code></a>(→ str)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.no_year_dialog" title="src.ui.widgets.sidebar.no_year_dialog"><code class="xref py py-obj docutils literal notranslate"><span class="pre">no_year_dialog</span></code></a>()</p></td>
+<td><p>Popup window function used for years selection functions, to explain to the user</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.get_month_from_int_str" title="src.ui.widgets.sidebar.get_month_from_int_str"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_month_from_int_str</span></code></a>(→ str)</p></td>
 <td><p>Converts a month as integer into string.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.get_month_from_str_int" title="src.ui.widgets.sidebar.get_month_from_str_int"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_month_from_str_int</span></code></a>(→ int)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.get_month_from_str_int" title="src.ui.widgets.sidebar.get_month_from_str_int"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_month_from_str_int</span></code></a>(→ int)</p></td>
 <td><p>Converts a month as string into integer.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.select_month" title="src.ui.widgets.sidebar.select_month"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_month</span></code></a>(→ int)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.select_month" title="src.ui.widgets.sidebar.select_month"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_month</span></code></a>(→ int)</p></td>
 <td><p>Get month from a dropdown list as integer, requiring get_month_from_str_int</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.select_years" title="src.ui.widgets.sidebar.select_years"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_years</span></code></a>(→ list[int])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.select_years" title="src.ui.widgets.sidebar.select_years"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_years</span></code></a>(→ list[int])</p></td>
 <td><p>Get year(s) from a multiselect dropdown.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.display_sidebar" title="src.ui.widgets.sidebar.display_sidebar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_sidebar</span></code></a>(→ None)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.sidebar.display_sidebar" title="src.ui.widgets.sidebar.display_sidebar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_sidebar</span></code></a>(→ None)</p></td>
 <td><p>Displays sidebar containing input widgets for customer to specify</p></td>
 </tr>
 </tbody>
@@ -105,6 +122,13 @@
 <span class="sig-prename descclassname"><span class="pre">src.ui.widgets.sidebar.</span></span><span class="sig-name descname"><span class="pre">wrong_month_dialog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.ui.widgets.sidebar.wrong_month_dialog" title="Link to this definition">¶</a></dt>
 <dd><p>Popup window function used for months selection functions, to explain to the user
 that the selected departure month must be equal or prior to arrival month.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.sidebar.no_year_dialog">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.sidebar.</span></span><span class="sig-name descname"><span class="pre">no_year_dialog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#src.ui.widgets.sidebar.no_year_dialog" title="Link to this definition">¶</a></dt>
+<dd><p>Popup window function used for years selection functions, to explain to the user
+that at least one year shall be selected to generate stats.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -218,6 +242,7 @@ start_month, end_month, selected_years</p>
 <li><a class="reference internal" href="#src.ui.widgets.sidebar.MONTHS_LIST"><code class="docutils literal notranslate"><span class="pre">MONTHS_LIST</span></code></a></li>
 <li><a class="reference internal" href="#src.ui.widgets.sidebar.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li><a class="reference internal" href="#src.ui.widgets.sidebar.wrong_month_dialog"><code class="docutils literal notranslate"><span class="pre">wrong_month_dialog()</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.widgets.sidebar.no_year_dialog"><code class="docutils literal notranslate"><span class="pre">no_year_dialog()</span></code></a></li>
 <li><a class="reference internal" href="#src.ui.widgets.sidebar.get_month_from_int_str"><code class="docutils literal notranslate"><span class="pre">get_month_from_int_str()</span></code></a></li>
 <li><a class="reference internal" href="#src.ui.widgets.sidebar.get_month_from_str_int"><code class="docutils literal notranslate"><span class="pre">get_month_from_str_int()</span></code></a></li>
 <li><a class="reference internal" href="#src.ui.widgets.sidebar.select_month"><code class="docutils literal notranslate"><span class="pre">select_month()</span></code></a></li>

@@ -10,7 +10,7 @@ src.streamlit_sncf_app
 
    To launch the app:
        uv sync
-       cd ./ #project's root
+       cd .
        uv run streamlit run ./src/streamlit_sncf_app.py
 
    The raw data file "regularite-mensuelle-tgv-aqst.csv" shall be stored in ./data/raw,

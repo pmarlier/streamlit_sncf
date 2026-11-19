@@ -117,7 +117,7 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.load_csv_df" title="src.core.load_data.load_csv_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_csv_df</span></code></a>(→ pandas.DataFrame)</p></td>
-<td><p>Charge un fichier csv, de séparateurs &quot;;&quot;, utilisé pour l'analyse de données.</p></td>
+<td><p>Load a CSV file using ';' as the separator for data analysis purposes.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.get_monthly_stats_df" title="src.core.load_data.get_monthly_stats_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_monthly_stats_df</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Initialization function to make global input csv dataframe</p></td>
@@ -255,18 +255,18 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="src.core.load_data.load_csv_df">
 <span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">load_csv_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">CSV_PATH</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.load_data.load_csv_df" title="Link to this definition">¶</a></dt>
-<dd><p>Charge un fichier csv, de séparateurs “;”, utilisé pour l’analyse de données.
-Filtre les colonnes utiles, et convertit en deux colonnes “year” et “month” la
-colonne “Date”</p>
+<dd><p>Load a CSV file using ‘;’ as the separator for data analysis purposes.
+Filters the relevant columns and splits the ‘Date’ column into two
+separate columns: ‘year’ and ‘month’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>source</strong> (<em>str</em>) – input de type input = st.sidebar.file_uploader()</p>
+<dd class="field-odd"><p><strong>source</strong> (<em>str</em>) – Input returned by st.sidebar.file_uploader().</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>retourne le csv converti en DataFrame</p>
+<dd class="field-even"><p>The CSV data converted into a DataFrame.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>df (pd.DataFrame)</p>
+<dd class="field-odd"><p>pd.DataFrame</p>
 </dd>
 </dl>
 </dd></dl>
