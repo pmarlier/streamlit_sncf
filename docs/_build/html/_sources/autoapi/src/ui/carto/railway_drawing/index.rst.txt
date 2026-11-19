@@ -15,5 +15,5 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: draw_railway(railway_data_list: list, map_to_update: folium.Map) -> folium.Map
+.. py:function:: draw_railway(railway_data_list: list, map_to_update: folium.Map, delay_range: tuple | None) -> folium.Map
 

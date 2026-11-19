@@ -135,15 +135,15 @@ Module Contents
 
 .. py:function:: load_csv_df(source: str = CSV_PATH) -> pandas.DataFrame
 
-   Charge un fichier csv, de séparateurs ";", utilisé pour l'analyse de données.
-   Filtre les colonnes utiles, et convertit en deux colonnes "year" et "month" la
-   colonne "Date"
+   Load a CSV file using ';' as the separator for data analysis purposes.
+   Filters the relevant columns and splits the 'Date' column into two
+   separate columns: 'year' and 'month'.
 
-   :param source: input de type input = st.sidebar.file_uploader()
+   :param source: Input returned by st.sidebar.file_uploader().
    :type source: str
 
-   :returns: retourne le csv converti en DataFrame
-   :rtype: df (pd.DataFrame)
+   :returns: The CSV data converted into a DataFrame.
+   :rtype: pd.DataFrame
 
 
 .. py:function:: get_monthly_stats_df() -> pandas.DataFrame

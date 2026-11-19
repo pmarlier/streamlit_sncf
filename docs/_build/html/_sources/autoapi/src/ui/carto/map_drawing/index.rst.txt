@@ -4,18 +4,45 @@ src.ui.carto.map_drawing
 .. py:module:: src.ui.carto.map_drawing
 
 
+Attributes
+----------
+
+.. autoapisummary::
+
+   src.ui.carto.map_drawing.MIN_DELAY_VALUE
+   src.ui.carto.map_drawing.MAX_DELAY_VALUE
+
+
 Functions
 ---------
 
 .. autoapisummary::
 
+   src.ui.carto.map_drawing.get_custom_colormap
    src.ui.carto.map_drawing.create_map
 
 
 Module Contents
 ---------------
 
-.. py:function:: create_map(latitude: float = 46.3, longitude: float = 2.34, zoom: int = 6) -> ui.carto.folium.Map
+.. py:data:: MIN_DELAY_VALUE
+   :value: 15
+
+
+.. py:data:: MAX_DELAY_VALUE
+   :value: 51
+
+
+.. py:function:: get_custom_colormap() -> branca.colormap.LinearColormap
+
+   Return the color map used for delay rendering
+
+   :returns: a LinearColormap object set with
+             constant values set in map_drawing
+   :rtype: cm.LinearColormap
+
+
+.. py:function:: create_map(latitude: float = 46.5, longitude: float = 2.34, zoom: int = 6) -> ui.carto.folium.Map
 
    Instantiate a Folium map
 

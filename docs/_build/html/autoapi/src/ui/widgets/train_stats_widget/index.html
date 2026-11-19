@@ -51,14 +51,14 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.train_stats_widget.init" title="src.ui.widgets.train_stats_widget.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a>(→ None)</p></td>
 <td><p>Initialization function to set logger</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.train_stats_widget.section_row" title="src.ui.widgets.train_stats_widget.section_row"><code class="xref py py-obj docutils literal notranslate"><span class="pre">section_row</span></code></a>(→ None)</p></td>
-<td><p>Displays information contained in fields input, named after section_label input,</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.train_stats_widget.display_delayed_cancelled_stats_table" title="src.ui.widgets.train_stats_widget.display_delayed_cancelled_stats_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_delayed_cancelled_stats_table</span></code></a>(→ None)</p></td>
-<td><p>Displays delayed and cancelled train ratios in the given column.</p></td>
-</tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title" title="src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_departure_arrival_stations_title</span></code></a>(→ None)</p></td>
 <td><p>Displays as a title the departure and arrival cities,</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.train_stats_widget.section_row" title="src.ui.widgets.train_stats_widget.section_row"><code class="xref py py-obj docutils literal notranslate"><span class="pre">section_row</span></code></a>(→ None)</p></td>
+<td><p>Displays information contained in fields input, named after section_label input,</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.widgets.train_stats_widget.display_delayed_cancelled_stats_table" title="src.ui.widgets.train_stats_widget.display_delayed_cancelled_stats_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_delayed_cancelled_stats_table</span></code></a>(→ None)</p></td>
+<td><p>Displays delayed and cancelled train ratios in the given column.</p></td>
 </tr>
 </tbody>
 </table>
@@ -69,6 +69,22 @@
 <dt class="sig sig-object py" id="src.ui.widgets.train_stats_widget.init">
 <span class="sig-prename descclassname"><span class="pre">src.ui.widgets.train_stats_widget.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.ui.widgets.train_stats_widget.init" title="Link to this definition">¶</a></dt>
 <dd><p>Initialization function to set logger</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title">
+<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.train_stats_widget.</span></span><span class="sig-name descname"><span class="pre">display_departure_arrival_stations_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">streamlit.delta_generator.DeltaGenerator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">departure_city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrival_city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title" title="Link to this definition">¶</a></dt>
+<dd><p>Displays as a title the departure and arrival cities,
+based on the ones selected in the sidebar dropdown lists.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>col</strong> (<em>DeltaGenerator</em>) – body column (container) to place the table in</p></li>
+<li><p><strong>departure_city</strong> (<em>str</em>) – departure city to compute the statistics</p></li>
+<li><p><strong>arrival_city</strong> (<em>str</em>) – arrival city</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -126,22 +142,6 @@ compute the statistics</p></li>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title">
-<span class="sig-prename descclassname"><span class="pre">src.ui.widgets.train_stats_widget.</span></span><span class="sig-name descname"><span class="pre">display_departure_arrival_stations_title</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">streamlit.delta_generator.DeltaGenerator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">departure_city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arrival_city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title" title="Link to this definition">¶</a></dt>
-<dd><p>Displays as a title the departure and arrival cities,
-based on the ones selected in the sidebar dropdown lists.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>col</strong> (<em>DeltaGenerator</em>) – body column (container) to place the table in</p></li>
-<li><p><strong>departure_city</strong> (<em>str</em>) – departure city to compute the statistics</p></li>
-<li><p><strong>arrival_city</strong> (<em>str</em>) – arrival city</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 </section>
 </section>
 
@@ -159,9 +159,9 @@ based on the ones selected in the sidebar dropdown lists.</p>
 <li><a class="reference internal" href="#functions">Functions</a></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
 <li><a class="reference internal" href="#src.ui.widgets.train_stats_widget.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title"><code class="docutils literal notranslate"><span class="pre">display_departure_arrival_stations_title()</span></code></a></li>
 <li><a class="reference internal" href="#src.ui.widgets.train_stats_widget.section_row"><code class="docutils literal notranslate"><span class="pre">section_row()</span></code></a></li>
 <li><a class="reference internal" href="#src.ui.widgets.train_stats_widget.display_delayed_cancelled_stats_table"><code class="docutils literal notranslate"><span class="pre">display_delayed_cancelled_stats_table()</span></code></a></li>
-<li><a class="reference internal" href="#src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title"><code class="docutils literal notranslate"><span class="pre">display_departure_arrival_stations_title()</span></code></a></li>
 </ul>
 </li>
 </ul>

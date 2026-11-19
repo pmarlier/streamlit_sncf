@@ -17,7 +17,8 @@ Module Contents
 
 .. py:function:: preprocess_data(df: pandas.DataFrame) -> pandas.DataFrame
 
-   Preprocess a dataframe to clean the data. It has been designed to preprocess the SNCF dataset.
+   Preprocess a dataframe to clean the data.
+   It has been designed to preprocess the SNCF dataset.
 
    Transformations :
 
@@ -35,14 +36,16 @@ Module Contents
    The median is calculated for the same service, route and month, with at least 2
    valid observations.
 
-   6. Adding a column "Prct retard causes non renseignées" and calculating the
-   percentage to have a sum of 100% for all the reasons of delay
-
-   7. Invalidating values from "Nombre trains en retard > 15min" when they exceed the
+   6. Invalidating values from "Nombre trains en retard > 15min" when they exceed the
    overall number of trains delayed at arrival.
 
-   8. Replacing negative average delays for all trains by 0 when they are between -1
+   7. Replacing negative average delays for all trains by 0 when they are between -1
    (included) and 0 (excluded), and by NaN when they are below -1.
+
+   8. Merge the duplicated rows
+
+   9. Adding a column "Prct retard causes non renseignées" and calculating the
+   percentage to have a sum of 100% for all the reasons of delay
 
    :param df: dataframe from the original SNCF dataset with these expected
    :type df: pd.DataFrame
