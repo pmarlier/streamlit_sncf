@@ -6,10 +6,12 @@ from streamlit.testing.v1 import AppTest
 
 from ui.widgets import sidebar, train_stats_widget
 
+
 @pytest.fixture
 def init_sidebar_logger():
     sidebar.init()
     train_stats_widget.init()
+
 
 def test_section_row(init_sidebar_logger):
     """Verify the train status messages output by widgets.section_row module.
@@ -339,10 +341,12 @@ def test_display_sidebar(init_sidebar_logger):
     assert en_mth == end_month
     assert year_out not in yrs
 
+
 def test_no_popup_when_valid_months(init_sidebar_logger):
-    """ Test that an error dialog does not display if arrival month is equal or later
+    """Test that an error dialog does not display if arrival month is equal or later
     than departure month.
     """
+
     def run_sidebar():
         """Initialize the dataset and render the trip sidebar to simulate
         website's behavior
@@ -354,28 +358,29 @@ def test_no_popup_when_valid_months(init_sidebar_logger):
         _ = wg.display_sidebar()
 
     at = AppTest.from_function(run_sidebar).run()
-    
+
     assert not at.exception
-        
+
     # start=Janvier, end=Décembre — valid, no dialog
     at = at.selectbox[2].select("Janvier").run()
     at = at.selectbox[3].select("Décembre").run()
 
     assert not at.exception
     assert at.session_state.start_month <= at.session_state.end_month
-    
+
     # start=Janvier, end=Janvier — valid, no dialog
     at = at.selectbox[2].select("Janvier").run()
     at = at.selectbox[3].select("Janvier").run()
 
     assert not at.exception
     assert at.session_state.start_month <= at.session_state.end_month
-    
-    
+
+
 def test_popup_when_invalid_months(init_sidebar_logger):
-    """ Test that an error dialog displays if arrival month is equal or prior to 
+    """Test that an error dialog displays if arrival month is equal or prior to
     departure month.
     """
+
     def run_sidebar():
         """Initialize the full dataset and render the trip sidebar to simulate
         website's behavior
@@ -387,19 +392,20 @@ def test_popup_when_invalid_months(init_sidebar_logger):
         _ = wg.display_sidebar()
 
     at = AppTest.from_function(run_sidebar).run()
-    
+
     assert not at.exception
-        
+
     # start=0 (Jan), end=11 (Dec) — valid, no dialog
     at = at.selectbox[2].select("Mai").run()
     at = at.selectbox[3].select("Janvier").run()
 
     assert not at.exception
     assert at.session_state.start_month > at.session_state.end_month
-    
-def test_popup_when_no_year(init_sidebar_logger):
-    """ Test that an error dialog displays if no year is selected.
-    """
+
+
+def test_return_homepage():
+    """Test return to homepage by testing session_state is_trip_set value"""
+
     def run_sidebar():
         """Initialize the full dataset and render the trip sidebar to simulate
         website's behavior
@@ -411,9 +417,34 @@ def test_popup_when_no_year(init_sidebar_logger):
         _ = wg.display_sidebar()
 
     at = AppTest.from_function(run_sidebar).run()
-    
+
     assert not at.exception
-        
+
+    # simulate click on home page button
+    at = at.button[0].click().run()
+
+    # check if the flag of trip setting turn to false = homepage
+    assert not at.exception
+    assert not at.session_state.is_trip_set
+
+
+def test_popup_when_no_year(init_sidebar_logger):
+    """Test that an error dialog displays if no year is selected."""
+
+    def run_sidebar():
+        """Initialize the full dataset and render the trip sidebar to simulate
+        website's behavior
+        """
+        from core import load_data as ld
+        from ui import widgets as wg
+
+        ld.init()
+        _ = wg.display_sidebar()
+
+    at = AppTest.from_function(run_sidebar).run()
+
+    assert not at.exception
+
     # no year
     at = at.multiselect[0].set_value([]).run()
 

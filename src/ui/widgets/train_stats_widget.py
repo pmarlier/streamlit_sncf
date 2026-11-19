@@ -1,10 +1,9 @@
+import logging.config
 from fractions import Fraction
 
 import numpy as np
 import streamlit as st
 from streamlit.delta_generator import DeltaGenerator
-import logging
-import logging.config
 
 from core.statistics import amount_trains as am
 from ui.widgets import sidebar
@@ -15,26 +14,9 @@ def init() -> None:
     Initialization function to set logger
     """
     global logger
+    logging.config.fileConfig("config/logging.conf")
     logger = logging.getLogger(__name__)
     logger.debug("train stats widget logger initialized")
-
-
-def display_departure_arrival_stations_title(
-    col: DeltaGenerator,
-    departure_city: str,
-    arrival_city: str,
-) -> None:
-    """Displays as a title the departure and arrival cities,
-    based on the ones selected in the sidebar dropdown lists.
-
-    Args:
-        col (DeltaGenerator): body column (container) to place the table in
-        departure_city (str): departure city to compute the statistics
-        arrival_city (str): arrival city
-    """
-
-    with col:
-        st.markdown(f"## {departure_city.title()} → {arrival_city.title()}")
 
 
 def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
@@ -101,7 +83,7 @@ def section_row(section_label: str, fields: list[tuple[float, str]]) -> None:
                         f"{fraction.numerator} train sur "
                         f"{fraction.denominator} a été {status}"
                     )
-                    
+
         elif np.isnan(ratio):
             train_info_str = "Aucune donnée n'est disponible"
             logger.debug("No data is available for this trip")
@@ -149,7 +131,7 @@ def display_delayed_cancelled_stats_table(
 
         start_year = selected_years[0] if selected_years else "XXXX"
         end_year = selected_years[-1] if selected_years else "XXXX"
-            
+
         st.markdown(
             f"De "
             f"{sidebar.get_month_from_int_str(start_month)} à "

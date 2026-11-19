@@ -40,6 +40,8 @@ def main():
         railway_network.init()
         sidebar.init()
         train_stats_widget.init()
+        delay_cause.init()
+        map_drawing.init()
 
         st.session_state.is_app_initialized = True
         st.session_state.first_map_load = True
@@ -100,30 +102,34 @@ def main():
 
     with title_container:
         st.markdown(
-            '<p class="title-font">Et si nous organisions la rencontre parfaite avec votre prochain train ?</p>',
+            '<p class="title-font">Et si nous organisions la rencontre '
+            "parfaite avec votre prochain train ?</p>",
             unsafe_allow_html=True,
             text_alignment="center",
         )
 
-        if st.session_state.is_trip_set is False:
-            (_, homepage_button_container, trip_button_container, _) = st.columns(
-                [1, 2, 2, 1]
-            )
-            # Set the button to define trip configuration within the HomePage
-            with trip_button_container:
-                if st.button(
-                    "Etudier les statistiques d'un trajet précis",
-                    key="trip_set",
-                ):
-                    st.session_state.is_trip_set = True
+        # if st.session_state.is_trip_set is False:
+        # trick to center buttons within the page
+        (_, homepage_button_container, trip_button_container, _) = st.columns(
+            [1, 2, 2, 1]
+        )
+        # Set the button to define trip configuration within the HomePage
+        with trip_button_container:
+            if st.button(
+                "Etudier les statistiques d'un trajet précis",
+                key="trip_set",
+            ):
+                st.session_state.is_trip_set = True
+                st.session_state.show_homepage = False
 
-            # Set the button to define trip configuration within the HomePage
-            with homepage_button_container:
-                if st.button(
-                    "Visualiser les statistiques nationales",
-                    key="homepage",
-                ):
-                    st.session_state.show_homepage = True
+        # Set the button to display homepage
+        with homepage_button_container:
+            if st.button(
+                "Visualiser les statistiques nationales",
+                key="homepage",
+            ):
+                st.session_state.is_trip_set = False
+                st.session_state.show_homepage = True
 
     # --------------------------------------------------------------------------
     # 2. Sidebar trip selection
@@ -157,13 +163,11 @@ def main():
 
     # sidebar active: user configuration for trip defintion in progress
     if st.session_state.is_trip_set:
-
         with info_container:
-            
-    # -------------------------------------------
-    # a. Monthly arrival delay graph for selected trip #
-    # -------------------------------------------
-        
+            # -------------------------------------------
+            # a. Monthly arrival delay graph for selected trip #
+            # -------------------------------------------
+
             with st.container(border=True, height=400):
                 # display monthly arrival delay graph below the map
                 # only if a specific railway trip is selected
@@ -190,9 +194,9 @@ def main():
                 # update lat/long/zoom parameter to match with the new widget size
                 map = map_drawing.create_map(latitude=41.7, longitude=2.34, zoom=5)
                 # with st.container(border=True):
-    # -------------------------------------------
-    # b. France map of trip #
-    # -------------------------------------------
+                # -------------------------------------------
+                # b. France map of trip #
+                # -------------------------------------------
                 railway_drawing.draw_railway(
                     railway_network.get_railway_data_between_cities(
                         st.session_state.departure_city, st.session_state.arrival_city
@@ -201,7 +205,8 @@ def main():
                     None,
                 )
                 st.markdown(
-                    f"Retard moyen à l'arrivée pour {st.session_state.departure_city} - {st.session_state.arrival_city}",
+                    f"Retard moyen à l'arrivée pour {st.session_state.departure_city} "
+                    f"- {st.session_state.arrival_city}",
                     text_alignment="center",
                 )
                 st_folium(map, width=500, render=True)
@@ -209,9 +214,9 @@ def main():
             with st.container(height=350):
                 frame = st.container()
                 # display delayed / cancelled train widget
-    # -------------------------------------------
-    # c. Delayed/cancelled stats for selected trip #
-    # -------------------------------------------
+                # -------------------------------------------
+                # c. Delayed/cancelled stats for selected trip #
+                # -------------------------------------------
                 train_stats_widget.display_delayed_cancelled_stats_table(
                     frame,
                     st.session_state.departure_city,
@@ -240,8 +245,8 @@ def main():
                         ratio = railway_index / total_railway_number
                         if ratio > 0.6:
                             progress_text = (
-                                "C'est presque fini. Nous vous promettons que l'attente "
-                                "en vaut la peine !"
+                                "C'est presque fini. Nous vous promettons que "
+                                "l'attente en vaut la peine !"
                             )
 
                         my_bar.progress(ratio, text=progress_text)
@@ -259,13 +264,14 @@ def main():
                 # never show loading bar again
                 st.session_state.first_map_load = False
                 st.session_state.all_railways_to_draw = all_railways_to_draw
-    # -------------------------------------------
-    # d. Pie chart #
-    # -------------------------------------------
+            # -------------------------------------------
+            # d. Pie chart #
+            # -------------------------------------------
             with info_container.container(height=750):
                 # Adding Title of chart
                 st.markdown(
-                    '<p class="subtitle-font">Causes possibles et responsabilités des retards observés (moyenne nationale de 2018 à 2026)</p>',
+                    '<p class="subtitle-font">Causes et responsabilités des '
+                    "retards à l'arrivée (moyenne nationale de 2018 à 2026)</p>",
                     unsafe_allow_html=True,
                     text_alignment="center",
                 )
@@ -273,10 +279,13 @@ def main():
                     delay_cause.get_mean_cause_list(),
                     st.session_state.is_trip_set,  # flag to identify display mode
                 )
-
+            # -------------------------------------------
+            # d. Map #
+            # -------------------------------------------
             with map_container.container(height=750):
                 st.markdown(
-                    '<p class="subtitle-font">Cartographie des retards moyens à l\'arrivée par lignes (statistiques de 2018 à 2026)</p>',
+                    '<p class="subtitle-font">Cartographie des retards moyens à '
+                    "l'arrivée par lignes (statistiques de 2018 à 2026)</p>",
                     unsafe_allow_html=True,
                     text_alignment="center",
                 )

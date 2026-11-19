@@ -240,11 +240,6 @@ def test_get_filtered_departure_arrival_stations_df(
     assert result[ARRIVAL_STATION_KEY].isin(["RENNES"]).all()
 
 
-def test_get_mean_departure_delay_df() -> None:
-    # TODO : write a real test
-    assert isinstance(ld.get_mean_departure_delay_df("toulon"), pd.Series)
-
-
 def test_get_filtered_period_df(
     mocked_df: pd.DataFrame,
 ) -> None:

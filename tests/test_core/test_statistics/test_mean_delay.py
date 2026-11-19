@@ -11,6 +11,7 @@ def test_weighted_mean_delay_mixed_data() -> None:
     monthly_planned_trains = pd.Series([100, 300, 0, -5, np.nan, 200])
     delay_observations = pd.Series([10.0, 20.0, 30.0, 40.0, 50.0, np.nan])
 
+    md.init()
     result = md.weighted_mean_delay(
         monthly_planned_trains,
         delay_observations,
@@ -26,6 +27,7 @@ def test_weighted_mean_delay_without_valid_data() -> None:
     monthly_planned_trains = pd.Series([0, -5, np.nan, 100])
     delay_observations = pd.Series([10.0, 20.0, 30.0, np.nan])
 
+    md.init()
     result = md.weighted_mean_delay(
         monthly_planned_trains,
         delay_observations,

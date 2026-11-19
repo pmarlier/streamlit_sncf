@@ -120,6 +120,7 @@ def init() -> None:
     )
     logger = logging.getLogger(__name__)
     set_monthly_stats_df(load_csv_df())
+    logger.debug("********************* New session starting ************************")
 
 
 def get_directional_city_pairs_list() -> list:
@@ -178,22 +179,10 @@ def get_unique_railstations_df() -> pd.DataFrame:
     Returns:
         pd.DataFrame: Departure stations dataframe
     """
+    df = get_monthly_stats_df()
     unique_railstations = sorted(list(df[DEPARTURE_STATION_KEY].unique()))
 
     return unique_railstations
-
-
-def get_mean_departure_delay_df(departure_city: str) -> pd.DataFrame:
-    """Returns the list of the mean delays of a departure city
-
-    Args:
-        departure_city (str): Departure city
-
-    Returns:
-        pd.DataFrame: Mean delays of a departure city
-    """
-
-    return df.loc[df[DEPARTURE_STATION_KEY] == departure_city][MEAN_DEPARTURE_DELAY_KEY]
 
 
 def get_filtered_metrics_df(

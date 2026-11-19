@@ -8,16 +8,12 @@ user specifiy a trip to analyse with its:
 
  Those data are used to compute statistics on a given connexion, based on all the
  previous selected periods."""
- 
-from fractions import Fraction
 
-import numpy as np
-import streamlit as st
-import logging
 import logging.config
 
+import streamlit as st
+
 from core import load_data as ld
-from core.statistics import amount_trains as am
 
 MONTHS_LIST = [
     "Janvier",
@@ -34,27 +30,34 @@ MONTHS_LIST = [
     "Décembre",
 ]
 
+
 def init() -> None:
     """
     Initialization function to set logger
     """
     global logger
+    logging.config.fileConfig("config/logging.conf")
     logger = logging.getLogger(__name__)
     logger.debug("sidebar logger initialized")
+
 
 @st.dialog("Erreur de période !")
 def wrong_month_dialog():
     """Popup window function used for months selection functions, to explain to the user
-    that the selected departure month must be equal or prior to arrival month.    
+    that the selected departure month must be equal or prior to arrival month.
     """
     st.write("Le mois de départ doit être égal ou antérieur au mois d'arrivée.")
+    logger.warning("Bad use of widget")
+
 
 @st.dialog("Aucune année sélectionnée !")
 def no_year_dialog():
     """Popup window function used for years selection functions, to explain to the user
-    that at least one year shall be selected to generate stats.    
+    that at least one year shall be selected to generate stats.
     """
     st.write("Sélectionnez au moins une année.")
+    logger.warning("Bad use of widget")
+
 
 def get_month_from_int_str(month_int: int) -> str:
     """Converts a month as integer into string.
@@ -143,39 +146,43 @@ def display_sidebar() -> None:
         ld.get_unique_railstations_df(),
     )
     logger.debug(f"{st.session_state.departure_city} departure city selected")
-    
+
     st.session_state.arrival_city = st.selectbox(
         "Ville de destination :",
         ld.get_reachable_destinations_list_from_city(st.session_state.departure_city),
     )
     logger.debug(f"{st.session_state.arrival_city} arrival city selected")
-    
+
     st.session_state.start_month = select_month(
-        "Traitement des données entre le mois de :",
-        0
+        "Traitement des données entre le mois de :", 0
     )
-    logger.debug(f"{get_month_from_int_str(st.session_state.start_month)} departure month selected")
-    
-    st.session_state.end_month = select_month(" et de :",
-                                              11)
+    logger.debug(
+        f"{get_month_from_int_str(st.session_state.start_month)} departure month selected"
+    )
+
+    st.session_state.end_month = select_month(" et de :", 11)
     if st.session_state.end_month < st.session_state.start_month:
         wrong_month_dialog()
-        logger.warning(f"Warning: {get_month_from_int_str(st.session_state.end_month)} arrival month is "
-                       "anterior to departure month, try again...")
-    logger.debug(f"{get_month_from_int_str(st.session_state.end_month)} arrival month selected")
+        logger.warning(
+            f"Warning: {get_month_from_int_str(st.session_state.end_month)} arrival month is "
+            "anterior to departure month, try again..."
+        )
+    logger.debug(
+        f"{get_month_from_int_str(st.session_state.end_month)} arrival month selected"
+    )
 
-     
     st.session_state.selected_years = select_years("pour les années :")
-    
+
     if not st.session_state.selected_years:
         no_year_dialog()
         logger.warning("Warning: at least one year shall be selected")
-        
+
     logger.debug(
-    f"Years selected: {', '.join(map(str, st.session_state.selected_years))}")
-    
+        f"Years selected: {', '.join(map(str, st.session_state.selected_years))}"
+    )
+
     # Bouton personnalisé pour basculer l'état
-    if st.button("Retour à la page d'accueil", type="primary"):
+    if st.button("Retour à la page d'accueil", width="stretch"):
         st.session_state.is_trip_set = False
         st.rerun()
 

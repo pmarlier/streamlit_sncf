@@ -2,6 +2,7 @@ import pytest
 import pandas as pd
 from unittest.mock import patch
 from core.statistics.delay_cause import (
+    init,
     get_mean_cause_list,
     get_mean_of_external_cause,
     get_mean_of_infrastructural_cause,
@@ -93,6 +94,7 @@ def test_get_mean_cause_list():
     """
     Tests that get_mean_cause_list returns a list containing the mean of all 7 causes.
     """
+    init()
     result = get_mean_cause_list()
     assert len(result) == 7
     # Verify one of them (external cause)
@@ -105,6 +107,7 @@ def test_get_mean_cause_list_filtered():
     """
     Tests get_mean_cause_list with filters.
     """
+    init()
     result = get_mean_cause_list("Paris", "Lyon")
     assert len(result) == 7
     assert result[0] == 10.0  # external

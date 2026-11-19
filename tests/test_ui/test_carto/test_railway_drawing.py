@@ -19,9 +19,18 @@ def test_draw_railway():
         [789, [], "Marseille", "Nice", 20.0],  # empty coords should be skipped
     ]
 
+    # test display with no time range
     result = railway_drawing.draw_railway(test_data, mock_map, None)
-
     assert result == mock_map
+
+    # test display with time range including all the mock data value
+    result = railway_drawing.draw_railway(test_data, mock_map, (5, 50))
+    assert result == mock_map
+
+    # test display with time range with no match in the mock data value
+    result = railway_drawing.draw_railway(test_data, mock_map, (45, 50))
+    assert result == mock_map
+
     # PolyLine.add_to should have been called for the first two entries
     # Since PolyLine is a class, we need to check if it was called or if the map was modified.
     # In a real test we might patch folium.PolyLine.

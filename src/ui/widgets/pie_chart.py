@@ -3,7 +3,23 @@ import streamlit as st
 
 
 def display_pie_chart(cause_list: list, trip_view: bool = False) -> None:
+    """Display the pie chart showing all the delay causes given as input
+    argument, adapting the display to the screen configuration
 
+    Args:
+        cause_list (list): A list storing all the possible delay causes,
+        following the hereafter order:
+            cause_list[0] : "Cause externe",
+            cause_list[1] : "Voyageurs en cause",
+            cause_list[2] : "Défaillance infrastructure",
+            cause_list[3] : "Gestion trafic roulant",
+            cause_list[4] : "Défaillance matériel roulant",
+            cause_list[5] : "Gestion trafic en gare",
+            cause_list[6] : "Cause inconnue",
+
+        trip_view (bool, optional): the flag to indicate the screen configuration.
+         If set to True, the screen is in homepage configuration. Defaults to False.
+    """
     delay_cause = [
         "Cause externe",
         "Voyageurs en cause",
@@ -61,9 +77,10 @@ def display_pie_chart(cause_list: list, trip_view: bool = False) -> None:
     fig.gca().add_artist(centre_circle)
 
     if trip_view:
-        fig.set_size_inches(6, 2)
+        fig.set_size_inches(5.5, 2.3)
         fig.legend(["Hasard", "Usagers", "SNCF"], prop={"size": "xx-small"})
     else:
+        fig.set_size_inches(5.5, 5)
         fig.legend(["Hasard", "Usagers", "SNCF"])
 
     st.pyplot(fig)

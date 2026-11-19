@@ -315,7 +315,7 @@ def mocked_df() -> pd.DataFrame:
 @pytest.fixture
 def mocked_railway_geo_df() -> pd.DataFrame:
     """Mock for lignes-par-region-administrative.csv to draw precise railway
-    Sample of the real file, only for used column
+    Here is a sample of the real file, only for the column used by the source code
 
     Note: the geodata is really store in the reverse mode long, lat instead of lat, long
     The source code reverses data
