@@ -1,4 +1,6 @@
 import numpy as np
+import pandas as pd
+import pytest
 
 from core.data_preprocessing import preprocess_data
 
@@ -140,3 +142,58 @@ def test_preprocess_negative_average_delays(mocked_raw_sncf_df) -> None:
     # check that values under the threshold (-1) are replaced by NaN
     assert np.isnan(result.loc[6, "Retard moyen de tous les trains à l'arrivée"])
     assert np.isnan(result.loc[4, "Retard moyen de tous les trains au départ"])
+
+
+def test_preprocess_duplicated_rows(mocked_raw_sncf_df) -> None:
+    """Test the merging of the duplicated observations / rows
+    for the same month and train line."""
+
+    # create 2 observations for the same month and train line
+    df = mocked_raw_sncf_df.iloc[[0, 0]].copy().reset_index(drop=True)
+
+    df["Date"] = ["2025-07-01", "2025-07-01"]
+    df["Service"] = ["National", "International"]
+
+    df["Nombre de circulations prévues"] = [100, 200]
+    df["Nombre de trains annulés"] = [5, 10]
+    df["Nombre de trains en retard à l'arrivée"] = [10, 30]
+    df["Retard moyen des trains en retard à l'arrivée"] = [20.0, 40.0]
+    df["Nombre trains en retard > 60min"] = [1, np.nan]
+
+    df["Durée moyenne du trajet"] = [120.0, 120.0]
+    df["Retard moyen trains en retard > 15 (si liaison concurrencée par vol)"] = [
+        25.0,
+        35.0,
+    ]
+
+    result = preprocess_data(df)
+
+    # check that the 2 observations are merged
+    assert len(result) == 1
+
+    # check the sums
+    assert result.iloc[0]["Nombre de circulations prévues"] == 300
+    assert result.iloc[0]["Nombre de trains annulés"] == 15
+    assert result.iloc[0]["Nombre de trains en retard à l'arrivée"] == 40
+    # check the sum when one value is NaN
+    assert result.iloc[0]["Nombre trains en retard > 60min"] == 1
+
+    # check the weighted mean delay
+    assert result.iloc[0]["Retard moyen des trains en retard à l'arrivée"] == 35.0
+
+    # check that the service is NaN
+    assert pd.isna(result.iloc[0]["Service"])
+
+
+def test_preprocess_error_duplicated_rows(mocked_raw_sncf_df) -> None:
+    """Test that unexpected duplicated rows raise an error."""
+
+    # create 2 observations with the same month, train line and service
+    df = mocked_raw_sncf_df.iloc[[0, 0]].copy().reset_index(drop=True)
+
+    df["Date"] = ["2025-07-01", "2025-07-01"]
+    df["Service"] = ["National", "National"]
+
+    # check that the error is raised
+    with pytest.raises(ValueError, match="Unexpected duplicate route"):
+        preprocess_data(df)
