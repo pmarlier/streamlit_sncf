@@ -1,9 +1,9 @@
 [37m2026-11-19 16:42:05 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
-[37m2026-11-19 16:42:05 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
-[37m2026-11-19 16:42:05 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
-[37m2026-11-19 16:42:05 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
-[37m2026-11-19 16:42:05 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
-[37m2026-11-19 16:42:05 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-19 16:42:05 - core.load_data - DEBUG - load_csv_df:60 - PrÃ©traitement des donnÃ©es terminÃ©[0m
+[37m2026-11-19 16:42:05 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des donnÃ©es terminÃ©[0m
+[37m2026-11-19 16:42:05 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargÃ©es depuis le CSV (comportement nominal)[0m
+[37m2026-11-19 16:42:05 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargÃ©[0m
+[37m2026-11-19 16:42:05 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargÃ©[0m
 [37m2026-11-19 16:42:05 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
 [37m2026-11-19 16:42:06 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
 [37m2026-11-19 16:42:06 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
@@ -26,11 +26,11 @@
 [37m2026-11-19 16:42:08 - ui.widgets.train_stats_widget - DEBUG - section_row:89 - No data is available for this trip[0m
 [37m2026-11-19 16:42:08 - ui.widgets.train_stats_widget - DEBUG - section_row:89 - No data is available for this trip[0m
 [37m2026-11-19 16:43:57 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
-[37m2026-11-19 16:43:57 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
-[37m2026-11-19 16:43:57 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
-[37m2026-11-19 16:43:57 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
-[37m2026-11-19 16:43:57 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
-[37m2026-11-19 16:43:57 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-19 16:43:57 - core.load_data - DEBUG - load_csv_df:60 - PrÃ©traitement des donnÃ©es terminÃ©[0m
+[37m2026-11-19 16:43:57 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des donnÃ©es terminÃ©[0m
+[37m2026-11-19 16:43:57 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargÃ©es depuis le CSV (comportement nominal)[0m
+[37m2026-11-19 16:43:57 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargÃ©[0m
+[37m2026-11-19 16:43:57 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargÃ©[0m
 [37m2026-11-19 16:43:57 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
 [37m2026-11-19 16:43:57 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
 [37m2026-11-19 16:43:57 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
@@ -54,10 +54,10 @@
 [37m2026-11-19 16:43:59 - ui.widgets.train_stats_widget - DEBUG - section_row:89 - No data is available for this trip[0m
 [37m2026-11-19 16:43:59 - ui.widgets.train_stats_widget - DEBUG - section_row:89 - No data is available for this trip[0m
 [37m2026-11-19 16:44:19 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
-[37m2026-11-19 16:44:20 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
-[37m2026-11-19 16:44:20 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
-[37m2026-11-19 16:44:20 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
-[37m2026-11-19 16:44:20 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-19 16:44:20 - core.load_data - DEBUG - load_csv_df:60 - PrÃ©traitement des donnÃ©es terminÃ©[0m
+[37m2026-11-19 16:44:20 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des donnÃ©es terminÃ©[0m
+[37m2026-11-19 16:44:20 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargÃ©es depuis le CSV (comportement nominal)[0m
+[37m2026-11-19 16:44:20 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargÃ©[0m
 [37m2026-11-19 16:44:20 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
 [37m2026-11-19 16:44:20 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
 [37m2026-11-19 16:44:20 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
