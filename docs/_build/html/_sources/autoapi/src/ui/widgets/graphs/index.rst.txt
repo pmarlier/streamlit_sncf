@@ -14,18 +14,11 @@ Functions
 
 .. autoapisummary::
 
-   src.ui.widgets.graphs.display_departure_city_delay_hist
    src.ui.widgets.graphs.display_monthly_arrival_delay_graph
 
 
 Module Contents
 ---------------
-
-.. py:function:: display_departure_city_delay_hist(ville_depart: str) -> None
-
-   Display the histogram of the mean delays of a selected city from a drop down
-   list, with the mean delays of both the select city, and the whole country.
-
 
 .. py:function:: display_monthly_arrival_delay_graph(departure_station: str, arrival_station: str, start_month: int, end_month: int, selected_years: list[int], actual_year: int = 2026) -> None
 

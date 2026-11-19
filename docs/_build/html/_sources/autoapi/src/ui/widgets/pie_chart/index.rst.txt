@@ -15,5 +15,5 @@ Functions
 Module Contents
 ---------------
 
-.. py:function:: display_pie_chart(cause_list: list) -> None
+.. py:function:: display_pie_chart(cause_list: list, trip_view: bool = False) -> None
 

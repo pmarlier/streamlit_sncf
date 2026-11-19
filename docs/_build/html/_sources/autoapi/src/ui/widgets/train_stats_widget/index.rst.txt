@@ -10,9 +10,9 @@ Functions
 .. autoapisummary::
 
    src.ui.widgets.train_stats_widget.init
+   src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title
    src.ui.widgets.train_stats_widget.section_row
    src.ui.widgets.train_stats_widget.display_delayed_cancelled_stats_table
-   src.ui.widgets.train_stats_widget.display_departure_arrival_stations_title
 
 
 Module Contents
@@ -21,6 +21,19 @@ Module Contents
 .. py:function:: init() -> None
 
    Initialization function to set logger
+
+
+.. py:function:: display_departure_arrival_stations_title(col: streamlit.delta_generator.DeltaGenerator, departure_city: str, arrival_city: str) -> None
+
+   Displays as a title the departure and arrival cities,
+   based on the ones selected in the sidebar dropdown lists.
+
+   :param col: body column (container) to place the table in
+   :type col: DeltaGenerator
+   :param departure_city: departure city to compute the statistics
+   :type departure_city: str
+   :param arrival_city: arrival city
+   :type arrival_city: str
 
 
 .. py:function:: section_row(section_label: str, fields: list[tuple[float, str]]) -> None
@@ -69,18 +82,5 @@ Module Contents
    :param selected_years: np.ndarray of selected years to
                           compute the statistics
    :type selected_years: np.ndarray
-
-
-.. py:function:: display_departure_arrival_stations_title(col: streamlit.delta_generator.DeltaGenerator, departure_city: str, arrival_city: str) -> None
-
-   Displays as a title the departure and arrival cities,
-   based on the ones selected in the sidebar dropdown lists.
-
-   :param col: body column (container) to place the table in
-   :type col: DeltaGenerator
-   :param departure_city: departure city to compute the statistics
-   :type departure_city: str
-   :param arrival_city: arrival city
-   :type arrival_city: str
 
 
