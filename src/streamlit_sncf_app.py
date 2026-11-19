@@ -52,6 +52,26 @@ def main():
     # --------------------------------------------------------------------------
     # Main page general configuration
     # --------------------------------------------------------------------------
+   
+    # CSS injection to lock app height to 100% of screen height
+    st.markdown(
+        """
+        <style>
+            /* Bloque la hauteur totale de l'application à la taille de l'écran */
+            [data-testid="stAppViewContainer"] {
+                height: 100vh;
+                overflow: hidden;
+            }
+            
+            /* Réduit les marges par défaut en haut et en bas */
+            .block-container {
+                padding-top: 2rem;
+                height: 100%;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
     st.set_page_config(
         page_title="IADATA700 Streamlit SNFC app",
@@ -68,6 +88,7 @@ def main():
         [1, 10, 1]
     )
 
+    # CSS injection to declare text-style and custom button look and feel
     st.markdown(
         """
     <style>
@@ -168,7 +189,7 @@ def main():
             # a. Monthly arrival delay graph for selected trip #
             # -------------------------------------------
 
-            with st.container(border=True, height=400):
+            with st.container(border=True):
                 # display monthly arrival delay graph below the map
                 # only if a specific railway trip is selected
                 graphs.display_monthly_arrival_delay_graph(
@@ -179,7 +200,8 @@ def main():
                     selected_years=st.session_state.selected_years,
                     actual_year=2026,
                 )
-            with st.container(border=True, height=400):
+
+            with st.container(border=True, height="stretch"):
                 # display pie chart of delay cause
                 pie_chart.display_pie_chart(
                     delay_cause.get_mean_cause_list(
@@ -205,11 +227,10 @@ def main():
                     None,
                 )
                 st.markdown(
-                    f"Retard moyen à l'arrivée pour {st.session_state.departure_city} "
-                    f"- {st.session_state.arrival_city}",
+                    "Cartographie du trajet choisi avec retard moyen à l'arrivée" ,
                     text_alignment="center",
                 )
-                st_folium(map, width=500, render=True)
+                st_folium(map, use_container_width=True, render=True)
 
             with st.container(height=350):
                 frame = st.container()
@@ -252,7 +273,7 @@ def main():
                         my_bar.progress(ratio, text=progress_text)
 
                     departure, arrival = city_pair
-
+                    
                     all_railways_to_draw.append(
                         railway_network.get_railway_data_between_cities(
                             departure, arrival
@@ -267,7 +288,7 @@ def main():
             # -------------------------------------------
             # d. Pie chart #
             # -------------------------------------------
-            with info_container.container(height=750):
+            with info_container.container(height="stretch"):
                 # Adding Title of chart
                 st.markdown(
                     '<p class="subtitle-font">Causes et responsabilités des '
@@ -279,10 +300,22 @@ def main():
                     delay_cause.get_mean_cause_list(),
                     st.session_state.is_trip_set,  # flag to identify display mode
                 )
+
+                with st.container(border=True):
+                    st.markdown(
+                                '<p class="subtitle-font">A retenir (statistiquement parlant)</p>',
+                                unsafe_allow_html=True,
+                                text_alignment="center",
+                            )
+                    st.markdown("""
+                                * Les retards les plus importants surviendraient majoritairement sur les trajets les plus longs,
+                                * Les raisons des retards seraient imputables, en majorité, à la gestion du réseau par SNCF
+                                * Les années se suivent mais ne se ressemblent pas : aucun schéma temporel n'est détectable par nos modèles
+                            """)    
             # -------------------------------------------
             # d. Map #
             # -------------------------------------------
-            with map_container.container(height=750):
+            with map_container.container(height="stretch"):
                 st.markdown(
                     '<p class="subtitle-font">Cartographie des retards moyens à '
                     "l'arrivée par lignes (statistiques de 2018 à 2026)</p>",
@@ -300,7 +333,7 @@ def main():
                 for railway_to_draw in st.session_state.all_railways_to_draw:
                     railway_drawing.draw_railway(railway_to_draw, map, delay_range)
 
-                st_folium(map, width=850, render=True)
+                st_folium(map, height=700, use_container_width=True, render=True)
 
 
 if __name__ == "__main__":

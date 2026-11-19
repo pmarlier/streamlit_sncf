@@ -142,7 +142,7 @@ def display_delayed_cancelled_stats_table(
         # Departure: Delay + Cancelled
         with st.container(border=True):
             section_row(
-                "Départ",
+                "Au départ",
                 [
                     (
                         am.get_ratio_delayed_departure_trains(
@@ -171,7 +171,7 @@ def display_delayed_cancelled_stats_table(
 
             # Arrival: Delay only
             section_row(
-                "Arrivée",
+                "A l'arrivée",
                 [
                     (
                         am.get_ratio_delayed_arrival_trains(

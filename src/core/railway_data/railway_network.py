@@ -71,7 +71,7 @@ def get_railway_id_from_network(departure: str, arrival: str) -> list:
     logger.debug(f"Railways retrieved for {departure}-{arrival}")
     return railway_id
 
-
+@st.cache_data
 def get_railway_data_between_cities(departure: str, arrival: str) -> list:
     """Build the custom list of data about railway geo points and delay from city pair
     to be displayed on the Folium map. The mean delay gives the color of the displayed
@@ -112,6 +112,7 @@ def get_railway_data_between_cities(departure: str, arrival: str) -> list:
             ]
         )
 
+    logger.debug(f"Data retrieved {departure}-{arrival}")
     return railway_data_to_draw
 
 

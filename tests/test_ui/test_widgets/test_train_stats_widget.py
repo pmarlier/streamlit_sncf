@@ -110,10 +110,10 @@ def test_display_delayed_cancelled_stats_table(
         f" {wg.get_month_from_int_str(end_month)}, "
         f"entre {selected_years[0]} et {selected_years[-1]}, en moyenne:"
     )
-    assert table_markdown[2].value == "**Départ**"
+    assert table_markdown[2].value == "**Au départ**"
     assert table_markdown[3].value == "1 train sur 3 a été retardé"
     assert table_markdown[4].value == "1 train sur 117 a été annulé"
-    assert table_markdown[5].value == "**Arrivée**"
+    assert table_markdown[5].value == "**A l'arrivée**"
     assert table_markdown[6].value == "1 train sur 6 a été retardé"
 
     # Check if no year is selected
