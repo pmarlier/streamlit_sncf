@@ -79,6 +79,7 @@ def get_arrival_mean_delay_for_city_pair(departure: str, arrival: str) -> float:
         float: the mean delay at arrival for the given city pair
     """
     # retrieve the preprocessed dataframe
+    logger.debug(f"Start retrieving mean arrival delay between {departure}-{arrival}")
     df = ld.get_monthly_stats_df()
     # filter by city pair : first departure
     departure_df = df[df[ld.DEPARTURE_STATION_KEY] == departure]

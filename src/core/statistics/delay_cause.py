@@ -8,6 +8,7 @@ def init() -> None:
     global logger
     logging.config.fileConfig("config/logging.conf")
     logger = logging.getLogger(__name__)
+    logger.debug("logger set")
 
 
 def get_mean_cause_list(departure_city: str = None, arrival_city: str = None) -> list:
