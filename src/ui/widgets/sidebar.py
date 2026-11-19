@@ -9,15 +9,11 @@ user specifiy a trip to analyse with its:
  Those data are used to compute statistics on a given connexion, based on all the
  previous selected periods."""
 
-from fractions import Fraction
-
-import numpy as np
-import streamlit as st
-import logging
 import logging.config
 
+import streamlit as st
+
 from core import load_data as ld
-from core.statistics import amount_trains as am
 
 MONTHS_LIST = [
     "Janvier",
@@ -40,6 +36,7 @@ def init() -> None:
     Initialization function to set logger
     """
     global logger
+    logging.config.fileConfig("config/logging.conf")
     logger = logging.getLogger(__name__)
     logger.debug("sidebar logger initialized")
 
@@ -50,6 +47,7 @@ def wrong_month_dialog():
     that the selected departure month must be equal or prior to arrival month.
     """
     st.write("Le mois de départ doit être égal ou antérieur au mois d'arrivée.")
+    logger.warning("Bad use of widget")
 
 
 @st.dialog("Aucune année sélectionnée !")
@@ -58,6 +56,7 @@ def no_year_dialog():
     that at least one year shall be selected to generate stats.
     """
     st.write("Sélectionnez au moins une année.")
+    logger.warning("Bad use of widget")
 
 
 def get_month_from_int_str(month_int: int) -> str:

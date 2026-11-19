@@ -41,6 +41,7 @@ def main():
         sidebar.init()
         train_stats_widget.init()
         delay_cause.init()
+        map_drawing.init()
 
         st.session_state.is_app_initialized = True
         st.session_state.first_map_load = True

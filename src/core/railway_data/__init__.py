@@ -1,14 +1,3 @@
-FOREIGN_CITY = [
-    "zurich",
-    "barcelona",
-    "madrid",
-    "francfort",
-    "italie",
-    "lausanne",
-    "geneve",
-    "stuttgart",
-]
-
 MAP_CITY = {
     "lille": "lille-champ-de-mars",
     "paris-lyon": "paris-gare-de-lyon",
@@ -37,13 +26,6 @@ MAP_CITY = {
     "geneve": "annecy",
 }
 
-# 590000 - limoges - vierzon
-# 690000 - vierzon - bourges
-# 750000 - fontainebleau - lyon
-# 570000 - paris - orleans
-# 930000 - monaco - marseille
-# 7000 - paris strasbourg
-
 RAILWAY_ID_NETWORK = {  # OK
     "aix-en-provence-tgv-paris-gare-de-lyon": [752000],
     "paris-gare-de-lyon-aix-en-provence-tgv": [752000],
@@ -53,8 +35,6 @@ RAILWAY_ID_NETWORK = {  # OK
     # OK
     "angouleme-paris-montparnasse-pasteur": [570000],
     "paris-montparnasse-pasteur-angouleme": [570000],
-    # 'annecy-paris-gare-de-lyon': [897000, 900000, 890000, 686000,
-    # 570000, 569000, 590000, 690000, 750000, 830000, 981000],
     "annecy-paris-gare-de-lyon": [750000, 897000, 900000],
     "paris-gare-de-lyon-annecy": [750000, 897000, 900000],
     # OK
@@ -249,7 +229,7 @@ RAILWAY_ID_NETWORK = {  # OK
     "vannes-paris-montparnasse-pasteur": [470000, 468000, 420000],
     "paris-montparnasse-pasteur-vannes": [420000, 468000, 470000],
     # 64
-    # OK - mais bizarre ?
+    # OK
     "rennes-paris-vaugirard": [420000],
     "paris-vaugirard-rennes": [420000],
     "stuttgart-paris-est": [],

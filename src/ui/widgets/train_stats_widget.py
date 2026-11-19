@@ -1,10 +1,9 @@
+import logging.config
 from fractions import Fraction
 
 import numpy as np
 import streamlit as st
 from streamlit.delta_generator import DeltaGenerator
-import logging
-import logging.config
 
 from core.statistics import amount_trains as am
 from ui.widgets import sidebar
@@ -15,6 +14,7 @@ def init() -> None:
     Initialization function to set logger
     """
     global logger
+    logging.config.fileConfig("config/logging.conf")
     logger = logging.getLogger(__name__)
     logger.debug("train stats widget logger initialized")
 

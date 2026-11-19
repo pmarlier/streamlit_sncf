@@ -4,11 +4,13 @@ import branca.colormap as cm
 
 from ui.carto import folium
 
+# arbitrary extrema values for delay
 MIN_DELAY_VALUE = 15
-MAX_DELAY_VALUE = 51
+MAX_DELAY_VALUE = 60
 
 
 def init() -> None:
+    """Initialize logger"""
     global logger
     logging.config.fileConfig("config/logging.conf")
     logger = logging.getLogger(__name__)
@@ -58,9 +60,7 @@ def create_map(
         svg#legend {
             background-color: white !important;
             height: 45px;
-            position: relative:
-            top: 10px;
-            left: 120px;
+            width: 500px;
         }
     </style>
     """
