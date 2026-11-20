@@ -80,12 +80,11 @@ def display_pie_chart(cause_list: list, trip_view: bool = False) -> None:
 
     if trip_view:
         fig.set_size_inches(5.5, 2.3)
-        fig.legend(["Hasard", "Usagers", "SNCF"], 
-                   prop={"size": "xx-small"}, 
-                   loc="center right")
+        fig.legend(
+            ["Hasard", "Usagers", "SNCF"], prop={"size": "xx-small"}, loc="center right"
+        )
     else:
         fig.set_size_inches(5.5, 5)
-        fig.legend(["Hasard", "Usagers", "SNCF"], 
-                   loc="upper right")
+        fig.legend(["Hasard", "Usagers", "SNCF"], loc="upper right")
 
     st.pyplot(fig)

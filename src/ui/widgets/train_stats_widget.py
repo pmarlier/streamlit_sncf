@@ -8,6 +8,8 @@ from streamlit.delta_generator import DeltaGenerator
 from core.statistics import amount_trains as am
 from ui.widgets import sidebar
 
+logger: logging.Logger
+
 
 def init() -> None:
     """

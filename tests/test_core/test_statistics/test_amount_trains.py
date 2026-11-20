@@ -4,7 +4,6 @@ the ratio is computed from the amount of delayed/cancelled trains over the total
 trains on a given period."""
 
 import numpy as np
-import pandas as pd
 import pytest
 
 from core import load_data as ld

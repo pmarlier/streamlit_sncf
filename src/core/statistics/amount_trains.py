@@ -60,7 +60,7 @@ def get_ratio_cancelled_trains(
     arrival_station: str,
     start_month: int,
     end_month: int,
-    years_list: np.array,
+    years_list: list[int] | np.ndarray,
     data_df: pd.DataFrame | None = None,
 ) -> float:
     """Calculate the ratio of cancelled trains
@@ -74,7 +74,7 @@ def get_ratio_cancelled_trains(
         arrival_station (str): arrival station
         start_month (int): start month of period
         end_month (int): end month of period
-        years_list (np.array): selected years list
+        years_list (list[int] | np.ndarray): selected years list
         data_df (pd.DataFrame): input dataframe with MONTH, YEAR, DEPARTURE_STATION_KEY
         and ARRIVAL_STATION_KEY columns
 
@@ -106,9 +106,9 @@ def get_total_planned_trains(
     arrival_station: str,
     start_month: int,
     end_month: int,
-    years_list: np.array,
+    years_list: list[int] | np.ndarray,
     data_df: pd.DataFrame | None = None,
-) -> int:
+) -> float:
     """Returns the amount of planned trains over a period,
     given a departure and arrival stations
 
@@ -117,12 +117,12 @@ def get_total_planned_trains(
         arrival_station (str): arrival station
         start_month (int): start month of period
         end_month (int): end month of period
-        years_list (np.array): selected years list
+        years_list (list[int] | np.ndarray): selected years list
         data_df (np.array): input dataframe with MONTH, YEAR, DEPARTURE_STATION_KEY
         and ARRIVAL_STATION_KEY columns
 
     Returns:
-        planned_trains_amount (int): the amount of planned trains
+        planned_trains_amount (float): the amount of planned trains
         over a period between two given stations
     """
     if data_df is None:
@@ -148,7 +148,7 @@ def get_ratio_delayed_departure_trains(
     arrival_station: str,
     start_month: int,
     end_month: int,
-    years_list: np.array,
+    years_list: list[int] | np.ndarray,
     data_df: pd.DataFrame | None = None,
 ) -> float:
     """Calculate the ratio of delayed trains at departure
@@ -163,7 +163,7 @@ def get_ratio_delayed_departure_trains(
         arrival_station (str): arrival station
         start_month (int): start month of period
         end_month (int): end month of period
-        years_list (np.array): selected years list
+        years_list (list[int] | np.ndarray): selected years list
         data_df (pd.DataFrame): input dataframe with MONTH, YEAR, DEPARTURE_STATION_KEY
         and ARRIVAL_STATION_KEY columns
 
@@ -196,7 +196,7 @@ def get_ratio_delayed_arrival_trains(
     arrival_station: str,
     start_month: int,
     end_month: int,
-    years_list: np.array,
+    years_list: list[int] | np.ndarray,
     data_df: pd.DataFrame | None = None,
 ) -> float:
     """Calculate the ratio of delayed trains at arrival
@@ -211,7 +211,7 @@ def get_ratio_delayed_arrival_trains(
         arrival_station (str): arrival station
         start_month (int): start month of period
         end_month (int): end month of period
-        years_list (np.array): selected years list
+        years_list (list[int] | np.ndarray): selected years list
         data_df (pd.DataFrame): input dataframe with MONTH, YEAR, DEPARTURE_STATION_KEY
         and ARRIVAL_STATION_KEY columns
 

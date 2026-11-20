@@ -7,6 +7,8 @@ from unidecode import unidecode
 
 from core import railway_data
 
+logger: logging.Logger
+
 CSV_GEO_PATH = "./data/raw/lignes-par-region-administrative.csv"
 CSV_RAILSTATIONS_PATH = "./data/raw/liste-des-gares.csv"
 

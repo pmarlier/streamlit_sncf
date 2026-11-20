@@ -15,6 +15,8 @@ import streamlit as st
 
 from core import load_data as ld
 
+logger: logging.Logger
+
 MONTHS_LIST = [
     "Janvier",
     "Février",
@@ -157,15 +159,16 @@ def display_sidebar() -> None:
         "Traitement des données entre le mois de :", 0
     )
     logger.debug(
-        f"{get_month_from_int_str(st.session_state.start_month)} departure month selected"
+        f"{get_month_from_int_str(st.session_state.start_month)} "
+        "departure month selected"
     )
 
     st.session_state.end_month = select_month(" et de :", 11)
     if st.session_state.end_month < st.session_state.start_month:
         wrong_month_dialog()
         logger.warning(
-            f"Warning: {get_month_from_int_str(st.session_state.end_month)} arrival month is "
-            "anterior to departure month, try again..."
+            f"Warning: {get_month_from_int_str(st.session_state.end_month)} "
+            "arrival month is anterior to departure month, try again..."
         )
     logger.debug(
         f"{get_month_from_int_str(st.session_state.end_month)} arrival month selected"

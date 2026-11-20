@@ -7,6 +7,8 @@ import pandas as pd
 
 from core import load_data as ld
 
+logger: logging.Logger
+
 
 def init() -> None:
     """Initialize logger"""

@@ -11,7 +11,8 @@ the correct UI and core functions outputs are generated.
 # ├── Over the period from start_month to end_month:
 # │
 # ├──────────────────┬──────────────────────────────────
-# │ Departure        │ delayed_trains_departure out of planned_trains trains were delayed
+# │ Departure        │ delayed_trains_departure out of
+# │                  │ planned_trains trains were delayed
 # │                  │
 # ├──────────────────┼──────────────────────────────────
 # │                  │ cancelled_trains out of planned_trains trains were cancelled
@@ -25,14 +26,10 @@ the correct UI and core functions outputs are generated.
 
 """
 
-import numpy as np
 import pandas as pd
-import pytest
-import streamlit as st
 from streamlit.testing.v1 import AppTest
 
 from core import load_data as ld
-from core.statistics import amount_trains as am
 from ui import widgets as wg
 
 wg.train_stats_widget.init()

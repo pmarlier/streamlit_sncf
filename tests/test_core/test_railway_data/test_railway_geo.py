@@ -1,8 +1,6 @@
 import pandas as pd
-import pytest
 
 from core.railway_data import railway_geo as rg
-from core.railway_data import railway_network
 
 
 def test_load_railway_geo_data(capfd) -> pd.DataFrame:

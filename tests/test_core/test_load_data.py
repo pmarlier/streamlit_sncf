@@ -1,15 +1,8 @@
 """Data loading module tests with a small mocked dataframe."""
 
-import datetime as dt
-import itertools
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
-import pytest
-import streamlit as st
 
-import core.load_data as load_data
 from core import data_preprocessing as pr
 from core import load_data as ld
 from core.load_data import (
@@ -21,7 +14,8 @@ from core.load_data import (
 
 CSV_PATH = "./data/raw/regularite-mensuelle-tgv-aqst.csv"
 
-# to simplify access to the column, keys are made up to avoid typing endless column names
+# to simplify access to the column,
+# keys are made up to avoid typing endless column names
 DATE_KEY = "Date"
 MONTH_KEY = "month"
 YEAR_KEY = "year"
@@ -40,7 +34,10 @@ MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT = "Prct retard pour cause matériel
 MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT = (
     "Prct retard pour cause gestion en gare et réutilisation de matériel"
 )
-MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT = "Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH, correspondances)"
+MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT = (
+    "Prct retard pour cause prise en compte voyageurs "
+    "(affluence, gestions PSH, correspondances)"
+)
 MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT = "Prct retard causes non renseignées"
 
 ARRIVAL_DELAY_COMMENT_KEY = "Commentaire retards à l'arrivée"
