@@ -54,9 +54,6 @@ def calculate_mean_arrival_delay_distribution_per_month(
                     associated with the valid monthly mean arrival delays
     """
 
-    # TODO: Handle multiple observations for the same train line, year and month.
-    # This should be done in data_preprocessing.py.
-
     df_stations = ld.get_filtered_departure_arrival_stations_df(
         departure_station, arrival_station, data_df
     )
