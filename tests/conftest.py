@@ -425,6 +425,7 @@ def mocked_delay_df(mocked_df) -> pd.DataFrame:
     return pd.concat([mocked_df, extra_mocked_data], ignore_index=True)
 
 
+# note : partially generated using GenAI
 @pytest.fixture
 def mocked_raw_sncf_df() -> pd.DataFrame:
     """Mocked raw SNCF data to test data_preprocessing.py"""
