@@ -1419,3 +1419,237 @@
 [37m2026-11-19 23:19:01 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
 [37m2026-11-19 23:19:01 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between AIX EN PROVENCE TGV-PARIS LYON[0m
 [37m2026-11-19 23:19:01 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between AIX EN PROVENCE TGV and PARIS LYON retrieved[0m
+[37m2026-11-20 13:22:14 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 13:22:14 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 13:22:14 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 13:22:14 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 13:22:14 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 13:22:14 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 13:22:14 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 13:22:14 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 13:22:14 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 13:22:14 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 13:22:14 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[31m2026-11-20 13:22:15 - core.railway_data.railway_geo - ERROR - load_railway_geo_data:33 - Fail Loading railway geo file at fake_path_for_exception_test[0m
+[31m2026-11-20 13:22:15 - core.railway_data.railway_geo - ERROR - load_railway_geo_data:33 - Fail Loading railway geo file at fake_path_for_exception_test[0m
+[37m2026-11-20 13:22:15 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:71 - Railways retrieved for Paris Montparnasse-Rennes[0m
+[37m2026-11-20 13:22:15 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:71 - Railways retrieved for Paris Montparnasse-Bordeaux St Jean[0m
+[37m2026-11-20 13:22:15 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:71 - Railways retrieved for Paris Montparnasse-Rennes[0m
+[37m2026-11-20 13:22:15 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:66 - Unable to find Paris Montparnasse-Bordeaux St Jean (no geo data in foreign country)[0m
+[37m2026-11-20 13:22:15 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between Paris Montparnasse-Rennes[0m
+[37m2026-11-20 13:22:15 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between Paris Montparnasse and Rennes retrieved[0m
+[37m2026-11-20 13:22:15 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 13:22:15 - core.statistics.delay_cause - DEBUG - get_mean_cause_list:50 - Whole delay cause list retrieved for railway None - None[0m
+[37m2026-11-20 13:22:15 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 13:22:15 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 13:22:15 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 13:22:15 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 13:22:55 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 13:22:55 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 13:22:55 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 13:22:55 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 13:22:55 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 13:22:55 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 13:22:55 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 13:22:55 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 13:22:55 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[37m2026-11-20 13:22:55 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 13:22:55 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 13:22:55 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 13:22:55 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 13:22:55 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 13:22:55 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 13:22:57 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 13:22:57 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 13:22:57 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 13:22:57 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 13:22:57 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (41.7, 2.34), with zoom 5[0m
+[37m2026-11-20 13:22:57 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 13:22:57 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between AIX EN PROVENCE TGV-PARIS LYON[0m
+[37m2026-11-20 13:22:57 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between AIX EN PROVENCE TGV and PARIS LYON retrieved[0m
+[37m2026-11-20 14:12:28 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 14:12:28 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 14:12:28 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 14:12:28 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 14:12:28 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 14:12:28 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 14:12:28 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 14:12:28 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 14:12:28 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[37m2026-11-20 14:12:28 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 14:12:28 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 14:12:28 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 14:12:28 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:12:28 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:12:28 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:12:29 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:12:29 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:12:29 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:12:30 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:12:30 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (41.7, 2.34), with zoom 5[0m
+[37m2026-11-20 14:12:30 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:12:30 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between AIX EN PROVENCE TGV-PARIS LYON[0m
+[37m2026-11-20 14:12:30 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between AIX EN PROVENCE TGV and PARIS LYON retrieved[0m
+[37m2026-11-20 14:13:45 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 14:13:45 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 14:13:45 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 14:13:45 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 14:13:45 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 14:13:45 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 14:13:45 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 14:13:45 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 14:13:45 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[37m2026-11-20 14:13:45 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 14:13:45 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 14:13:45 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 14:13:45 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:13:45 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:13:45 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:13:46 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:13:46 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:13:46 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:13:47 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:13:47 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (41.7, 2.34), with zoom 5[0m
+[37m2026-11-20 14:13:47 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:13:47 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between AIX EN PROVENCE TGV-PARIS LYON[0m
+[37m2026-11-20 14:13:47 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between AIX EN PROVENCE TGV and PARIS LYON retrieved[0m
+[37m2026-11-20 14:20:04 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 14:20:04 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 14:20:04 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 14:20:04 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 14:20:04 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 14:20:04 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 14:20:04 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 14:20:04 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 14:20:04 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 14:20:04 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 14:20:04 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[31m2026-11-20 14:20:04 - core.railway_data.railway_geo - ERROR - load_railway_geo_data:33 - Fail Loading railway geo file at fake_path_for_exception_test[0m
+[31m2026-11-20 14:20:04 - core.railway_data.railway_geo - ERROR - load_railway_geo_data:33 - Fail Loading railway geo file at fake_path_for_exception_test[0m
+[37m2026-11-20 14:20:05 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:71 - Railways retrieved for Paris Montparnasse-Rennes[0m
+[37m2026-11-20 14:20:05 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:71 - Railways retrieved for Paris Montparnasse-Bordeaux St Jean[0m
+[37m2026-11-20 14:20:05 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:71 - Railways retrieved for Paris Montparnasse-Rennes[0m
+[37m2026-11-20 14:20:05 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:66 - Unable to find Paris Montparnasse-Bordeaux St Jean (no geo data in foreign country)[0m
+[37m2026-11-20 14:20:05 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between Paris Montparnasse-Rennes[0m
+[37m2026-11-20 14:20:05 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between Paris Montparnasse and Rennes retrieved[0m
+[37m2026-11-20 14:20:05 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 14:20:05 - core.statistics.delay_cause - DEBUG - get_mean_cause_list:50 - Whole delay cause list retrieved for railway None - None[0m
+[37m2026-11-20 14:20:05 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:20:05 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:20:05 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:20:05 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 14:22:56 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 14:22:56 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 14:22:56 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 14:22:56 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 14:22:56 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 14:22:56 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 14:22:56 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 14:22:56 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 14:22:56 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[37m2026-11-20 14:22:56 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 14:22:56 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 14:22:56 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 14:22:56 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:22:56 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:22:56 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:22:57 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:22:57 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:22:57 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:22:57 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:22:57 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (41.7, 2.34), with zoom 5[0m
+[37m2026-11-20 14:22:57 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:22:57 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between AIX EN PROVENCE TGV-PARIS LYON[0m
+[37m2026-11-20 14:22:57 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between AIX EN PROVENCE TGV and PARIS LYON retrieved[0m
+[37m2026-11-20 14:28:38 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 14:28:38 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 14:28:38 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 14:28:38 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 14:28:38 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 14:28:38 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 14:28:38 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 14:28:38 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 14:28:38 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[37m2026-11-20 14:28:38 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 14:28:38 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 14:28:38 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 14:28:38 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:28:38 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:28:38 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:28:39 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:28:39 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:28:39 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:28:39 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:28:39 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (41.7, 2.34), with zoom 5[0m
+[37m2026-11-20 14:28:39 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:28:39 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between AIX EN PROVENCE TGV-PARIS LYON[0m
+[37m2026-11-20 14:28:39 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between AIX EN PROVENCE TGV and PARIS LYON retrieved[0m
+[37m2026-11-20 14:29:12 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 14:29:12 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 14:29:12 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 14:29:12 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 14:29:12 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 14:29:12 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 14:29:12 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 14:29:12 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 14:29:12 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[37m2026-11-20 14:29:12 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 14:29:12 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 14:29:12 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 14:29:12 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:29:12 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:29:12 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:29:13 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:29:13 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:29:13 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:29:13 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:29:13 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (41.7, 2.34), with zoom 5[0m
+[37m2026-11-20 14:29:13 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:29:13 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between AIX EN PROVENCE TGV-PARIS LYON[0m
+[37m2026-11-20 14:29:13 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between AIX EN PROVENCE TGV and PARIS LYON retrieved[0m
+[37m2026-11-20 14:29:46 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 14:29:46 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 14:29:46 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 14:29:46 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 14:29:46 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 14:29:46 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 14:29:46 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 14:29:46 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 14:29:46 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[37m2026-11-20 14:29:46 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 14:29:46 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 14:29:46 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 14:29:46 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:29:46 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:29:46 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:29:47 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:29:47 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:29:47 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:29:47 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:29:47 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (41.7, 2.34), with zoom 5[0m
+[37m2026-11-20 14:29:47 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:29:47 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between AIX EN PROVENCE TGV-PARIS LYON[0m
+[37m2026-11-20 14:29:47 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between AIX EN PROVENCE TGV and PARIS LYON retrieved[0m
+[37m2026-11-20 14:30:39 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 14:30:39 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 14:30:39 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 14:30:39 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 14:30:39 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 14:30:39 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 14:30:39 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 14:30:39 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 14:30:39 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[37m2026-11-20 14:30:39 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 14:30:39 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 14:30:39 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 14:30:39 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:30:39 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:30:39 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:30:41 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:30:41 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 14:30:41 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:30:41 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 14:30:41 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (41.7, 2.34), with zoom 5[0m
+[37m2026-11-20 14:30:41 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 14:30:41 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between AIX EN PROVENCE TGV-PARIS LYON[0m
+[37m2026-11-20 14:30:41 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between AIX EN PROVENCE TGV and PARIS LYON retrieved[0m

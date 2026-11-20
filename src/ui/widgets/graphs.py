@@ -271,12 +271,10 @@ def display_monthly_arrival_delay_graph(
 
     st.caption(
         # note : it requires 2 spaces before \n
-        "Zone claire : intervalle des retards moyens mensuels "
-        "observés sur les années précédentes sélectionnées "
-        "(minimum et maximum).  \n"
-        "Zone foncée : intervalle contenant les 50 % de valeurs centrales "
-        "des retards moyens mensuels sur les années précédentes sélectionnées "
-        "(entre le premier et le troisième quartile).  \n"
+        "Zone claire : minimum et maximum des retards moyens mensuels "
+        "observés sur les années précédentes sélectionnées  \n"
+        "Zone foncée : plage centrale de 50% des retards moyens mensuels "
+        "sur les années précédentes sélectionnées (1e et 3e quartile)  \n"
         "Ces zones sont affichées uniquement lorsque suffisamment d'observations "
         "sont disponibles."
     )

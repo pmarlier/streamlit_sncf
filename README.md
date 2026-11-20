@@ -1,31 +1,44 @@
-# 🚄 Streamlit SNCF — TGV punctuality explorer
+## ![Alternative text](resources/logo_sncf.png) IADATA700 - Kit Big Data Project ![Alternative text](resources/logo_tp.png)
+# Streamlit Application to monitor SNCF punctuality
  
-Interactive app to explore the punctuality of the TGV network
-and understand what causes delays, route by route, month by month, year by year.
+This interactive app has been built to help people understanding, and somehow gathering insights, whether a train could be canceled, delayed, and if delayed, how much delay the customer would likely has to face. 
+
+We picked two use-case, that framed our entire application :
+
+- one could want to overview the global railway network punctuality informations (mean delay at arrival route by route, and possible delay causes),
+- one could want to setup a specific trip, with a given pair departure - destination, on a particular time frame over the year (monthly is the best available sampling)
  
-It is built on the SNCF open dataset
-[*Régularité mensuelle TGV*](https://ressources.data.sncf.com/explore/dataset/regularite-mensuelle-tgv-aqst/information/)
-and developed as the IADATA700 project by Pierre Marlier,
-Ulysse Perruchon-Monge and Christophe Vandenborre.
+All the displayed data are computed from a SNCF open dataset downloadable at https://ressources.data.sncf.com/explore/dataset/regularite-mensuelle-tgv-aqst/information/.
+
+Project developed by Pierre Marlier, Ulysse Perruchon-Monge and Christophe Vandenborre.
  
-🔗 **Live app:** _to be added once deployed (Streamlit Community Cloud)_
+🔗 **Live app:** meet-your-train.streamlit.app
  
+
 ---
  
-## What the app does
+# Overview
  
-The question driving the app: **"How reliable is my train, and why is it sometimes late?"**
+We wanted to find an answer to a question we asked ourselves many times : **"How likely is my train to be delayed? What ?! "20 minutes delayed" ?? What is going on this time?"**
  
-Two entry points on the home page:
+So we explore the dataset under different ways:
+
+ - Displaying the mean delay at arrival on a map 
+ - Displaying the possible delay causes and their mean proportion of occurrences on a pie chart
+ - Displaying the proportion of canceled and delayed train (on departure and on arrival) on a table
+ - Displaying the stastical history of delay at arrival over months and years on a graph chart
+
+We later describe quickly on what data these insights has been computed.
+For more details, please check the datasheet attached to the project.
+
+As previously mentioned, the user will gain access to two different interfaces :
+
+- a global overview of the french railway network (with delay map and delay causes proportion)
+- a trip-oriented specific dashboard (with delay history graph, delay causes proportion, cancelation/delay table and a map)
  
-| Mode | What you get |
-| --- | --- |
-| **National statistics** | A map of the TGV network where each line is coloured by its mean arrival delay (slider to filter a delay range), and a pie chart of the delay causes averaged over the whole period. |
-| **A specific trip** | Pick a departure station, an arrival station, a period (months + years) in the sidebar to get the monthly arrival-delay graph, the breakdown of delay causes for that route, the route drawn on the map, and a table of delayed / cancelled train ratios. |
- 
-Delay causes shown: SNCF causes, passengers causes and others.
- 
-## Project structure
+---
+
+## Project structure (generated with AI)
  
 ```text
 .
@@ -56,9 +69,10 @@ Delay causes shown: SNCF causes, passengers causes and others.
 └── pyproject.toml                 # Dependencies and tool configuration (uv)
 ```
  
-The code is split in two layers: `core` computes, `ui` displays. `core` never imports
-anything from `ui`.
- 
+The code is split in three: the `core` block that holds all the computation packages, the `ui` block that holds all the display units and finally the `streamlit_sncf_app.py` that brings everything together and holds the front end as well as the gateway between core and ui.
+
+---
+
 ## Getting started
  
 ### Prerequisites
@@ -96,33 +110,76 @@ uv sync --dev
 - pytest-cov
 - ruff
 
-
- 
+---
 ### Data
  
-The following CSV file is expected in `data/raw/`:
+All the required data are embedded with the project, uploaded on GitHub. The files to be processed are CSV files expected to be found in `data/raw/`:
  
+Three files are required to have full functionalities:
 | File | Used for |
 | --- | --- |
 | `regularite-mensuelle-tgv-aqst.csv` | Monthly regularity per TGV route (main dataset) |
+| `lignes-par-region-administrative.csv` | Geographical data points for every railway section (stored by SNCF internal id) over France |
+| `liste-des-gares.csv` | Geographical coordinates for every railstation over France |
  
-To refresh the main file, download the latest export from
-[data.sncf.com](https://ressources.data.sncf.com/explore/dataset/regularite-mensuelle-tgv-aqst/export/)
-and replace it in `data/raw/` (keep the same file name). More details in
-[`docs/_other/datasheet_for_dataset.md`](docs/_other/datasheet_for_dataset.md).
- 
+We could have plugged the website on the SNCF API, but to keep the system up even with no Internet access or in case of unavailability of the SNCF website, we'd rather setup every files locally.
+
+To refresh data if required, the best way is to download the latest export from https://ressources.data.sncf.com/explore/dataset/regularite-mensuelle-tgv-aqst/export/
+and replace it in `data/raw/` (keep the same file name). 
+
+---
 ### Run the app
  
-Always run from the **repository root**, because file paths (`data/`, `config/`,
-`resources/`) are relative:
+To run the app from the source code, simply type the following command: 
  
 ```bash
+cd streamlit_sncf
 uv run streamlit run src/streamlit_sncf_app.py
 ```
+Or launch the on-line version (hosted on StreamlitCloud) by reaching `meet-your-train.streamlit.app`
+
+---
+### Quick starting guidestep
+
+On the starting page, the two buttons underneath the title will route the user to the one of the following screen configuration, depending on your choice:
+
+### 1) Global overview (national statistics)
+
+Two sided-window :
+
+- on the left, 
+    - on the upper-part, a static pie chart displaying the overall delay causes proportion - we intuited the main entity responsible for each cause, based on our prior knowledge of the system,
+    - on the lower-part, a small take-away panel, also static, with insights from our data analysis,
+
+- on the right, 
+    - an interactive map displaying (almost) all the railway path listed in the CSV data file ; railtracks are colored regarding their mean delay over all the data in the dataset,
+    - the slider above the map sets a filter over the drawn railway : if the mean delay of the railway is between the slider values, it is drawn on the map.
+
+
+### 2) Specific trip configuration
+
+Three sided-window :
+
+- on the sidebar,
+    - this is the only interactive part of this screen configuration :
+        - the user may set the departure city (the arrival list is computed from the departure, the inverse is not true...),
+        - the user may pick a month range to analyze data of the given departure - arrival pair on a specific frame in a year (start month must be prior end month),
+        - the user may select a year range to analyze data of the given departure - arrival pair on a specific year frame (remove year by clicking the cross or add them by picking them out of the scroll list),
+
+        Everything is computed on the fly.
+
+- on the main window,
+    - on the left,
+        - on the upper-part, a graph displaying statistics of delay (distribution, median) across a year (month division) and based on the parameters from the sidebar,
+        - on the lower-part, a static pie chart displaying the overall delay causes proportion based on the parameters from the sidebar - we intuited the main entity responsible for each cause, based on our prior knowledge of the system,
+
+  - on the right, 
+        - on the upper-part, a small map displaying the colored railway path based on the parameters from the sidebar,
+        - on the lower-part, a small table displaying the statistics of cancelled and delayed trains based on the parameters from the sidebar,
  
-The app opens on <http://localhost:8501>. The first display of the national map
-computes every route and can take a few seconds (a progress bar is shown).
+The user may switch from one screen configuration to the other one without any restriction (except maybe waiting for the -sometimes long- loading time)
  
+---
 ## Data processing
  
 Raw data are cleaned in `src/core/data_preprocessing.py` before any statistic is computed.
@@ -139,6 +196,8 @@ No row is dropped: unreliable values are corrected, imputed or set to `NaN`.
 5. Routes present twice in the same month (National and International service) are merged,
    with weighted means for delays and percentages.
 6. A column `Prct retard causes non renseignées` is added so that delay causes sum to 100 %.
+
+---
 ## Quality and tests
  
 ```bash
@@ -155,6 +214,7 @@ uv run pytest                # tests + coverage (configured in pyproject.toml)
   `AppTest.from_function()` may not be counted by `coverage.py`, so the reported coverage
   can be lower than the real one.
  
+---
 ## Logging
  
 Logging is configured in `config/logging.conf` and initialised when the app starts:
@@ -165,8 +225,10 @@ Logging is configured in `config/logging.conf` and initialised when the app star
 | Debug file | DEBUG and above | `logs/app.log` |
 | Error file | ERROR and CRITICAL | `logs/error.log` |
  
- Each new session creates a log file timestamped with creation time.
+Each new session logs are added to the current log file until the limite size is reach.
+A message "Starting new session" is added everytime the app is launched
 
+---
 ## Documentation
  
 API documentation is generated by Sphinx with AutoAPI from the docstrings
@@ -179,16 +241,16 @@ uv run sphinx-build -b html docs docs/_build/html
 Open `docs/_build/html/index.html`. On Windows, `docs\make.bat html` also works. More
 details in [`docs/_other/sphinx_utilisation.md`](docs/_other/sphinx_utilisation.md).
  
+---
 ## CI/CD and deployment
  
 | Workflow | Trigger | What it does |
 | --- | --- | --- |
 | `.github/workflows/test.yaml` | every push, pull requests to `main` | Installs dependencies with `uv` and runs `pytest` |
-| `.github/workflows/docker.deploy.yml` | push on `main` | Builds the Docker image (not published) |
+| `.github/workflows/docker.deploy.yml` | push on `main` | Builds the Docker image - as long as we don't have a Dockerbuild account, under the advice of our teacher, we chose the StreamlitCloud deployment, linking the app to the GitHub main branch|
+
  
-The application is deployed on **Streamlit Community Cloud**, connected directly to this
-repository: each push on `main` redeploys the app.
- 
+---
 ## Known limitations
  
 - Foreign stations (Barcelona, Madrid, Zurich, Frankfurt, Stuttgart, Geneva, Lausanne,
@@ -196,12 +258,18 @@ repository: each push on `main` redeploys the app.
 - Some routes are drawn from a hand-made mapping between route names and railway line ids
   (`src/core/railway_data/__init__.py`); a few routes may be missing on the map.
 - Statistics from the COVID period are intentionally excluded.
+- Some bugs still remains
+    - loading latency
+    - unexpected refresh of Folium map
+    - pie-chart on the "Global overview" configuration is not linked to the slider
+
+---
 ## Glossary
  
 | Term | Definition |
 | --- | --- |
-| `departure_station` | Station where the train starts the monthly-monitored route |
-| `arrival_station` | Station where the train ends the route |
+| Departure station | Station where the train starts the monthly-monitored route |
+| Arrival station | Station where the train ends the route |
 | Route / connection | An ordered pair (departure, arrival); A→B and B→A are distinct |
 | Service | `National` or `International` |
 | Planned trains | Number of scheduled circulations in the month |
@@ -215,6 +283,5 @@ repository: each push on `main` redeploys the app.
  
 Pierre Marlier, Ulysse Perruchon-Monge, Christophe Vandenborre — Télécom Paris.
  
-Data: SNCF open data, see the datasheet for the
-terms of use.
+Data: SNCF open data, see the datasheet for the terms of use.
  
