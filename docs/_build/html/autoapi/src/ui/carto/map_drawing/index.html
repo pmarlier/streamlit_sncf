@@ -65,10 +65,13 @@
 <h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.carto.map_drawing.get_custom_colormap" title="src.ui.carto.map_drawing.get_custom_colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_custom_colormap</span></code></a>(→ branca.colormap.LinearColormap)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.carto.map_drawing.init" title="src.ui.carto.map_drawing.init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init</span></code></a>(→ None)</p></td>
+<td><p>Initialize logger</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.carto.map_drawing.get_custom_colormap" title="src.ui.carto.map_drawing.get_custom_colormap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_custom_colormap</span></code></a>(→ branca.colormap.LinearColormap)</p></td>
 <td><p>Return the color map used for delay rendering</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#src.ui.carto.map_drawing.create_map" title="src.ui.carto.map_drawing.create_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_map</span></code></a>(→ ui.carto.folium.Map)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.carto.map_drawing.create_map" title="src.ui.carto.map_drawing.create_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_map</span></code></a>(→ ui.carto.folium.Map)</p></td>
 <td><p>Instantiate a Folium map</p></td>
 </tr>
 </tbody>
@@ -83,8 +86,14 @@
 
 <dl class="py data">
 <dt class="sig sig-object py" id="src.ui.carto.map_drawing.MAX_DELAY_VALUE">
-<span class="sig-prename descclassname"><span class="pre">src.ui.carto.map_drawing.</span></span><span class="sig-name descname"><span class="pre">MAX_DELAY_VALUE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">51</span></span><a class="headerlink" href="#src.ui.carto.map_drawing.MAX_DELAY_VALUE" title="Link to this definition">¶</a></dt>
+<span class="sig-prename descclassname"><span class="pre">src.ui.carto.map_drawing.</span></span><span class="sig-name descname"><span class="pre">MAX_DELAY_VALUE</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50</span></span><a class="headerlink" href="#src.ui.carto.map_drawing.MAX_DELAY_VALUE" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.ui.carto.map_drawing.init">
+<span class="sig-prename descclassname"><span class="pre">src.ui.carto.map_drawing.</span></span><span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.ui.carto.map_drawing.init" title="Link to this definition">¶</a></dt>
+<dd><p>Initialize logger</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="src.ui.carto.map_drawing.get_custom_colormap">
@@ -146,6 +155,7 @@ Defaults to the level adapted for France display : 6</p></li>
 <li><a class="reference internal" href="#module-contents">Module Contents</a><ul>
 <li><a class="reference internal" href="#src.ui.carto.map_drawing.MIN_DELAY_VALUE"><code class="docutils literal notranslate"><span class="pre">MIN_DELAY_VALUE</span></code></a></li>
 <li><a class="reference internal" href="#src.ui.carto.map_drawing.MAX_DELAY_VALUE"><code class="docutils literal notranslate"><span class="pre">MAX_DELAY_VALUE</span></code></a></li>
+<li><a class="reference internal" href="#src.ui.carto.map_drawing.init"><code class="docutils literal notranslate"><span class="pre">init()</span></code></a></li>
 <li><a class="reference internal" href="#src.ui.carto.map_drawing.get_custom_colormap"><code class="docutils literal notranslate"><span class="pre">get_custom_colormap()</span></code></a></li>
 <li><a class="reference internal" href="#src.ui.carto.map_drawing.create_map"><code class="docutils literal notranslate"><span class="pre">create_map()</span></code></a></li>
 </ul>

@@ -6,8 +6,8 @@ user specifiy a trip to analyse with its:
     - arrival month (equal or posterior to departure month)
     - years
 
- Those data are used to compute statistics on a given connexion, based on all the
- previous selected periods."""
+Those data are used to compute statistics on a given connexion, based on all the
+previous selected periods."""
 
 import logging.config
 

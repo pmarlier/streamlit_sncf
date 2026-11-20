@@ -17,3 +17,28 @@ Module Contents
 
 .. py:function:: draw_railway(railway_data_list: list, map_to_update: folium.Map, delay_range: tuple | None) -> folium.Map
 
+   Draw polylines on the given folium map from the data returned by railway_network
+   module. The polylines are drawn regarding their delay and the match with the
+   slider timerange values from the streamlit app.
+
+   :param railway_data_list: custom list made from the railway_network module
+                             list[0] : railway_id : used only to check consistency
+                             list[1] : railway_point_to_draw : the geographical railway data points
+                             list[2] : departure : the departure city of the railway link (hover)
+                             list[3] : arrival_city : the arrival city of the railway link (hover)
+                             list[4] : mean_delay : match the colormap of national delay statistics
+   :type railway_data_list: list
+   :param map_to_update: the displayed Folium Map to update
+   :type map_to_update: folium.Map
+   :param delay_range: the delay range set by the user in the streamlit app
+   :type delay_range: tuple | None
+   :param to filter railway regarding their mean delay.:
+   :param If set to None:
+   :param no filter has been set:
+   :param and all the datas are displayed:
+   :param (unfiltered):
+
+   :returns: The updated folium map
+   :rtype: folium.Map
+
+

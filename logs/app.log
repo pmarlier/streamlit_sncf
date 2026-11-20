@@ -1653,3 +1653,32 @@
 [37m2026-11-20 14:30:41 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
 [37m2026-11-20 14:30:41 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between AIX EN PROVENCE TGV-PARIS LYON[0m
 [37m2026-11-20 14:30:41 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between AIX EN PROVENCE TGV and PARIS LYON retrieved[0m
+[37m2026-11-20 15:24:20 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 15:24:21 - core.load_data - DEBUG - load_csv_df:56 - Fichier "regularite-mensuelle-tgv-aqst".csv lu et converti en DataFrame[0m
+[37m2026-11-20 15:24:21 - core.load_data - DEBUG - load_csv_df:60 - Prétraitement des données terminé[0m
+[37m2026-11-20 15:24:21 - core.load_data - DEBUG - load_csv_df:82 - Filtrage des données terminé[0m
+[37m2026-11-20 15:24:21 - core.load_data - DEBUG - load_csv_df:83 - Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)[0m
+[37m2026-11-20 15:24:21 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 15:24:21 - core.load_data - DEBUG - init:123 - ********************* New session starting ************************[0m
+[37m2026-11-20 15:24:21 - core.load_data - DEBUG - set_monthly_stats_df:107 - Dataframe chargé[0m
+[37m2026-11-20 15:24:21 - core.railway_data.railway_geo - DEBUG - set_railway_geo_df:76 - Railway Geo Dataframe set[0m
+[37m2026-11-20 15:24:22 - core.railway_data.railway_geo - DEBUG - set_railstation_geo_df:88 - Railstation Geo Dataframe set[0m
+[37m2026-11-20 15:24:22 - core.railway_data.railway_geo - DEBUG - init:98 - Railway geo data initialization done[0m
+[31m2026-11-20 15:24:22 - core.railway_data.railway_geo - ERROR - load_railway_geo_data:33 - Fail Loading railway geo file at fake_path_for_exception_test[0m
+[31m2026-11-20 15:24:22 - core.railway_data.railway_geo - ERROR - load_railway_geo_data:33 - Fail Loading railway geo file at fake_path_for_exception_test[0m
+[37m2026-11-20 15:24:22 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:71 - Railways retrieved for Paris Montparnasse-Rennes[0m
+[37m2026-11-20 15:24:22 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:71 - Railways retrieved for Paris Montparnasse-Bordeaux St Jean[0m
+[37m2026-11-20 15:24:22 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:71 - Railways retrieved for Paris Montparnasse-Rennes[0m
+[37m2026-11-20 15:24:22 - core.railway_data.railway_network - DEBUG - get_railway_id_from_network:66 - Unable to find Paris Montparnasse-Bordeaux St Jean (no geo data in foreign country)[0m
+[37m2026-11-20 15:24:22 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:82 - Start retrieving mean arrival delay between Paris Montparnasse-Rennes[0m
+[37m2026-11-20 15:24:22 - core.statistics.mean_delay - DEBUG - get_arrival_mean_delay_for_city_pair:90 - Mean arrival delay between Paris Montparnasse and Rennes retrieved[0m
+[37m2026-11-20 15:24:23 - core.statistics.delay_cause - DEBUG - init:11 - logger set[0m
+[37m2026-11-20 15:24:23 - core.statistics.delay_cause - DEBUG - get_mean_cause_list:50 - Whole delay cause list retrieved for railway None - None[0m
+[37m2026-11-20 15:24:23 - ui.carto.map_drawing - DEBUG - create_map:57 - Color map created[0m
+[37m2026-11-20 15:24:23 - ui.carto.map_drawing - DEBUG - create_map:75 - Map instanciated at point (46.5, 2.34), with zoom 6[0m
+[37m2026-11-20 15:24:23 - ui.carto.map_drawing - DEBUG - create_map:80 - Map and color map linked[0m
+[37m2026-11-20 15:24:24 - ui.widgets.sidebar - DEBUG - init:41 - sidebar logger initialized[0m
+[37m2026-11-20 15:56:02 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 16:14:51 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 16:15:40 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
+[37m2026-11-20 16:15:41 - ui.widgets.train_stats_widget - DEBUG - init:19 - train stats widget logger initialized[0m
