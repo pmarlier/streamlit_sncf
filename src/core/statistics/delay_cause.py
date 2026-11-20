@@ -2,6 +2,8 @@ import logging.config
 
 from core import load_data as ld
 
+logger: logging.Logger
+
 
 def init() -> None:
     """Initialize logger and set dataframe imported from CSV files"""
@@ -11,7 +13,9 @@ def init() -> None:
     logger.debug("logger set")
 
 
-def get_mean_cause_list(departure_city: str = None, arrival_city: str = None) -> list:
+def get_mean_cause_list(
+    departure_city: str | None = None, arrival_city: str | None = None
+) -> list:
     """Retrieve the list of all the delay causes and
     their frequency of occurrence known for a given city pair.
 
@@ -56,7 +60,7 @@ def get_mean_cause_list(departure_city: str = None, arrival_city: str = None) ->
 
 
 def get_mean_of_external_cause(
-    departure_city: str = None, arrival_city: str = None
+    departure_city: str | None = None, arrival_city: str | None = None
 ) -> float:
     """Retrieve the frequency of externally caused delay
     known for a given city pair.
@@ -87,7 +91,7 @@ def get_mean_of_external_cause(
 
 
 def get_mean_of_infrastructural_cause(
-    departure_city: str = None, arrival_city: str = None
+    departure_city: str | None = None, arrival_city: str | None = None
 ) -> float:
     """Retrieve the frequency of infrastructural caused delay
     known for a given city pair.
@@ -118,7 +122,7 @@ def get_mean_of_infrastructural_cause(
 
 
 def get_mean_of_traffic_management_cause(
-    departure_city: str = None, arrival_city: str = None
+    departure_city: str | None = None, arrival_city: str | None = None
 ) -> float:
     """Retrieve the frequency of traffic management caused delay
     known for a given city pair.
@@ -149,7 +153,7 @@ def get_mean_of_traffic_management_cause(
 
 
 def get_mean_of_mobile_equipment_cause(
-    departure_city: str = None, arrival_city: str = None
+    departure_city: str | None = None, arrival_city: str | None = None
 ) -> float:
     """Retrieve the frequency of mobile equipment failure caused delay
     known for a given city pair.
@@ -180,7 +184,7 @@ def get_mean_of_mobile_equipment_cause(
 
 
 def get_mean_of_railstation_management_cause(
-    departure_city: str = None, arrival_city: str = None
+    departure_city: str | None = None, arrival_city: str | None = None
 ) -> float:
     """Retrieve the frequency of railstation management caused delay
     known for a given city pair.
@@ -211,7 +215,7 @@ def get_mean_of_railstation_management_cause(
 
 
 def get_mean_of_traveler_cause(
-    departure_city: str = None, arrival_city: str = None
+    departure_city: str | None = None, arrival_city: str | None = None
 ) -> float:
     """Retrieve the frequency of traveler caused delay
     known for a given city pair.
@@ -242,7 +246,7 @@ def get_mean_of_traveler_cause(
 
 
 def get_mean_of_unknown_cause(
-    departure_city: str = None, arrival_city: str = None
+    departure_city: str | None = None, arrival_city: str | None = None
 ) -> float:
     """Sometimes, the sum of delay cause frequency given by SNCF does not sum to 100%
     The unlabeled missing part is said to be from an unknown cause

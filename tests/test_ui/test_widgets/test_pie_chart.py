@@ -1,8 +1,5 @@
 from unittest.mock import MagicMock, patch
 
-import matplotlib.pyplot as plt
-import pytest
-
 from ui.widgets import pie_chart
 
 

@@ -1,4 +1,4 @@
-"""UI widgets package, in order to spread the imports over, instead of importing them 
+"""UI widgets package, in order to spread the imports over, instead of importing them
 one by one in the modules
 """
 

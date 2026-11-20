@@ -11,6 +11,9 @@ import streamlit as st
 
 from core.data_preprocessing import preprocess_data
 
+logger: logging.Logger
+df: pd.DataFrame
+
 CSV_PATH = "./data/raw/regularite-mensuelle-tgv-aqst.csv"
 
 # to simplify access to the column, keys are made up to avoid typing endless column name
@@ -32,7 +35,10 @@ MONTHLY_MOBILE_EQUIPMENT_CAUSE_DELAY_PERCENT = "Prct retard pour cause matériel
 MONTHLY_RAILSTATION_MANAGEMENT_CAUSE_DELAY_PERCENT = (
     "Prct retard pour cause gestion en gare et réutilisation de matériel"
 )
-MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT = "Prct retard pour cause prise en compte voyageurs (affluence, gestions PSH, correspondances)"
+MONTHLY_TRAVELER_CAUSE_DELAY_PERCENT = (
+    "Prct retard pour cause prise en compte voyageurs "
+    "(affluence, gestions PSH, correspondances)"
+)
 MONTHLY_UNKNOWN_CAUSE_DELAY_PERCENT = "Prct retard causes non renseignées"
 
 
@@ -81,7 +87,8 @@ def load_csv_df(source: str = CSV_PATH) -> pd.DataFrame:
         ]
         logger.debug("Filtrage des données terminé")
         logger.debug(
-            "Seules les colonnes utiles sont chargées depuis le CSV (comportement nominal)"
+            "Seules les colonnes utiles sont chargées depuis le CSV "
+            "(comportement nominal)"
         )
 
         # Datetime format into year and month columns for periods selection
@@ -186,7 +193,7 @@ def get_unique_railstations_df() -> pd.DataFrame:
 
 
 def get_filtered_metrics_df(
-    metrics: np.array, data_df: pd.DataFrame | None = None
+    metrics: list[str] | np.ndarray, data_df: pd.DataFrame | None = None
 ) -> pd.DataFrame:
     """Returns a dataframe containing the selected metrics list
 

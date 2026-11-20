@@ -7,6 +7,8 @@ from core import railway_data
 from core.railway_data import railway_geo
 from core.statistics import mean_delay as md
 
+logger: logging.Logger
+
 # fusion : "marne-la-vallee - paris-gare-de-lyon"
 # pour cause d'absence d'affichage de la ligne
 
@@ -70,6 +72,7 @@ def get_railway_id_from_network(departure: str, arrival: str) -> list:
 
     logger.debug(f"Railways retrieved for {departure}-{arrival}")
     return railway_id
+
 
 @st.cache_data
 def get_railway_data_between_cities(departure: str, arrival: str) -> list:

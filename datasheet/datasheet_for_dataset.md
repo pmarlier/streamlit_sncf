@@ -1,7 +1,7 @@
 # Dataset Datasheet
 
 > Working template inspired by Gebru et al., “Datasheets for Datasets” (2021). It is intended to document the project’s datasets.
->
+> > GenAI was used to improve the English wording of some sentences.
 
 ## 1. Identification and Motivation
 

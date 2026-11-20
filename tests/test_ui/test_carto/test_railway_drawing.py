@@ -1,8 +1,6 @@
 from unittest.mock import MagicMock
 
 import folium
-import matplotlib.colors
-import pytest
 
 from ui.carto import railway_drawing
 
@@ -32,6 +30,7 @@ def test_draw_railway():
     assert result == mock_map
 
     # PolyLine.add_to should have been called for the first two entries
-    # Since PolyLine is a class, we need to check if it was called or if the map was modified.
+    # Since PolyLine is a class, we need to check
+    # if it was called or if the map was modified.
     # In a real test we might patch folium.PolyLine.
     # But here we just verify it doesn't crash and returns the map.

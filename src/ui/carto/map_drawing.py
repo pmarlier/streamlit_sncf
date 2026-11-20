@@ -4,6 +4,8 @@ import branca.colormap as cm
 
 from ui.carto import folium
 
+logger: logging.Logger
+
 # arbitrary extrema values for delay
 MIN_DELAY_VALUE = 15
 MAX_DELAY_VALUE = 50

@@ -1,18 +1,20 @@
-import pytest
-import pandas as pd
 from unittest.mock import patch
+
+import pandas as pd
+import pytest
+
+import core.load_data as ld
 from core.statistics.delay_cause import (
-    init,
     get_mean_cause_list,
     get_mean_of_external_cause,
     get_mean_of_infrastructural_cause,
-    get_mean_of_traffic_management_cause,
     get_mean_of_mobile_equipment_cause,
     get_mean_of_railstation_management_cause,
+    get_mean_of_traffic_management_cause,
     get_mean_of_traveler_cause,
     get_mean_of_unknown_cause,
+    init,
 )
-import core.load_data as ld
 
 
 @pytest.fixture

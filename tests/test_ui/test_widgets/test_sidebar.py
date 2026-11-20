@@ -1,7 +1,4 @@
-import numpy as np
 import pytest
-import streamlit as st
-
 from streamlit.testing.v1 import AppTest
 
 from ui.widgets import sidebar, train_stats_widget
@@ -160,7 +157,8 @@ def test_section_row(init_sidebar_logger):
 
     # case departure delayed train
     def display_section_row_departure_delayed_none():
-        """Render a departure delay section with no data about planned and delayed trains."""
+        """Render a departure delay section with no
+        data about planned and delayed trains."""
         import numpy as np
 
         event = "Departure"
@@ -181,7 +179,8 @@ def test_section_row(init_sidebar_logger):
 
     # case arrival delayed train
     def display_section_row_arrival_delayed_none():
-        """Render an arrival delay section with no data about planned and delayed trains."""
+        """Render an arrival delay section with
+        no data about planned and delayed trains."""
         import numpy as np
 
         event = "Arrival"
@@ -200,7 +199,8 @@ def test_section_row(init_sidebar_logger):
 
     # case departure cancelled train
     def display_section_row_departure_cancelled_none():
-        """Render a departure section with no data about planned and cancelled trains."""
+        """Render a departure section with
+        no data about planned and cancelled trains."""
         import numpy as np
 
         event = "Departure"

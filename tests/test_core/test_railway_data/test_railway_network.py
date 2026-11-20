@@ -1,6 +1,3 @@
-import pandas as pd
-import pytest
-
 import core.load_data as ld
 import core.railway_data as railway_data
 from core.railway_data import railway_network

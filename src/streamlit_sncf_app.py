@@ -52,7 +52,7 @@ def main():
     # --------------------------------------------------------------------------
     # Main page general configuration
     # --------------------------------------------------------------------------
-   
+
     # CSS injection to lock app height to 100% of screen height
     st.markdown(
         """
@@ -227,7 +227,7 @@ def main():
                     None,
                 )
                 st.markdown(
-                    "Cartographie du trajet choisi avec retard moyen à l'arrivée" ,
+                    "Cartographie du trajet choisi avec retard moyen à l'arrivée",
                     text_alignment="center",
                 )
                 st_folium(map, use_container_width=True, render=True)
@@ -273,7 +273,7 @@ def main():
                         my_bar.progress(ratio, text=progress_text)
 
                     departure, arrival = city_pair
-                    
+
                     all_railways_to_draw.append(
                         railway_network.get_railway_data_between_cities(
                             departure, arrival
@@ -303,15 +303,18 @@ def main():
 
                 with st.container(border=True):
                     st.markdown(
-                                '<p class="subtitle-font">A retenir (statistiquement parlant)</p>',
-                                unsafe_allow_html=True,
-                                text_alignment="center",
-                            )
-                    st.markdown("""
-                                * Les trajets les plus longs semblent présenter les retards les plus importants.
-                                * Les retards sont majoritairement liés à la gestion du réseau ferroviaire par la SNCF.
-                                * Nos analyses n'ont pas permis d'identifier de saisonnalité marquée dans les retards.
-                            """)    
+                        '<p class="subtitle-font">Tendances à retenir</p>',
+                        unsafe_allow_html=True,
+                        text_alignment="center",
+                    )
+                    st.markdown(
+                        "* Les trajets les plus longs semblent "
+                        "présenter les retards les plus importants.\n"
+                        "* Les retards sont majoritairement liés à la gestion "
+                        "du réseau ferroviaire par la SNCF.\n"
+                        "* Nos analyses n'ont pas permis d'identifier "
+                        "de saisonnalité marquée dans les retards."
+                    )
             # -------------------------------------------
             # d. Map #
             # -------------------------------------------
