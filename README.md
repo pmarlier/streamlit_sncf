@@ -45,28 +45,36 @@ As previously mentioned, the user will gain access to two different interfaces :
 ├── src/
 │   ├── streamlit_sncf_app.py      # Entry point of the Streamlit app
 │   ├── core/                      # Back-end modules and functions
-│   │   ├── load_data.py           #   CSV loading + query helpers on the dataframe
-│   │   ├── data_preprocessing.py  #   Cleaning pipeline (see "Data" below)
-│   │   ├── railway_data/          #   Station names / railway geometry matching
-│   │   └── statistics/            #   Mean delay, delay causes, train counts, seasonality
+│   │   ├── load_data.py           # CSV loading + query helpers on the dataframe
+│   │   ├── data_preprocessing.py  # Cleaning pipeline (see "Data" below)
+│   │   ├── railway_data/          # Station names / railway geometry matching
+│   │   └── statistics/            # Mean delay, delay causes, train counts, seasonality
 │   └── ui/                        # Front-end modules and functions
-│       ├── carto/                 #   Folium map and railway drawing
-│       └── widgets/               #   Sidebar, graphs, pie chart, stats table
+│       ├── carto/                 # Folium map and railway drawing
+│       └── widgets/               # Sidebar, graphs, pie chart, stats table
 ├── tests/                         # pytest functions, testing src/
 ├── data/
 │   ├── raw/                       # Source CSV files (see "Data")
-│   ├── processed/                 # Generated files (git-ignored)
-│   └── DATASHEET_FOR_DATASET.md   # Documentation of the datasets
+│   └── processed/                 # Generated files (git-ignored)
+├── datasheet/
+│   ├── dataset_for_dataset.md     # Datasheet for dataset
+│   └── figures/                   # Data analysis and preprocessing figures
 ├── config/logging.conf            # Logging configuration
 ├── docs/                          # Sphinx documentation (AutoAPI)
-│   ├── _other/                    # Other ressources
-│   │   ├── sphinx_utilisation.md  #   Sphinx utilisation guidelines
-│   │   └── dataseet_for_dataset.md#   Datasheet for dataset
+│   ├── _other/                    # Other resources
+│   │   └── sphinx_utilisation.md  # Sphinx utilisation guidelines
 │   └── sphinx_conf_files          # Sphinx configuration files
+├── logs/                          # Application and error logs
 ├── resources/                     # Logos and icons used by the UI
 ├── .github/workflows/             # CI (tests) and Docker build
-├── Dockerfile
-└── pyproject.toml                 # Dependencies and tool configuration (uv)
+├── .devcontainer/                 # Development container configuration
+├── .dockerignore                  # Docker build exclusions
+├── .gitignore                     # Git exclusions
+├── .python-version                # Python version
+├── Dockerfile                     # Docker image configuration
+├── README.md                      # Project documentation
+├── pyproject.toml                 # Dependencies and tool configuration (uv)
+└── uv.lock                        # Locked dependency versions
 ```
  
 The code is split in three: the `core` block that holds all the computation packages, the `ui` block that holds all the display units and finally the `streamlit_sncf_app.py` that brings everything together and holds the front end as well as the gateway between core and ui.
@@ -182,29 +190,35 @@ The user may switch from one screen configuration to the other one without any r
 ---
 ## Data processing
  
-Raw data are cleaned in `src/core/data_preprocessing.py` before any statistic is computed.
-No row is dropped: unreliable values are corrected, imputed or set to `NaN`.
+Raw data are cleaned in `src/core/data_preprocessing.py` before any statistics is computed.
+Unreliable values are corrected, imputed or set to NaN. Duplicate route-month observations are consolidated.
  
-1. COVID-19 period (March 2020 → June 2021): measures set to `NaN`.
+1. COVID-19 period (March 2020 → June 2021): all measures set to `NaN`.
 2. Q1 2025: counts of trains delayed by more than 30 and 60 minutes set to `NaN`
    (data quality issue).
-3. Mean delays that are inconsistent with the number of delayed trains are set to `NaN`
-   or imputed with the historical median of the same service, route and calendar month
-   (at least 2 valid observations required).
-4. Inconsistent "> 15 min" counts are invalidated; small negative mean delays are
-   set to 0, large ones to `NaN`.
-5. Routes present twice in the same month (National and International service) are merged,
+3. Mean arrival delays of delayed trains set to NaN when both the number of
+   delayed trains and the mean delay are zero.
+4. Mean departure delays of delayed trains set to NaN when no train is delayed at departure.
+5. Non-positive mean arrival delays when delayed trains are reported:
+   imputed using the historical median for the same service, route and month.
+6. Counts of trains delayed by more than 15 minutes set to NaN when they exceed
+   the total number of trains delayed at arrival.
+7. Negative mean delays for all trains: values between −1 and 0 minutes set to zero,
+   values below −1 minute set to NaN.
+8. Routes present twice in the same month (National and International service) are merged,
    with weighted means for delays and percentages.
-6. A column `Prct retard causes non renseignées` is added so that delay causes sum to 100 %.
+9. A column `Prct retard causes non renseignées` is added so that delay causes sum to 100 %.
+
 
 ---
 ## Quality and tests
  
 ```bash
-uv run ruff check .          # lint (PEP 8, imports, bugbear, pyupgrade)
-uv run ruff format .         # format
-uv run mypy .                # type checking
-uv run pytest                # tests + coverage (configured in pyproject.toml)
+uv run --locked ruff check .    # lint (PEP 8, imports, bugbear, pyupgrade)
+uv run --locked ruff format .   # format
+uv run --locked mypy .          # type checking
+uv run --locked pytest          # tests + coverage (configured in pyproject.toml)
+git diff --check                # check whitespace errors
 ```
  
 - Tests rely on mocked dataframes (`tests/conftest.py`) covering COVID-period
