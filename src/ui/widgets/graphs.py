@@ -274,7 +274,9 @@ def display_monthly_arrival_delay_graph(
         "Zone claire : minimum et maximum des retards moyens mensuels "
         "observés sur les années précédentes sélectionnées  \n"
         "Zone foncée : plage centrale de 50% des retards moyens mensuels "
-        "sur les années précédentes sélectionnées (1e et 3e quartile)  \n"
-        "Ces zones sont affichées uniquement lorsque suffisamment d'observations "
+        "sur les années précédentes "
+        "sélectionnées (du 1er au 3e quartile)  \n"
+        "Ces zones sont affichées uniquement lorsque "
+        "suffisamment d'observations "
         "sont disponibles."
     )
