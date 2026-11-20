@@ -52,7 +52,7 @@ def display_monthly_arrival_delay_graph(
     if df.empty or (
         df["median"].isna().all() and df["mean_arrival_delay_actual_year"].isna().all()
     ):
-        st.info("No data available for the selected period.")
+        st.info("Aucune donnée disponible pour la période sélectionnée.")
         return
 
     # create the empty graph
@@ -117,7 +117,7 @@ def display_monthly_arrival_delay_graph(
             # convert to int to be sure:
             delayed_trains = int(row["sum_arr_delayed_trains"])
         else:
-            delayed_trains = "Unknown"
+            delayed_trains = "Non renseigné"
 
         # add the values to the list:
         historical_info.append([historical_years, delayed_trains])
@@ -128,7 +128,7 @@ def display_monthly_arrival_delay_graph(
             x=df["month"],
             y=df["median"],
             mode="lines+markers",  # display line and points
-            name="Median of previous years' mean delays",  # name in the legend
+            name="Médiane des retards moyens historiques",  # name in the legend
             line=dict(color="gray", dash="dash"),  # dashed line
             showlegend=False,  # hide this in the legend
             # No connexion between points separated by missing values:
@@ -136,12 +136,12 @@ def display_monthly_arrival_delay_graph(
             # additionnal data displayed on hover
             # stored in customdata:
             customdata=historical_info,
-            hovertemplate=(  # text on hover of a point:
-                "Median of selected previous years: %{y:.1f} min"
-                # number of years:
-                "<br>Selected previous years with valid observations: %{customdata[0]}"
-                "<br>Delayed trains: %{customdata[1]}"  # delayed trains
-                "<extra></extra>"  # hide the second section of the box
+            hovertemplate=(
+                "Médiane des retards moyens des années "
+                "précédentes sélectionnées : %{y:.1f} min"
+                "<br>Nombre d'années avec des données valides : %{customdata[0]}"
+                "<br>Nombre total de trains en retard : %{customdata[1]}"
+                "<extra></extra>"
             ),
         )
     )
@@ -153,7 +153,7 @@ def display_monthly_arrival_delay_graph(
         if pd.notna(count):
             delayed_trains = int(count)
         else:
-            delayed_trains = "Unknown"
+            delayed_trains = "Non renseigné"
 
         actual_year_info.append([delayed_trains])
 
@@ -171,8 +171,8 @@ def display_monthly_arrival_delay_graph(
             showlegend=False,
             customdata=actual_year_info,
             hovertemplate=(
-                f"Mean arrival delay {actual_year}: %{{y:.1f}} min"
-                "<br>Delayed trains: %{customdata[0]}"
+                f"Retard moyen à l'arrivée en {actual_year} : %{{y:.1f}} min"
+                "<br>Nombre de trains en retard : %{customdata[0]}"
                 "<extra></extra>"
             ),
         )
@@ -187,7 +187,7 @@ def display_monthly_arrival_delay_graph(
             x=df["month"],
             y=df["median"].where(selected_months),
             mode="lines+markers",
-            name="Median of previous years' mean delays",
+            name="Médiane des retards moyens historiques",
             line=dict(color="#EA580C", dash="dash", width=3),
             connectgaps=False,
             showlegend=True,
@@ -213,46 +213,43 @@ def display_monthly_arrival_delay_graph(
         legend=dict(
             x=0.5,
             y=1.1,
-            traceorder="normal",
+            traceorder="reversed",
             font=dict(size=12),
-        )
+        ),
     )
+
     # configure the graph
     graph.update_layout(
         title=dict(
-            text="Monthly mean arrival delays",
-            subtitle=dict(
-                text=f"Compare {actual_year} and statistics "
-                "of the selected previous years",
-                font=dict(size=12),
-            ),
+            text="Retard moyen mensuel des trains arrivés en retard",
         ),
         xaxis=dict(
-            title="Month",  # title of X axis
+            title="Mois",  # title of X axis
             # define manually the graduations and the labels:
             tickmode="array",
             tickvals=list(range(1, 13)),
             ticktext=[
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec",
+                "Janv.",
+                "Févr.",
+                "Mars",
+                "Avr.",
+                "Mai",
+                "Juin",
+                "Juil.",
+                "Août",
+                "Sept.",
+                "Oct.",
+                "Nov.",
+                "Déc.",
             ],
             # let space to display the rectangles
             # of first and last months:
             range=[0.5, 12.5],
         ),
-        yaxis_title="Mean arrival delay (minutes)",
+        yaxis_title="Retard moyen à l'arrivée (minutes)",
         hovermode="x unified",
         height=400,
+        separators=", ",
     )
 
     # display in Streamlit
@@ -261,7 +258,7 @@ def display_monthly_arrival_delay_graph(
         width="stretch",
         config={
             "displayModeBar": True,
-            "modeBarmodeBarButtonsToRemove": [
+            "modeBarButtonsToRemove": [
                 "zoom",
                 "pan",
                 "zoomIn2D",
@@ -274,8 +271,12 @@ def display_monthly_arrival_delay_graph(
 
     st.caption(
         # note : it requires 2 spaces before \n
-        "Light band for each month: minimum–maximum of selected previous years.  \n"
-        "Dark band for each month: interval between Q1 and Q3 "
-        "of selected previous years.  \n"
-        "Bands are displayed only when enough observations are available."
+        "Zone claire : intervalle des retards moyens mensuels "
+        "observés sur les années précédentes sélectionnées "
+        "(minimum et maximum).  \n"
+        "Zone foncée : intervalle contenant les 50 % de valeurs centrales "
+        "des retards moyens mensuels sur les années précédentes sélectionnées "
+        "(entre le premier et le troisième quartile).  \n"
+        "Ces zones sont affichées uniquement lorsque suffisamment d'observations "
+        "sont disponibles."
     )

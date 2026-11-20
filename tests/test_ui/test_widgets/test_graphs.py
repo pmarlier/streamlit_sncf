@@ -28,7 +28,7 @@ def test_monthly_arrival_delay_distribution_graph_display_without_data(
 
         # check the displayed message
         mocked_streamlit_info.assert_called_once_with(
-            "No data available for the selected period."
+            "Aucune donnée disponible pour la période sélectionnée."
         )
 
         # check that there is no graph
@@ -196,8 +196,8 @@ def test_monthly_arrival_delay_distribution_graph_tooltips(
         # check the previous years' number of delayed trains
         assert historical_curve.customdata[0][1] == 316
         assert historical_curve.customdata[1][1] == 112
-        assert historical_curve.customdata[2][1] == "Unknown"
+        assert historical_curve.customdata[2][1] == "Non renseigné"
 
         # check the actual year number of delayed trains
         assert actual_year_curve.customdata[0][0] == 110
-        assert actual_year_curve.customdata[1][0] == "Unknown"
+        assert actual_year_curve.customdata[1][0] == "Non renseigné"
