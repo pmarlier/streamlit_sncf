@@ -308,9 +308,9 @@ def main():
                                 text_alignment="center",
                             )
                     st.markdown("""
-                                * Les retards les plus importants surviendraient majoritairement sur les trajets les plus longs,
-                                * Les raisons des retards seraient imputables, en majorité, à la gestion du réseau par SNCF
-                                * Les années se suivent mais ne se ressemblent pas : aucun schéma temporel n'est détectable par nos modèles
+                                * Les trajets les plus longs semblent présenter les retards les plus importants.
+                                * Les retards sont majoritairement liés à la gestion du réseau ferroviaire par la SNCF.
+                                * Nos analyses n'ont pas permis d'identifier de saisonnalité marquée dans les retards.
                             """)    
             # -------------------------------------------
             # d. Map #
