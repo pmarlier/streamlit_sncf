@@ -11,3 +11,7 @@ Streamlit_SNCF documentation
    :maxdepth: 4
    :caption: Contents:
 
+   introduction
+   purpose
+   installation
+   usage

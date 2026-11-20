@@ -1,39 +1,41 @@
-# Utilisation de Sphinx avec AutoAPI
+
+
+# Generate documentation with Sphinx and AutoAPI
 
 > [!NOTE]
-> Avec AutoAPI, les docstrings et la structuration du projet avec les modules est identifiée automatiquement.
+> With AutoAPI, docstrings and the project's module structure are automatically identified.
 
-## Lancer la génération de la doc
+## Generate the documentation
 
-Depuis la racine du projet :
+From the project root directory:
 
 ```powershell
-uv run docs\make.bat html
+.\docs\make.bat html
 ```
 
-Les pages HTML sont générées dans `docs/_build/html` :
-- `index.html` : page d'accueil
-- `autoapi/index.html` : documentation de l'API
+The HTML pages are generated in `docs/_build/html`:
+- `index.html`: home page
+- `autoapi/index.html`: API documentation
 
-## Si des modules ont été supprimés ou renommés
+## If modules have been deleted or renamed
 
-Clean puis regénérer la doc :
+Clean and then regenerate the documentation:
 
 ```powershell
 .\docs\make.bat clean
 .\docs\make.bat html
 ```
 
-## Explication des fichiers de configuration :
+## Explanation of the configuration files
 
 ### `make.bat`
 
-- `SOURCEDIR=.` indique que la racine Sphinx est le dossier `docs`.
-- `BUILDDIR=_build` génère le résultat dans `docs/_build`.
+- `SOURCEDIR=.` indicates that the Sphinx root directory is the `docs` folder.
+- `BUILDDIR=_build` generates the output in `docs/_build`.
 
 ### `conf.py`
 
-Le dossier `../src` est ajouté au `sys.path` pour rendre le code importable :
+The `../src` directory is added to `sys.path` to make the code importable:
 
 ```python
 import sys
@@ -42,7 +44,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 ```
 
-Les extensions `autoapi.extension` et `sphinx.ext.napoleon` sont activées :
+The `autoapi.extension` and `sphinx.ext.napoleon` extensions are enabled:
 
 ```python
 extensions = ["autoapi.extension", "sphinx.ext.napoleon"]
@@ -50,10 +52,9 @@ autoapi_dirs = ["../src"]
 autoapi_type = "python"
 ```
 
-- **AutoAPI** scanne automatiquement tout le dossier `src/` et génère les
-  pages de documentation à partir des docstrings.
-- **Napoleon** gère le format des docstrings.
+- **AutoAPI** automatically scans the entire `src/` directory and generates documentation pages from the docstrings.
+- **Napoleon** handles the docstring format.
 
 ### `index.rst`
 
-AutoAPI ajoute automatiquement sa page d'index (`autoapi/index`) au `toctree`.
+AutoAPI automatically adds its index page (`autoapi/index`) to the `toctree`.

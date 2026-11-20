@@ -19,7 +19,6 @@ Attributes
 
 .. autoapisummary::
 
-   src.core.railway_data.FOREIGN_CITY
    src.core.railway_data.MAP_CITY
    src.core.railway_data.RAILWAY_ID_NETWORK
 
@@ -34,10 +33,6 @@ Functions
 
 Package Contents
 ----------------
-
-.. py:data:: FOREIGN_CITY
-   :value: ['zurich', 'barcelona', 'madrid', 'francfort', 'italie', 'lausanne', 'geneve', 'stuttgart']
-
 
 .. py:data:: MAP_CITY
 

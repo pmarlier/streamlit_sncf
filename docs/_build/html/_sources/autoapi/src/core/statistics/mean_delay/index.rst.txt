@@ -14,12 +14,18 @@ Functions
 
 .. autoapisummary::
 
+   src.core.statistics.mean_delay.init
    src.core.statistics.mean_delay.weighted_mean_delay
    src.core.statistics.mean_delay.get_arrival_mean_delay_for_city_pair
 
 
 Module Contents
 ---------------
+
+.. py:function:: init() -> None
+
+   Initialize logger
+
 
 .. py:function:: weighted_mean_delay(monthly_planned_trains: pandas.Series, delay_observations_to_average: pandas.Series) -> float
 
@@ -53,4 +59,16 @@ Module Contents
 
 
 .. py:function:: get_arrival_mean_delay_for_city_pair(departure: str, arrival: str) -> float
+
+   Retrieve mean delay at arrival for a specific railway,
+   mean computed on all the valid given data (exclude NaN, and filtered outliers)
+
+   :param departure: the name of the departure railstation in the dataframe
+   :type departure: str
+   :param arrival: the name of the arrival railstation in the dataframe
+   :type arrival: str
+
+   :returns: the mean delay at arrival for the given city pair
+   :rtype: float
+
 

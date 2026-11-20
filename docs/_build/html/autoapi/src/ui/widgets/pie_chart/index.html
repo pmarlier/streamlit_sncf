@@ -53,7 +53,7 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#src.ui.widgets.pie_chart.display_pie_chart" title="src.ui.widgets.pie_chart.display_pie_chart"><code class="xref py py-obj docutils literal notranslate"><span class="pre">display_pie_chart</span></code></a>(→ None)</p></td>
-<td><p></p></td>
+<td><p>Display the pie chart showing all the delay causes given as input</p></td>
 </tr>
 </tbody>
 </table>
@@ -63,7 +63,25 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="src.ui.widgets.pie_chart.display_pie_chart">
 <span class="sig-prename descclassname"><span class="pre">src.ui.widgets.pie_chart.</span></span><span class="sig-name descname"><span class="pre">display_pie_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cause_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trip_view</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#src.ui.widgets.pie_chart.display_pie_chart" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Display the pie chart showing all the delay causes given as input
+argument, adapting the display to the screen configuration</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cause_list</strong> (<em>list</em>) – A list storing all the possible delay causes,</p></li>
+<li><p><strong>order</strong> (<em>following the hereafter</em>) – cause_list[0] : “Cause externe”,
+cause_list[1] : “Voyageurs en cause”,
+cause_list[2] : “Défaillance infrastructure”,
+cause_list[3] : “Gestion trafic roulant”,
+cause_list[4] : “Défaillance matériel roulant”,
+cause_list[5] : “Gestion trafic en gare”,
+cause_list[6] : “Cause inconnue”,</p></li>
+<li><p><strong>trip_view</strong> (<em>bool</em><em>, </em><em>optional</em>) – the flag to indicate the screen configuration.
+If set to True, the screen is in homepage configuration. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 </section>

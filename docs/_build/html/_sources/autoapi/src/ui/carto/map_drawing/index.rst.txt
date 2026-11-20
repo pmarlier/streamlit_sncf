@@ -18,6 +18,7 @@ Functions
 
 .. autoapisummary::
 
+   src.ui.carto.map_drawing.init
    src.ui.carto.map_drawing.get_custom_colormap
    src.ui.carto.map_drawing.create_map
 
@@ -30,7 +31,12 @@ Module Contents
 
 
 .. py:data:: MAX_DELAY_VALUE
-   :value: 51
+   :value: 50
+
+
+.. py:function:: init() -> None
+
+   Initialize logger
 
 
 .. py:function:: get_custom_colormap() -> branca.colormap.LinearColormap

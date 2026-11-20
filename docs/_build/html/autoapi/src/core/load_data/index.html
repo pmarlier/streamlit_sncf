@@ -140,16 +140,13 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.get_unique_railstations_df" title="src.core.load_data.get_unique_railstations_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_unique_railstations_df</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Gets a dataframe list of all the departure stations of the country</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.get_mean_departure_delay_df" title="src.core.load_data.get_mean_departure_delay_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mean_departure_delay_df</span></code></a>(→ pandas.DataFrame)</p></td>
-<td><p>Returns the list of the mean delays of a departure city</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.get_filtered_metrics_df" title="src.core.load_data.get_filtered_metrics_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filtered_metrics_df</span></code></a>(→ pandas.DataFrame)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.get_filtered_metrics_df" title="src.core.load_data.get_filtered_metrics_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filtered_metrics_df</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Returns a dataframe containing the selected metrics list</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.get_filtered_departure_arrival_stations_df" title="src.core.load_data.get_filtered_departure_arrival_stations_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filtered_departure_arrival_stations_df</span></code></a>(...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.get_filtered_departure_arrival_stations_df" title="src.core.load_data.get_filtered_departure_arrival_stations_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filtered_departure_arrival_stations_df</span></code></a>(...)</p></td>
 <td><p>Filters the input after the selected departure and arrival stations</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#src.core.load_data.get_filtered_period_df" title="src.core.load_data.get_filtered_period_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filtered_period_df</span></code></a>(→ pandas.DataFrame)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#src.core.load_data.get_filtered_period_df" title="src.core.load_data.get_filtered_period_df"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_filtered_period_df</span></code></a>(→ pandas.DataFrame)</p></td>
 <td><p>Filters the input dataframe after a given period of year and months</p></td>
 </tr>
 </tbody>
@@ -350,23 +347,6 @@ duplicates and combinations “departure-arrival” and “arrival-departure” 
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="src.core.load_data.get_mean_departure_delay_df">
-<span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_mean_departure_delay_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">departure_city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.load_data.get_mean_departure_delay_df" title="Link to this definition">¶</a></dt>
-<dd><p>Returns the list of the mean delays of a departure city</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>departure_city</strong> (<em>str</em>) – Departure city</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Mean delays of a departure city</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pd.DataFrame</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="src.core.load_data.get_filtered_metrics_df">
 <span class="sig-prename descclassname"><span class="pre">src.core.load_data.</span></span><span class="sig-name descname"><span class="pre">get_filtered_metrics_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metrics</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="headerlink" href="#src.core.load_data.get_filtered_metrics_df" title="Link to this definition">¶</a></dt>
 <dd><p>Returns a dataframe containing the selected metrics list</p>
@@ -474,7 +454,6 @@ duplicates and combinations “departure-arrival” and “arrival-departure” 
 <li><a class="reference internal" href="#src.core.load_data.get_unique_city_pairs_list"><code class="docutils literal notranslate"><span class="pre">get_unique_city_pairs_list()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.load_data.get_reachable_destinations_list_from_city"><code class="docutils literal notranslate"><span class="pre">get_reachable_destinations_list_from_city()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.load_data.get_unique_railstations_df"><code class="docutils literal notranslate"><span class="pre">get_unique_railstations_df()</span></code></a></li>
-<li><a class="reference internal" href="#src.core.load_data.get_mean_departure_delay_df"><code class="docutils literal notranslate"><span class="pre">get_mean_departure_delay_df()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.load_data.get_filtered_metrics_df"><code class="docutils literal notranslate"><span class="pre">get_filtered_metrics_df()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.load_data.get_filtered_departure_arrival_stations_df"><code class="docutils literal notranslate"><span class="pre">get_filtered_departure_arrival_stations_df()</span></code></a></li>
 <li><a class="reference internal" href="#src.core.load_data.get_filtered_period_df"><code class="docutils literal notranslate"><span class="pre">get_filtered_period_df()</span></code></a></li>
